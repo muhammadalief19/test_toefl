@@ -4,7 +4,9 @@ use App\Http\Controllers\Api\AnswerController;
 use App\Http\Controllers\Api\Auth\AuthController;
 use App\Http\Controllers\Api\PacketController;
 use App\Http\Controllers\Api\BookmarkController;
+use App\Http\Controllers\Api\QuizController;
 use App\Http\Controllers\Api\ValueHomeController;
+use App\Models\Quiz;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,6 +18,8 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('/register', 'register');
     Route::post('/login', 'login');
 });
+
+
 
 Route::middleware('auth:api')->group(function () {
     Route::get('/users/profile', [AuthController::class, 'profile']);
@@ -43,4 +47,7 @@ Route::middleware('auth:api')->group(function () {
         Route::patch('/add-and-patch-target', 'addTarget');
         Route::get('/get-score-toefl', 'getLevelUser');
     });
+
+    Route::get('/quiz',[QuizController::class, 'index']);
+    Route::post('/quiz',[QuizController::class, 'store']);
 });
