@@ -112,99 +112,55 @@ class PacketController extends Controller
 
     public function getQuestionPacket($idPacket)
     {
-        try {
-            $dataNested = Nested::with('question', 'nestedQuestion')->get();
-            $dataQuestion = Question::with('multipleChoices')->where('packet_id', $idPacket)->get();
+        $data = Paket::with('questions.nesteds.nestedQuestion', 'questions.multipleChoices')->where('_id', $idPacket)->first();
 
-            $dataRelasi = [];
-
-            foreach ($dataQuestion as $question) {
-                $questionId = $question['_id'];
-
-                $getNested = $dataNested->where('question_id', $questionId)->first();
-                $nestedQuestion = $getNested ? $getNested['nested_question_id'] : "";
-                $question['nested_question_id'] = $nestedQuestion;
-                $question['nested_question'] = $getNested ? $getNested->nestedQuestion->question_nested : "";
-                $question['id'] = $question['_id'];
-                unset($question['_id']);
-                unset($question['key_question']);
-                unset($question['packet_id']);
-                $dataRelasi[] = $question;
-            }
-
-            if (empty($dataQuestion)) {
-                return response()->json([
-                    'success' => false,
-                    'status' => 'error',
-                    'message' => 'Data Question not found',
-                ], 404);
-            }
-
-            $groupedData = [];
-
-            foreach ($dataRelasi as $question) {
-                $type = $question['type_question'];
-                $part = $question['part_question'];
-                $nestedId = $question['nested_question_id'];
-
-                if (!isset($groupedData[$type])) {
-                    $groupedData[$type] = [];
-                }
-
-                if (!isset($groupedData[$type][$part])) {
-                    $groupedData[$type][$part] = [
-                        'description_part_question' => $question['description_part_question'],
-                        'nested_questions' => []
-                    ];
-                }
-
-                if (!isset($groupedData[$type][$part]['nested_questions'][$nestedId])) {
-                    $groupedData[$type][$part]['nested_questions'][$nestedId] = [
-                        'nested_question_id' => $nestedId,
-                        'nested_question' => $question['nested_question'],
-                        'questions' => []
-                    ];
-                }
-
-                $groupedData[$type][$part]['nested_questions'][$nestedId]['questions'][] = $question;
-            }
-
-            $finalData = [];
-
-            foreach ($groupedData as $type => $typeData) {
-                $typeQuestions = [];
-
-                foreach ($typeData as $part => $partData) {
-                    $partQuestions = [];
-
-                    foreach ($partData['nested_questions'] as $nestedQuestion) {
-                        $partQuestions[] = $nestedQuestion;
-                    }
-
-                    $typeQuestions[] = [
-                        'part_question' => $part,
-                        'description_part_question' => $partData['description_part_question'],
-                        'nested_questions' => $partQuestions
-                    ];
-                }
-
-                $finalData[] = [
-                    'type_question' => $type,
-                    'parts' => $typeQuestions
-                ];
-            }
-
-            return response()->json([
-                'success' => true,
-                'message' => 'Data Question Packet fetched successfully',
-                'data' => $finalData,
-            ]);
-        } catch (Exception $e) {
+        if (!$data) {
             return response()->json([
                 'success' => false,
                 'status' => 'error',
-                'message' => $e->getMessage(),
-            ], 500);
+                'message' => 'Data Packet not found',
+            ], 404);
         }
+
+        $questions = collect($data['questions'])->map(function ($question) {
+            $nested = collect($question['nesteds'])->map(function ($nested) {
+                return [
+                    'nested_question_id' => $nested->nestedQuestion->_id ?? null,
+                    'nested_question' => $nested->nestedQuestion->question_nested ?? null,
+                ];
+            })->all();
+
+            $multipleChoices = $question->multipleChoices->map(function ($choice) {
+                return [
+                    'id' => $choice->_id,
+                    'choice' => $choice->choice,
+                ];
+            })->all();
+
+            return [
+                'id' => $question['_id'],
+                'type_question' => $question['type_question'] ?? null,
+                'part_question' => $question['part_question'] ?? null,
+                'description_part_question' => $question['description_part_question'] ?? null,
+                'question' => $question['question'] ?? null,
+                'nested_question_id' => $nested[0]['nested_question_id'] ?? null,
+                'nested_question' => $nested[0]['nested_question'] ?? null,
+                'multiple_choices' => $multipleChoices,
+            ];
+        })->all();
+
+        $mappedData = [
+            'id' => $data['_id'],
+            'no_packet' => $data['no_packet'],
+            'name_packet' => $data['name_packet'],
+            'tipe_test_packet' => $data['tipe_test_packet'],
+            'questions' => $questions,
+        ];
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Data Question Packet fetched successfully',
+            'data' => $mappedData,
+        ]);
     }
 }
