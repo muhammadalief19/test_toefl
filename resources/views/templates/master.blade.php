@@ -80,6 +80,13 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
+    <script src="//cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>
+
+    <script>
+        $(document).ready(function () {
+        $('.ckeditor').ckeditor();
+    });
+    </script>
     <!-- Memuat DataTables dari CDN -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js">

@@ -56,7 +56,7 @@
                                                 Your browser does not support the audio element.
                                             </audio>
                                             @else
-                                            {{ $initNestedQuestion->question_nested }}
+                                            {!! html_entity_decode($initNestedQuestion->question_nested) !!}
                                             @endif
                                         </div>
                                     </div>
