@@ -46,15 +46,14 @@
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <form action="{{ route('packetfull.addNested', $initPaket) }}" method="POST"
-                                        enctype="multipart/form-data">
+                                    <form action="{{ route('packetfull.addNested', $initPaket) }}" method="POST" enctype="multipart/form-data">
                                         @csrf
                                         <div class="form-group">
                                             <p><small class="text-danger">Catatan: Silahkan pilih salah satu
                                                     antara pertanyaan nested teks atau voice/gambar. 🤗</small></p>
                                             <label for="question_nested">Pertanyaan Nested</label>
-                                            <textarea class="ckeditor form-control" name="question_nested"
-                                                id="question_nested" rows="5" style="resize: vertical;"></textarea>
+                                            <textarea class="form-control" name="question_nested" id="question_nested"
+                                                rows="5" style="resize: vertical;"></textarea>
                                             <br>
                                             <p>Atau </p>
 
@@ -88,111 +87,13 @@
                                     <td> {{ $loop->iteration }}</td>
                                     <td>@if(Str::startsWith($nested->question_nested, 'nested_question/'))
                                         <audio controls>
-                                            <source src="{{ asset('storage/' . $nested->question_nested) }}"
-                                                type="audio/mpeg">
+                                            <source src="{{ asset('storage/' . $nested->question_nested) }}" type="audio/mpeg">
                                             Your browser does not support the audio element.
                                         </audio>
                                         @else
-                                        @if(strlen($nested->question_nested) < 60) {!! strip_tags($nested->
-                                            question_nested) !!}
-                                            @else
-                                            <button class="btn btn-sm" type="button" data-toggle="modal"
-                                                data-target="#detailNested{{ $nested->_id }}">
-                                                <i class="fas fa-eye mx-2 view-detail"></i>
-                                            </button>
-                                            {!! Str::limit(strip_tags($nested->question_nested), 60, '....') !!}
-
-                                            {{-- the modal --}}
-                                            {{-- qeustionDetailModal --}}
-                                            <div class="modal fade" id="detailNested{{ $nested->_id }}" tabindex="-1"
-                                                role="dialog"
-                                                aria-labelledby="nesyedDetailModalLabel_{{ $nested->_id }}"
-                                                aria-hidden="true">
-                                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="exampleModalLongTitle">Detail
-                                                                Nested</h5>
-                                                            <button type="button" class="close" data-dismiss="modal"
-                                                                aria-label="Close">
-                                                                <span aria-hidden="true">&times;</span>
-                                                            </button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            {!! html_entity_decode($nested->question_nested) !!}
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary"
-                                                                data-dismiss="modal">Close</button>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            @endif
-
-                                            {{-- packetfull.editNested --}}
-                                            @endif
-                                            <button class="btn btn-sm" type="button" data-toggle="modal"
-                                                data-target="#editNested{{ $nested->_id }}">
-                                                <i class="fas fa-pencil"></i>
-                                            </button>
-                                            <div class="modal fade" id="editNested{{ $nested->_id }}" tabindex="-1"
-                                                role="dialog"
-                                                aria-labelledby="editInstructionsModalLabel{{ $nested->_id }}"
-                                                aria-hidden="true">
-                                                <div class="modal-dialog modal-dialog-centered modal-lg"
-                                                    role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title"
-                                                                id="editInstructionsModalLabel{{ $nested->_id }}">
-                                                                Edit nested🤗</h5>
-                                                            <button type="button" class="close" data-dismiss="modal"
-                                                                aria-label="Close">
-                                                                <span aria-hidden="true">&times;</span>
-                                                            </button>
-                                                        </div>
-                                                        <form
-                                                            action="{{ route('packetfull.editNested', ['id' => $nested->_id]) }}"
-                                                            method="POST" enctype="multipart/form-data">
-                                                            @csrf
-                                                            @method('patch')
-                                                            <div class="modal-body">
-                                                                <p><small class="text-danger">Catatan: Silahkan pilih
-                                                                        salah satu
-                                                                        antara pertanyaan nested teks atau voice/gambar.
-                                                                        🤗</small></p>
-
-                                                                <div class="form-group">
-                                                                    <label for="question">Pertanyaan Text</label>
-                                                                    <textarea name="question_nested"
-                                                                        class="ckeditor form-control"></textarea>
-                                                                </div>
-
-                                                                <p>Atau</p>
-
-                                                                <div class="form-group">
-                                                                    <label for="image_question_input">Pertanyaan Gambar
-                                                                        / Voice</label>
-                                                                    <input type="file" name="question_nested"
-                                                                        class="form-control">
-                                                                </div>
-
-                                                            </div>
-
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary"
-                                                                    data-dismiss="modal">Batal</button>
-                                                                <button type="submit" class="btn btn-primary">Simpan
-                                                                    Perubahan</button>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                    </td>
+                                        
+                                        {{ $nested->question_nested }}</td>
+                                        @endif
                                     <td><a class="btn btn-sm btn-success"
                                             href="{{ route('packetfull.getAllNested', ['idNested' => $nested->_id, 'idPacket' => $initPaket]) }}"><i
                                                 class="fas fa-sign-in-alt"></i></a>
