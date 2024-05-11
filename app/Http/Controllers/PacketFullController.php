@@ -208,7 +208,16 @@ class PacketFullController extends Controller
             return back()->with('success', 'Data Question dan Multiple Choice berhasil diperbarui');
         }
 
+        $key = Question::where('_id', $id)->first();
+        $key = $key->key_question;
+        
         MultipleChoice::where('question_id', $question->id)->delete();
+
+        
+        MultipleChoice::create([
+            'question_id' => $question->id,
+            'choice' => $key,
+        ]);
 
         foreach ($request->choice as $choice) {
             MultipleChoice::create([
@@ -216,7 +225,7 @@ class PacketFullController extends Controller
                 'choice' => $choice,
             ]);
         }
-
+        
         $message = ($oldKeyQuestion != $question->key_question) ? 'Data Question dan Multiple Choice berhasil diperbarui' : 'Data Multiple Choice berhasil diperbarui';
 
         return back()->with('success', $message);
