@@ -33,16 +33,11 @@ Route::controller(PacketFullController::class)->group(function () {
 
     // entry nested question 
     Route::get('/entry/nested-question/{id}', 'entryNestedFullQuestion')->name('packetfull.entryNested');
-    // add nested question 
     Route::post('/entry/nested-question/{id}', 'addNestedFullQuestion')->name('packetfull.addNested');
-
-    // asign nested get all data 
     Route::get('/entrydata/nested-question/{idNested}/{idPacket}/get-all', 'getAllNested')->name('packetfull.getAllNested');
-    // post data 
     Route::post('/entry/nested-question/{id}/add-data', 'storeDataNested')->name('packetfull.storeDataNested');
-
-    // delete nested question init 
     Route::get('/entry/nested-question/{id}/deleted', 'deleteNestedQuestion')->name('packetfull.deleteNestedQuestion');
+    Route::patch('/edit-nested/{id}', 'editNested')->name('packetfull.editNested');
 });
 
 Route::controller(PacketMiniController::class)->group(function () {

@@ -209,7 +209,7 @@ class PacketFullController extends Controller
         }
 
         MultipleChoice::where('question_id', $question->id)->delete();
-        
+
         foreach ($request->choice as $choice) {
             MultipleChoice::create([
                 'question_id' => $question->id,
@@ -291,7 +291,6 @@ class PacketFullController extends Controller
                 'packet_id' => $id,
                 'question_nested' => $questionData['question_nested'],
             ]);
-           
         } else {
             $questionData['question_nested'] = $request->question_nested;
             NestedQuestion::create([
@@ -341,5 +340,27 @@ class PacketFullController extends Controller
     {
         Nested::where('_id', $id)->delete();
         return back()->with('success', 'Data Nested Question Berhasil Dihapus');
+    }
+
+    // masukin 
+    public function editNested(Request $request, $id)
+    {
+
+        if ($request->hasFile('question_nested')) {
+            $file = $request->file('question_nested');
+            $fileName = $file->getClientOriginalName();
+            $filePath = $file->storeAs('nested_question', $fileName, 'public');
+            $questionData['question_nested'] = $filePath;
+            NestedQuestion::where('_id', $id)->update([
+                'question_nested' => $questionData['question_nested'],
+            ]);
+        } else {
+            $questionData['question_nested'] = $request->question_nested;
+            NestedQuestion::where('_id', $id)->update([
+                'question_nested' => $questionData['question_nested'],
+            ]);
+        }
+
+        return back()->with('success', 'Data Nested Question Berhasil Diubah');
     }
 }
