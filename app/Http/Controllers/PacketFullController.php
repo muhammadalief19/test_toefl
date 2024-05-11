@@ -224,17 +224,13 @@ class PacketFullController extends Controller
 
     public function editQuestion(Request $request, $id)
     {
-        $request->validate([
-            'question' => 'required',
-        ]);
-
         if ($request->hasFile('question')) {
             $file = $request->file('question');
             $fileName = $file->getClientOriginalName();
             $filePath = $file->storeAs('questions', $fileName, 'public');
             $questionData['question'] = $filePath;
         } else {
-            $questionData['question'] = $request->question;
+            $questionData['question'] = $request->question ? $request->question : null;
         }
 
         $question = Question::findOrFail($id);
