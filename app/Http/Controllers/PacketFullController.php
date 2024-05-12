@@ -283,15 +283,9 @@ class PacketFullController extends Controller
 
     public function addNestedFullQuestion(Request $request, $id)
     {
-        //   $request->validate([
-        //     'question_nested' => 'required|string|max:255|mimes:mp3|max:15000', 
-        // ]);
-
-        $request->validate([
-    'question_nested' => 'required',
-    'question_nested.*' => 'sometimes|file|mimes:mp3|max:15000',
-    'question_nested.*' => 'sometimes|string|max:255',
-]);
+          $request->validate([
+            'question_nested' => 'required', 
+        ]);
 
         if ($request->hasFile('question_nested')) {
             $file = $request->file('question_nested');
