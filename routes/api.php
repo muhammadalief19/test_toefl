@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\AnswerController;
 use App\Http\Controllers\Api\Auth\AuthController;
 use App\Http\Controllers\Api\PacketController;
 use App\Http\Controllers\Api\BookmarkController;
+use App\Http\Controllers\Api\GameController;
 use App\Http\Controllers\Api\QuizController;
 use App\Http\Controllers\Api\ValueHomeController;
 use App\Models\Quiz;
@@ -48,5 +49,6 @@ Route::middleware('auth:api')->group(function () {
         Route::get('/get-score-toefl', 'getLevelUser');
     });
 
-    Route::resource('/quiz',QuizController::class);
+    Route::resource('/quizs',QuizController::class);
+    Route::resource('/games',GameController::class);
 });

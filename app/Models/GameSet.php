@@ -22,4 +22,8 @@ class GameSet extends Model
     public function game(){
         return $this->belongsTo(Game::class,'game_id','_id');
     }
+
+    public function game_claim(){
+        return $this->hasMany(GameClaim::class,'game_id', '_id');
+    }
 }
