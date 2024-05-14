@@ -18,7 +18,7 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('/register', 'register');
     Route::post('/login', 'login');
 });
-
+    
 
 
 Route::middleware('auth:api')->group(function () {
@@ -48,6 +48,5 @@ Route::middleware('auth:api')->group(function () {
         Route::get('/get-score-toefl', 'getLevelUser');
     });
 
-    Route::get('/quiz',[QuizController::class, 'index']);
-    Route::post('/quiz',[QuizController::class, 'store']);
+    Route::resource('/quiz',QuizController::class);
 });
