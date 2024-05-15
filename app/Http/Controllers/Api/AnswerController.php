@@ -474,6 +474,7 @@ class AnswerController extends Controller
 
         $mappedUserAnswers = $userAnswers->map(function ($userAnswer) {
             return [
+                'nama_packet' => $userAnswer->packet['name_packet'],
                 'question_id' => $userAnswer->question->_id,
                 'question' => $userAnswer->question->question,
                 'key_question' => $userAnswer->question->key_question,
