@@ -469,29 +469,32 @@ class AnswerController extends Controller
 
     public function answerUsers($idPacket)
     {
-        $initPaketUser = UserAnswer::where('packet_id', $idPacket)
-            ->where('user_id', auth()->user()->_id)
-            ->get();
+        $userAnswers = UserAnswer::with('question.nesteds', 'question.multipleChoices')->where('packet_id', $idPacket)->where('user_id', auth()->user()->_id)->get();
 
-        $data = [];
+        $mappedUserAnswers = $userAnswers->map(function ($userAnswer) {
+            return [
+                'question_id' => $userAnswer->question->_id,
+                'question' => $userAnswer->question->question,
+                'key_question' => $userAnswer->question->key_question,
+                'correct' => $userAnswer->correct,
+                'answer_user' => $userAnswer->answer_user,
+                'nested_question_id' => $userAnswer->question->nesteds[0]->nestedQuestion->_id ?? null,
+                'nested_question' => $userAnswer->question->nesteds[0]->nestedQuestion->question_nested ?? null,
+                'multiple_choices' => $userAnswer->question->multipleChoices->map(function ($choice) {
+                    return [
+                        'id' => $choice->_id,
+                        'choice' => $choice->choice,
+                    ];
+                })->all(),
 
-        foreach ($initPaketUser as $item) {
-            $question = Question::with('nesteds.nestedQuestion')->where('_id', $item->question_id)->first();
-            $data[] = [
-                'id' => $item->_id,
-                'nested_question' => $question->nesteds ? $question->nesteds : "",
-                'question' => $question->question,
-                'answer_user' => $item->answer_user,
-                'key_answer' => $question->key_question,
-                'correct' => $item->correct,
-                'multiple_choices' => $question->multiple_choices,
+
             ];
-        }
+        })->all();
 
         return response()->json([
             'success' => true,
-            'message' => 'Data Answer User',
-            'data' => $data,
+            'message' => 'Data Question Packet fetched successfully',
+            'data' => $mappedUserAnswers,
         ]);
     }
 }
