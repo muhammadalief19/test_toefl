@@ -30,6 +30,7 @@ class PacketController extends Controller
 
                 $packet['akurasi'] = $userScore;
                 $packet['question_count'] = $getQuestionCount;
+                $packet['status_test'] = $getUserScore ? true : false;
 
                 $dataRelasi[] = $packet;
             }
@@ -70,7 +71,7 @@ class PacketController extends Controller
                 $packetId = $packet['_id'];
 
                 $getQuestionCount = Question::where('packet_id', $packetId)->count();
-                $getUserScore = UserScorer::where('packet_id', $packetId)
+                $getUserScore = ScoreMiniTest::where('packet_id', $packetId)
                     ->where('user_id', auth()->user()->_id)
                     ->first();
 
@@ -78,6 +79,7 @@ class PacketController extends Controller
 
                 $packet['akurasi'] = $userScore;
                 $packet['question_count'] = $getQuestionCount;
+                $packet['status_test'] = $getUserScore ? true : false;
 
                 $dataRelasi[] = $packet;
             }
