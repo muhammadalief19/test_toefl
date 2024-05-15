@@ -468,7 +468,7 @@ class AnswerController extends Controller
         }
     }
 
-    public function answerUsers($idPacket)
+   public function answerUsers($idPacket)
     {
         $userAnswers = UserAnswer::with('question.nesteds', 'question.multipleChoices')->where('packet_id', $idPacket)->where('user_id', auth()->user()->_id)->get();
 
@@ -479,6 +479,8 @@ class AnswerController extends Controller
                 'key_question' => $userAnswer->question->key_question,
                 'correct' => $userAnswer->correct,
                 'answer_user' => $userAnswer->answer_user,
+                'type_question' => $userAnswer->question->type_question,
+                'bookmark' => $userAnswer->bookmark,
                 'nested_question_id' => $userAnswer->question->nesteds[0]->nestedQuestion->_id ?? null,
                 'nested_question' => $userAnswer->question->nesteds[0]->nestedQuestion->question_nested ?? null,
                 'multiple_choices' => $userAnswer->question->multipleChoices->map(function ($choice) {
