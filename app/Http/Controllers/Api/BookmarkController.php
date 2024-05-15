@@ -97,13 +97,24 @@ class BookmarkController extends Controller
         try {
             $initIdUser = auth()->user()->_id;
 
-            UserAnswer::where('user_id', $initIdUser)->where('_id', $idSoal)->update([
-                'bookmark' => false,
-            ]);
+            $datas = UserAnswer::where('user_id', $initIdUser)->where('_id', $idSoal)->first();
+            if ($datas->bookmark == true) {
+                UserAnswer::where('user_id', $initIdUser)->where('_id', $idSoal)->update([
+                    'bookmark' => false
+                ]);
+            } else {
+                UserAnswer::where('user_id', $initIdUser)->where('_id', $idSoal)->update([
+                    'bookmark' => true
+                ]);
+            }
 
             return response()->json([
                 'success' => true,
                 'message' => 'Bookmark was updated successfully',
+                'data' => [
+                    'bookmark' => $datas['bookmark']
+                ],
+
             ]);
         } catch (Exception $e) {
             return response()->json([
