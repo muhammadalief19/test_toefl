@@ -13,7 +13,7 @@ class QuizQuestion extends Model
     protected $collection = 'quiz_questions';
 
     protected $fillable = [
-        'quiz_id'
+        'quiz_id','question'
     ];
 
     public function quiz(){
