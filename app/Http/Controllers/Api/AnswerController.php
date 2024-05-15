@@ -284,7 +284,7 @@ class AnswerController extends Controller
             'data' => [
                 'id' => $idPacket,
                 'score' => $getScore->akurasi,
-                'score_toefl' => $getScore->score_toefl,
+                'score_toefl' => $getScore->score_toefl ? $getScore->score_toefl : null,
                 'correct_question_all' => $correctQuestion,
                 'total_question_all' => $totalSoal,
 
