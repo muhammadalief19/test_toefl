@@ -8,6 +8,7 @@ use App\Models\Paket;
 use App\Models\Question;
 use App\Models\User;
 use App\Models\UserScorer;
+use App\Models\ScoreMiniTest;
 use Exception;
 
 class PacketController extends Controller
