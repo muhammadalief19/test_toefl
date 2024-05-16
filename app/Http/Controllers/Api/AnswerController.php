@@ -120,8 +120,8 @@ class AnswerController extends Controller
 
             if ($getPacket['tipe_test_packet'] == "Mini Test") {
                 ScoreMiniTest::create([
-                    'packet' => $idPacket,
-                    'user' => auth()->user()->_id,
+                     'packet_id' => $idPacket,
+                    'user_id' => auth()->user()->_id,
                     'akurasi' => $prosentase,
                 ]);
 
