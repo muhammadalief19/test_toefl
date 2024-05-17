@@ -181,6 +181,11 @@ class AnswerController extends Controller
                 ->first();
         }
 
+        $countAnsweredUser = UserAnswer::where('user_id', auth()->user()->_id)
+            ->where('answer_user', '!=', '-')
+            ->where('packet_id', $idPacket)
+            ->count();
+
         $correctQuestion = UserAnswer::where('user_id', auth()->user()->_id)
             ->where('packet_id', $idPacket)
             ->where('correct', true)
@@ -286,6 +291,7 @@ class AnswerController extends Controller
                 'score' => $getScore->akurasi,
                 'score_toefl' => $getScore->score_toefl ? $getScore->score_toefl : null,
                 'target_user' => $userTarget->target ? $userTarget->target->score_target : null,
+                'answered_question' => $countAnsweredUser,
                 'correct_question_all' => $correctQuestion,
                 'total_question_all' => $totalSoal,
 
