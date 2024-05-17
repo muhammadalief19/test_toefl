@@ -10,6 +10,7 @@ use App\Models\ScoreMiniTest;
 use App\Models\ToeflScore;
 use App\Models\UserAnswer;
 use App\Models\UserScorer;
+use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
