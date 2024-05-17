@@ -12,16 +12,28 @@ use Exception;
 
 class BookmarkController extends Controller
 {
-    public function getAllBookmark()
+   public function getAllBookmark()
     {
         try {
             $initIdUser = auth()->user()->_id;
-            $init = UserAnswer::with('question')->where('user_id', $initIdUser)->where('bookmark', true)->get();
+            $init = UserAnswer::with('question', 'packet')->where('user_id', $initIdUser)->where('bookmark', true)->get();
 
             $mappedData = $init->map(function ($bookmark) {
+                $questionType = $bookmark->question->type_question;
+                $questionText = $bookmark->question->question;
+                $packet = $bookmark->packet->name_packet;
+                $part = $bookmark->question->part_question;
+
+                if ($questionType == 'Listening') {
+                    $listeningPart = $part ? 'Listening Part ' . $part : '';
+                    $bookmarkText = $questionText . ' ' . $listeningPart . ' ' . $packet;
+                } else {
+                    $bookmarkText = $questionText;
+                }
+
                 return [
-                    'id' => $bookmark->_id,
-                    'question' => $bookmark->question->question,
+                    'id' => $bookmark->question->_id,
+                    'question' => $bookmarkText,
                 ];
             });
 
