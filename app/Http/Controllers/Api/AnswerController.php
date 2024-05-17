@@ -168,7 +168,7 @@ class AnswerController extends Controller
 
     public function getScoreSubmit($idPacket)
     {
-
+        $userTarget = User::with('target')->where('_id', auth()->user()->_id)->first();
         $getPacket = Paket::where('_id', $idPacket)->first();
 
         if ($getPacket['tipe_test_packet'] == "Mini Test") {
@@ -285,6 +285,7 @@ class AnswerController extends Controller
                 'id' => $idPacket,
                 'score' => $getScore->akurasi,
                 'score_toefl' => $getScore->score_toefl ? $getScore->score_toefl : null,
+                'target_user' => $userTarget->target ? $userTarget->target->score_target : null,
                 'correct_question_all' => $correctQuestion,
                 'total_question_all' => $totalSoal,
 
