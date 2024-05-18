@@ -27,11 +27,11 @@ class ValueHomeController extends Controller
                     "success" => true,
                     "message" => "Data User Is Null, Not yet initialized. (belum melakukan test)",
                     "data" => [
-                        'target_user' => "",
-                        'user_score' => "",
-                        'score_listening' => "",
-                        'score_structure' => "",
-                        'score_reading' => "",
+                        'target_user' => 0,
+                        'user_score' => 0,
+                        'score_listening' => 0,
+                        'score_structure' => 0,
+                        'score_reading' => 0,
                     ]
                 ], 201);
             }
