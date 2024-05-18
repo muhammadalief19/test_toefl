@@ -131,6 +131,8 @@ class AnswerController extends Controller
                     'message' => 'Answers submitted successfully.',
                     'data' => [
                         'akurasi' => $prosentase,
+                        'total_question' => $totalQuestion,
+                        'correct_question' => $totalCorrect,
                     ],
                 ]);
             }
