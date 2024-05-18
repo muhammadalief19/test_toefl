@@ -15,8 +15,13 @@ class GameController extends Controller
     public function index()
     {
         try{
-            $games = Game::with('game_list.quiz.type')->get();
-
+            $user = auth()->user();
+            $games = Game::with(['game_list.quiz.type', 'game_list.game_claim'])
+                        ->whereHas('game_list.game_claim', function($query) use ($user) {
+                            $query->where('user_id', $user->id);
+                        })
+                        ->get();
+            
             return response()->json([
                 'data' => $games
             ]);
