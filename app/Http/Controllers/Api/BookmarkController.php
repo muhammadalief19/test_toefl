@@ -32,7 +32,7 @@ class BookmarkController extends Controller
                 }
 
                 return [
-                    'id' => $bookmark->question->_id,
+                    'id' => $bookmark->_id,
                     'question' => $bookmarkText,
                 ];
             });
