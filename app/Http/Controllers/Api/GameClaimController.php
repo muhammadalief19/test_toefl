@@ -33,7 +33,7 @@ class GameClaimController extends Controller
             $user = auth()->user();
             $user_games = GameClaim::with('user','game_set.quiz','game_set.game')->where('user_id', $user->_id)->get();
             if(empty($user_games)){
-                return response()->json(['success' => true, 'data' => true]);
+                return response()->json(['success' => true, 'data' => true]);   
             }
             return response()->json(['success'=> true, 'data' => false]);
         }catch(Exception $e){
@@ -73,14 +73,12 @@ class GameClaimController extends Controller
     {
        try{
         $user = auth()->user();
-        $user_game = GameClaim::with('user','game_set.quiz','game_set.game')->find($id);
+        $user_games = GameClaim::with('user','game_set.quiz','game_set.game')->where('user_id',$user->_id)->where('game_set_id',$id)->get();
             
-        return response()->json([
-            'success' => true,
-            'data'=> $user_game
-        ]);
+       
+        return response()->json(['success' => true, 'data' => $user_games]);   
        }catch(Exception $e){
-        return response()->json(['success' => false, 'data' => null]);
+        return response()->json(['success' => false, 'data' => []]);
        }
     }
 
@@ -89,7 +87,15 @@ class GameClaimController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        try{
+            $user = auth()->user();
+            $user_games = GameClaim::with('user','game_set.quiz','game_set.game')->where('user_id',$user->_id)->where('_id',$id)->first();
+                
+           
+            return response()->json(['success' => true, 'data' => $user_games]);   
+        }catch(Exception $e){
+            return response()->json(['success' => false, 'data' => []]);
+        }
     }
 
     /**
