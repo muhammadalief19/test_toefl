@@ -18,7 +18,7 @@ class QuizClaim extends Model
     ];
 
     public function user(){
-        return $this->belongsTo(User::class,'class_id','_id');
+        return $this->belongsTo(User::class,'user_id','_id');
     }
 
     public function quiz(){

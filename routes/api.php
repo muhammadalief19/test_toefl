@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\AnswerController;
 use App\Http\Controllers\Api\Auth\AuthController;
 use App\Http\Controllers\Api\PacketController;
 use App\Http\Controllers\Api\BookmarkController;
+use App\Http\Controllers\Api\GameClaimController;
 use App\Http\Controllers\Api\GameController;
 use App\Http\Controllers\Api\QuizController;
 use App\Http\Controllers\Api\ValueHomeController;
@@ -51,4 +52,5 @@ Route::middleware('auth:api')->group(function () {
 
     Route::resource('/quizs',QuizController::class);
     Route::resource('/games',GameController::class);
+    Route::resource('/gameclaims',GameClaimController::class);
 });

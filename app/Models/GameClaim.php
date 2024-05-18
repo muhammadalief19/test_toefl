@@ -16,8 +16,8 @@ class GameClaim extends Model
 
     use HasFactory;
 
-    public function game_list(){
-        return $this->belongsTo(Quiz::class,'game_set_id','_id');
+    public function game_set(){
+        return $this->belongsTo(GameSet::class,'game_set_id','_id');
     }
     
     public function user(){
