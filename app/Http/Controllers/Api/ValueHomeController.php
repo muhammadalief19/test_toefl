@@ -14,8 +14,31 @@ class ValueHomeController extends Controller
 {
     public function getAllTargetValue()
     {
+        $userTarget = User::with('target')->where('_id', auth()->user()->_id)->first();
+        $userTarget = [
+            'id' => $userTarget->target->_id,
+            'name_level_target' => $userTarget->target->name_level_target,
+            'score_target' => $userTarget->target->score_target,
+        ];
+
         $targets = Target::all();
-        return response()->json($targets);
+        $mappedDataTarget = $targets->map(function ($target) {
+            return [
+                'id' => $target->_id,
+                'name_level_target' => $target->name_level_target,
+                'score_target' => $target->score_target,
+            ];
+        });
+
+        return response()->json([
+            'success' => true,
+            'message' => 'List Target User',
+            'data' => [
+                'selected_target' => $userTarget,
+                'all_targets' => $mappedDataTarget,
+            ]
+
+        ]);
     }
 
     public function getLevelUser()
