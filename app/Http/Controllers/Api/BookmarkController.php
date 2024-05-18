@@ -12,7 +12,7 @@ use Exception;
 
 class BookmarkController extends Controller
 {
-   public function getAllBookmark()
+    public function getAllBookmark()
     {
         try {
             $initIdUser = auth()->user()->_id;
@@ -55,17 +55,17 @@ class BookmarkController extends Controller
     {
         try {
             $initIdUser = auth()->user()->_id;
-            $init = UserAnswer::with('question')->where('user_id', $initIdUser)->where('bookmark', true)->where('_id', $idBookmark)->first();
+            $init = UserAnswer::with('question')->where('user_id', $initIdUser)->where('bookmark', true)->where('question_id', $idBookmark)->first();
 
             $initNested = Nested::where('question_id', $init->question_id)->first();
 
-            $initMultipleChoices = MultipleChoice::where('question_id', $init->question_id)->get();
+            $initMultipleChoices = MultipleChoice::where('question_id', $init->question_id)->select('choice')->get();
 
             return response()->json([
                 'success' => true,
                 'message' => 'Data Spesification question Bookmark User Successfully Fetched.',
                 'data' => [
-                    'id' => $init->_id,
+                    'id' => $init->question->_id,
                     'nested_question' => $initNested ? $initNested->nestedQuestion->question_nested : "",
                     'question' => $init->question->question,
                     'answer_user' => $init->answer_user,
