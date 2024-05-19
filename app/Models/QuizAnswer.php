@@ -13,7 +13,7 @@ class QuizAnswer extends Model
     protected $collection = 'quiz_answers';
 
     protected $fillable = [
-        'quiz_option_id','quiz_claim_id', 'quiz_content_id','user_id'
+        'quiz_option_id','quiz_claim_id', 'quiz_content_id','user_id', 'score' ,'created_at', 'user_id'
     ];
 
     public function claim(){

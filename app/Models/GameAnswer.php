@@ -6,14 +6,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use MongoDB\Laravel\Eloquent\Model;
 
 
-class QuizAnswer extends Model
+class GameAnswer extends Model
 {
     use HasFactory;
     protected $connection = 'mongodb';
     protected $collection = 'game_answers';
 
     protected $fillable = [
-        'quiz_option_id','game_claim_id', 'quiz_content_id'
+        'quiz_option_id','game_claim_id', 'quiz_content_id', 'score', 'created_at', 'user_id'
     ];
 
     public function claim(){
@@ -28,4 +28,7 @@ class QuizAnswer extends Model
         return $this->belongsTo(QuizContent::class,'quiz_content_id','_id');
     }
 
+    public function user(){
+        return $this->belongsTo(User::class,'user_id','_id');
+    }
 }
