@@ -16,15 +16,23 @@ class GameController extends Controller
     {
         try{
             $user = auth()->user();
-            $games = Game::with(['game_list.quiz.type', 'game_list.game_claim' => function($query) use ($user) {
-                $query->where('user_id', $user->id);}])
-            ->get();
-            
+            $games = Game::with([
+                'game_list.quiz.type',
+                'game_list.game_claim' => function($query) use ($user) {
+                    $query->where('user_id', $user->id)
+                          ->orderBy('is_completed', 'asc');
+                }
+            ])->get();
+    
             return response()->json([
+                'success' => true,
                 'data' => $games
             ]);
         }catch(Exception $e){
-
+            return response()->json([
+                'success' => false,
+                'data' => $e->getMessage()
+            ]);
         }
     }
 
