@@ -3,36 +3,16 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\QuizAnswer;
+use App\Models\Game;
+use App\Models\GameAnswer;
+use App\Models\GameClaim;
 use App\Models\QuizAnswerKey;
-use App\Models\QuizClaim;
-use App\Models\QuizOption;
-use DateTime;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 
-class QuizAnswerController extends Controller
+class GameAnswerController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         try{
@@ -41,19 +21,19 @@ class QuizAnswerController extends Controller
                 'quiz_option_id' => 'required',
                 'quiz_content_id' => 'required',
                 'quiz_claim_id' => 'required',
-                'quiz_id' => 'required'
+                'game_set_id' => 'required'
             ]);
             
             $score = 0;
 
             $key = QuizAnswerKey::where('quiz_content_id',$request->quiz_content_id)->first();
 
-            $attempt = QuizClaim::where('quiz_id',$request->quiz_id)->get();
+            $attempt = GameClaim::where('game_set_id',$request->game_set_id)->get();
             if($key->quiz_option_id == $request->quiz_content_id){
                 $score = 10 * 1 / count($attempt);
             }
 
-            $user_answer = new QuizAnswer();
+            $user_answer = new GameAnswer();
 
             $user_answer->quiz_option_id = $request->quiz_option_id;
             $user_answer->quiz_claim_id = $request->quiz_claim_id;
@@ -77,35 +57,4 @@ class QuizAnswerController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
 }

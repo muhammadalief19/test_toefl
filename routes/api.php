@@ -4,8 +4,10 @@ use App\Http\Controllers\Api\AnswerController;
 use App\Http\Controllers\Api\Auth\AuthController;
 use App\Http\Controllers\Api\PacketController;
 use App\Http\Controllers\Api\BookmarkController;
+use App\Http\Controllers\Api\GameAnswerController;
 use App\Http\Controllers\Api\GameClaimController;
 use App\Http\Controllers\Api\GameController;
+use App\Http\Controllers\Api\QuizAnswerController;
 use App\Http\Controllers\Api\QuizController;
 use App\Http\Controllers\Api\QuizGameScoreController;
 use App\Http\Controllers\Api\ValueHomeController;
@@ -55,4 +57,7 @@ Route::middleware('auth:api')->group(function () {
     Route::resource('/games',GameController::class);
     Route::resource('/gameclaims',GameClaimController::class);
     Route::resource('/leaderboard',QuizGameScoreController::class);
+    Route::resource('/gameanswer',GameAnswerController::class);
+    Route::resource('/quizanswer',QuizAnswerController::class);
+
 });
