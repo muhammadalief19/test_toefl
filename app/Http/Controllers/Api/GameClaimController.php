@@ -56,9 +56,11 @@ class GameClaimController extends Controller
 
             $user_game->user_id = $user->id;
             $user_game->game_set_id = $request->game_set_id;
+            $user_game->is_completed = false;
             $user_game->save();
     
             return response()->json([
+                'success' => true,
                 'data'=> $user_game
             ]);
            }catch(Exception $e){

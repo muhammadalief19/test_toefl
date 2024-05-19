@@ -11,7 +11,7 @@ class GameClaim extends Model
     protected $collection = 'game_claims';
 
     protected $fillable = [
-        'game_set_id','user_id'
+        'game_set_id','user_id', 'is_completed'
     ];
 
     use HasFactory;

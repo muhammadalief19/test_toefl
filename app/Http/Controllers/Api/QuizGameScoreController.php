@@ -29,12 +29,16 @@ class QuizGameScoreController extends Controller
         
             foreach ($users as $user) {
                 try {
-                    $game_score = GameAnswer::where('user_id', $user->_id)
+                    $game_score = GameAnswer::whereHas('claim' ,function($query){
+                        $query->where('is_completed', true);
+                    })->where('user_id', $user->_id)
                         ->whereYear('created_at', $currentYear)
                         ->whereMonth('created_at', $currentMonth)
                         ->sum('score');
         
-                    $quiz_score = QuizAnswer::where('user_id', $user->_id)
+                    $quiz_score = QuizAnswer::whereHas('claim' ,function($query){
+                        $query->where('is_completed', true);
+                    })->where('user_id', $user->_id)
                         ->whereYear('created_at', $currentYear)
                         ->whereMonth('created_at', $currentMonth)
                         ->sum('score');
@@ -51,10 +55,15 @@ class QuizGameScoreController extends Controller
                 } catch (ModelNotFoundException $e) {
                 } catch (\Exception $e) {
                 }
+
             }
-        
+            
+            usort($all_scores, function ($a, $b) {
+                return $b['total_score'] <=> $a['total_score'];
+            });
+
             return response()->json(['data' => $all_scores]);
-        
+                
         } catch (\Exception $e) {
             return response()->json(['error' => 'An error occurred while retrieving scores. Please try again later.'], 500);
         }

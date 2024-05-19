@@ -41,16 +41,19 @@ class QuizEnrollController extends Controller
             // $claim_quiz->user_id =;
             $claim_quiz->quiz_id = $request->quiz_id;
             $claim_quiz->user_id = $user_id;
+            $claim_quiz->is_completed = false;
 
             $claim_quiz->save();
             
-            return response()->json([
-                'data' => $claim_quiz->_id
-            ]);
             
-        }catch(Exception $e){
-
-        }
+            return response()->json([
+                'success' => true,
+                'data'=> $claim_quiz
+            ]);
+           }catch(Exception $e){
+            return response()->json(['success' => false, 'data' => null]);
+           }
+           
     }
 
     /**

@@ -14,7 +14,8 @@ class QuizClaim extends Model
 
     protected $fillable = [
         'user_id',
-        'quiz_id'
+        'quiz_id',
+        'is_completed'
     ];
 
     public function user(){
