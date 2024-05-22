@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\GameClaim;
+use App\Models\GameSet;
+use App\Models\Quiz;
 use Exception;
 use Illuminate\Http\Request;
 
@@ -58,10 +60,17 @@ class GameClaimController extends Controller
             $user_game->game_set_id = $request->game_set_id;
             $user_game->is_completed = false;
             $user_game->save();
-    
+
+            $game_set = GameSet::where('game_set_id',$request->game_set_id)->first();
+
+            $quiz = Quiz::with('type','questions.content.options','questions.content.answer_key.option')->find($game_set->quiz_id);
+
             return response()->json([
                 'success' => true,
-                'data'=> $user_game
+                'data'=> [
+                    'claimId' => $user_game->_id,
+                    'quiz' => $quiz
+                ]
             ]);
            }catch(Exception $e){
             return response()->json(['success' => false, 'data' => null]);

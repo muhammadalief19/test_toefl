@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Quiz;
 use App\Models\QuizClaim;
 use Exception;
 use Illuminate\Http\Request;
@@ -45,10 +46,15 @@ class QuizEnrollController extends Controller
 
             $claim_quiz->save();
             
-            
+
+            $quiz = Quiz::with('type','questions.content.options','questions.content.answer_key.option')->find($request->quiz_id);
+
             return response()->json([
                 'success' => true,
-                'data'=> $claim_quiz
+                'data'=> [
+                    'claimId' => $claim_quiz->_id,
+                    'quiz' => $quiz
+                ]
             ]);
            }catch(Exception $e){
             return response()->json(['success' => false, 'data' => null]);
