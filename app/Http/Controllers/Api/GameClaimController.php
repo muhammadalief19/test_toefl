@@ -8,6 +8,7 @@ use App\Models\GameSet;
 use App\Models\Quiz;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class GameClaimController extends Controller
 {
@@ -55,15 +56,17 @@ class GameClaimController extends Controller
 
             $user = auth()->user();
             $user_game = new GameClaim();
-
-            $user_game->user_id = $user->id;
-            $user_game->game_set_id = $request->game_set_id;
-            $user_game->is_completed = false;
-            $user_game->save();
-
             $game_set = GameSet::find($request->game_set_id);
-
+            
+            DB::transaction(function($user_game) use ($user, $request){
+                $user_game->user_id = $user->id;
+                $user_game->game_set_id = $request->game_set_id;
+                $user_game->is_completed = false;
+                $user_game->save();
+            });
+            
             $quiz = Quiz::with('type','questions.content.options','questions.content.answer_key.option')->find($game_set->quiz_id);
+
 
             return response()->json([
                 'success' => true,

@@ -7,6 +7,7 @@ use App\Models\Quiz;
 use App\Models\QuizClaim;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class QuizEnrollController extends Controller
 {
@@ -37,17 +38,21 @@ class QuizEnrollController extends Controller
                 'quiz_id' => 'required'
             ]);
             $user_id = auth()->user()->_id;
+            
+            $quiz = Quiz::with('type','questions.content.options','questions.content.answer_key.option')->find($request->quiz_id);
+            
             $claim_quiz = new QuizClaim();
+            DB::transaction(function($claim_quiz) use ($user_id, $request){
 
-            // $claim_quiz->user_id =;
-            $claim_quiz->quiz_id = $request->quiz_id;
-            $claim_quiz->user_id = $user_id;
-            $claim_quiz->is_completed = false;
-
-            $claim_quiz->save();
+                $claim_quiz->quiz_id = $request->quiz_id;
+                $claim_quiz->user_id = $user_id;
+                $claim_quiz->is_completed = false;
+        
+                $claim_quiz->save();
+            });
             
 
-            $quiz = Quiz::with('type','questions.content.options','questions.content.answer_key.option')->find($request->quiz_id);
+
 
             return response()->json([
                 'success' => true,
