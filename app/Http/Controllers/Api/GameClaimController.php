@@ -61,7 +61,7 @@ class GameClaimController extends Controller
             $user_game->is_completed = false;
             $user_game->save();
 
-            $game_set = GameSet::where('game_set_id',$request->game_set_id)->first();
+            $game_set = GameSet::find($request->game_set_id);
 
             $quiz = Quiz::with('type','questions.content.options','questions.content.answer_key.option')->find($game_set->quiz_id);
 
