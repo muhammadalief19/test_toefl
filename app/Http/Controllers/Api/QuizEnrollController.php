@@ -38,20 +38,22 @@ class QuizEnrollController extends Controller
                 'quiz_id' => 'required'
             ]);
             $user_id = auth()->user()->_id;
-            
+
             $quiz = Quiz::with('type','questions.content.options','questions.content.answer_key.option')->find($request->quiz_id);
             
+            if (!$quiz) {
+                return response()->json(['success' => false, 'data' => null, 'message' => 'Quiz not found'], 404);
+            }
+
+            DB::beginTransaction();
             $claim_quiz = new QuizClaim();
-            DB::transaction(function($claim_quiz) use ($user_id, $request){
 
-                $claim_quiz->quiz_id = $request->quiz_id;
-                $claim_quiz->user_id = $user_id;
-                $claim_quiz->is_completed = false;
-        
-                $claim_quiz->save();
-            });
-            
+            $claim_quiz->quiz_id = $request->quiz_id;
+            $claim_quiz->user_id = $user_id;
+            $claim_quiz->is_completed = false;
 
+            $claim_quiz->save();
+            DB::commit();
 
 
             return response()->json([

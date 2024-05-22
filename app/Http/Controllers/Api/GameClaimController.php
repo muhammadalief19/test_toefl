@@ -49,35 +49,43 @@ class GameClaimController extends Controller
      */
     public function store(Request $request)
     {
-        try{
+        try {
             $request->validate([
                 'game_set_id' => 'required',
             ]);
-
+        
             $user = auth()->user();
-            $user_game = new GameClaim();
             $game_set = GameSet::find($request->game_set_id);
             
-            DB::transaction(function($user_game) use ($user, $request){
-                $user_game->user_id = $user->id;
-                $user_game->game_set_id = $request->game_set_id;
-                $user_game->is_completed = false;
-                $user_game->save();
-            });
+            if (!$game_set) {
+                return response()->json(['success' => false, 'data' => null, 'message' => 'Game set not found'], 404);
+            }
+
+            DB::beginTransaction();
+
+            $user_game = new GameClaim();
+        
+            $user_game->user_id = $user->id;
+            $user_game->game_set_id = $request->game_set_id;
+            $user_game->is_completed = false;
+            $user_game->save();
+        
+            DB::commit();
             
-            $quiz = Quiz::with('type','questions.content.options','questions.content.answer_key.option')->find($game_set->quiz_id);
-
-
+            $quiz = Quiz::with('type', 'questions.content.options', 'questions.content.answer_key.option')
+                        ->find($game_set->quiz_id);
+            
             return response()->json([
                 'success' => true,
-                'data'=> [
+                'data' => [
                     'claimId' => $user_game->_id,
-                    'quiz' => $quiz
-                ]
+                    'quiz' => $quiz,
+                ],
             ]);
-           }catch(Exception $e){
-            return response()->json(['success' => false, 'data' => null]);
-           }
+        } catch (Exception $e) {
+            return response()->json(['success' => false, 'data' => null, 'message' => $e->getMessage()]);
+        }
+        
     }
 
     /**
