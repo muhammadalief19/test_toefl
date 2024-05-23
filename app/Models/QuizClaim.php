@@ -25,4 +25,8 @@ class QuizClaim extends Model
     public function quiz(){
         return $this->belongsTo(Quiz::class,'quiz_id','_id');
     }
+
+    public function quiz_answer(){
+        return $this->hasMany(QuizAnswer::class, 'quiz_claim_id','_id');
+    }
 }

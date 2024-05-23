@@ -45,7 +45,7 @@ class QuizEnrollController extends Controller
                 return response()->json(['success' => false, 'data' => null, 'message' => 'Quiz not found'], 404);
             }
 
-            $exist_claim = QuizClaim::where('quiz_id',$request->quiz_id)->where('is_completed',false)->first();
+            $exist_claim = QuizClaim::with('quiz_answer')->where('quiz_id',$request->quiz_id)->where('is_completed',false)->first();
 
             if(!$exist_claim){
 
@@ -65,6 +65,7 @@ class QuizEnrollController extends Controller
                 'success' => true,
                 'data'=> [
                     'claimId' => !$exist_claim ? $claim_quiz->_id : $exist_claim->_id,
+                    'user_answer' => $exist_claim->quiz_answer,
                     'quiz' => $quiz
                 ]
             ]);

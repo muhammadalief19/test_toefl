@@ -24,5 +24,7 @@ class GameClaim extends Model
         return $this->belongsTo(User::class,'user_id','_id');
     }
    
-    
+    public function game_answer(){
+        return $this->hasMany(GameAnswer::class,'game_claim_id','_id');
+    }
 }
