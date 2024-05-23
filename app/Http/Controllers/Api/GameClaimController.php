@@ -84,7 +84,7 @@ class GameClaimController extends Controller
                 'success' => true,
                 'data' => [
                     'claimId' => !$exist_claim ? $user_game->_id : $exist_claim->_id,
-                    'user_answer' => !$exist_claim ?  [] : $exist_claim->game_answer,
+                    'user_answer' => !$exist_claim ? [] : ($exist_claim->game_answer ?? []),
                     'quiz' => $quiz,
                 ],
             ]);
