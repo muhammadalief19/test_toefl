@@ -53,24 +53,28 @@ class GameClaimController extends Controller
             $request->validate([
                 'game_set_id' => 'required',
             ]);
-        
+            
+
             $user = auth()->user();
             $game_set = GameSet::find($request->game_set_id);
-            
             if (!$game_set) {
                 return response()->json(['success' => false, 'data' => null, 'message' => 'Game set not found'], 404);
             }
 
-            DB::beginTransaction();
+            $exist_claim = GameClaim::where('game_set_id',$request->game_set_id)->where('is_completed',false)->first();
 
-            $user_game = new GameClaim();
+            if(!$exist_claim){      
+                DB::beginTransaction();
+                
+                $user_game = new GameClaim();
+                
+                $user_game->user_id = $user->id;
+                $user_game->game_set_id = $request->game_set_id;
+                $user_game->is_completed = false;
+                $user_game->save();
+                DB::commit();
+            }
         
-            $user_game->user_id = $user->id;
-            $user_game->game_set_id = $request->game_set_id;
-            $user_game->is_completed = false;
-            $user_game->save();
-        
-            DB::commit();
             
             $quiz = Quiz::with('type', 'questions.content.options', 'questions.content.answer_key.option')
                         ->find($game_set->quiz_id);
@@ -78,7 +82,7 @@ class GameClaimController extends Controller
             return response()->json([
                 'success' => true,
                 'data' => [
-                    'claimId' => $user_game->_id,
+                    'claimId' => !$exist_claim ? $user_game->_id : $exist_claim->_id,
                     'quiz' => $quiz,
                 ],
             ]);

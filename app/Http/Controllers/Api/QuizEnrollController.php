@@ -45,21 +45,26 @@ class QuizEnrollController extends Controller
                 return response()->json(['success' => false, 'data' => null, 'message' => 'Quiz not found'], 404);
             }
 
-            DB::beginTransaction();
-            $claim_quiz = new QuizClaim();
+            $exist_claim = QuizClaim::where('quiz_id',$request->quiz_id)->where('is_completed',false)->first();
 
-            $claim_quiz->quiz_id = $request->quiz_id;
-            $claim_quiz->user_id = $user_id;
-            $claim_quiz->is_completed = false;
+            if(!$exist_claim){
 
-            $claim_quiz->save();
-            DB::commit();
+                DB::beginTransaction();
+                $claim_quiz = new QuizClaim();
+                
+                $claim_quiz->quiz_id = $request->quiz_id;
+                $claim_quiz->user_id = $user_id;
+                $claim_quiz->is_completed = false;
+                
+                $claim_quiz->save();
+                DB::commit();
+            }
 
 
             return response()->json([
                 'success' => true,
                 'data'=> [
-                    'claimId' => $claim_quiz->_id,
+                    'claimId' => !$exist_claim ? $claim_quiz->_id : $exist_claim->_id,
                     'quiz' => $quiz
                 ]
             ]);
