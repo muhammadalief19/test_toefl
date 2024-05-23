@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\GameController;
 use App\Http\Controllers\Api\QuizAnswerController;
 use App\Http\Controllers\Api\QuizController;
 use App\Http\Controllers\Api\QuizGameScoreController;
+use App\Http\Controllers\Api\QuizResultController;
 use App\Http\Controllers\Api\ValueHomeController;
 use App\Models\Quiz;
 use Illuminate\Http\Request;
@@ -59,5 +60,6 @@ Route::middleware('auth:api')->group(function () {
     Route::resource('/leaderboard',QuizGameScoreController::class);
     Route::resource('/gameanswer',GameAnswerController::class);
     Route::resource('/quizanswer',QuizAnswerController::class);
+    Route::resource('/quizgameresult',QuizResultController::class);
 
 });
