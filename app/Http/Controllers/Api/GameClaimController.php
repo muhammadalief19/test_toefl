@@ -64,7 +64,7 @@ class GameClaimController extends Controller
             $quiz = Quiz::with('type', 'questions.content.options', 'questions.content.answer_key.option')
                         ->find($game_set->quiz_id);
 
-            $exist_claim = GameClaim::with('game_answer')->where('game_set_id',$request->game_set_id)->where('is_completed',false)->first();
+            $exist_claim = GameClaim::with('game_answer')->where('game_set_id',$request->game_set_id)->where('user_id',$user->_id)->where('is_completed',false)->first();
             
             if(!$exist_claim){      
                 // DB::beginTransaction(); the hell mongo ribet
@@ -91,7 +91,6 @@ class GameClaimController extends Controller
         } catch (Exception $e) {
             return response()->json(['success' => false, 'data' => null, 'message' => $e->getMessage()]);
         }
-        
     }
 
     /**
@@ -99,15 +98,46 @@ class GameClaimController extends Controller
      */
     public function show(string $id)
     {
-       try{
-        $user = auth()->user();
-        $user_games = GameClaim::with('user','game_set.quiz','game_set.game')->where('user_id',$user->_id)->where('game_set_id',$id)->get();
+        try {
+            $user = auth()->user();
+            $game_set = GameSet::find($id);
             
-       
-        return response()->json(['success' => true, 'data' => $user_games]);   
-       }catch(Exception $e){
-        return response()->json(['success' => false, 'data' => []]);
-       }
+            $game_claims = GameClaim::with('game_answer')->where('game_set_id',$id)->where('user_id',$user->_id)->where('is_completed',true)->get();
+            
+            $claim_id = '';
+            $maxScore = 0;
+
+            $quiz = Quiz::with('type', 'questions.content.options', 'questions.content.answer_key.option')
+                        ->find($game_set->quiz_id);
+            
+
+            foreach ($game_claims as $game_claim) {
+                $totalScore = 0;
+                foreach ($game_claim->game_answer as $game_answer) {
+                    $totalScore += $game_answer->score;
+                }
+
+                if ($totalScore > $maxScore) {
+                    $maxScore = $totalScore;
+                    $claim_id = $game_claim->_id; 
+                }
+            }
+
+            $highestQuizClaim = GameClaim::with('game_answer')->find($claim_id);
+        
+            
+            
+            return response()->json([
+                'success' => true,
+                'data' => [
+                    'claimId' => $claim_id,
+                    'user_answer' => $highestQuizClaim->game_answer,
+                    'quiz' => $quiz,
+                ],
+            ]);
+        } catch (Exception $e) {
+            return response()->json(['success' => false, 'data' => null, 'message' => $e->getMessage()]);
+        }
     }
 
     /**
