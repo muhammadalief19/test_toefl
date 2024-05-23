@@ -140,7 +140,7 @@ class PacketController extends Controller
                 ];
             })->all();
 
-            shuffle($multipleChoices);
+            // shuffle($multipleChoices);
 
             return [
                 'id' => $question['_id'],
