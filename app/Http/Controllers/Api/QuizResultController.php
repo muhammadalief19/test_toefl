@@ -49,11 +49,11 @@ class QuizResultController extends Controller
 
         }catch(Exception $e){
             return response()->json([
-                'success' => true,
+                'success' => false,
                 'data' => [
-                    'total' => $len,
-                    'benar' => $answerTrue,
-                    'score' => $scoreSum,
+                    'total' => 1,
+                    'benar' => 1,
+                    'score' => 0,
                 ]
             ]);
         }
