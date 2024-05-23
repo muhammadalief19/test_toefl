@@ -6,7 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Models\Game;
 use App\Models\GameAnswer;
 use App\Models\GameClaim;
+use App\Models\GameSet;
+use App\Models\Quiz;
 use App\Models\QuizAnswerKey;
+use App\Models\QuizContent;
+use App\Models\QuizQuestion;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -20,29 +24,40 @@ class GameAnswerController extends Controller
             $request->validate([
                 'quiz_option_id' => 'required',
                 'quiz_content_id' => 'required',
-                'quiz_claim_id' => 'required',
+                'game_claim_id' => 'required',
                 'game_set_id' => 'required'
             ]);
             
+            
+            // $quiz_len = Quiz::with('questions.content');
+            $quiz = GameSet::find($request->game_set_id);
+
             $score = 0;
 
             $key = QuizAnswerKey::where('quiz_content_id',$request->quiz_content_id)->first();
 
-            $attempt = GameClaim::where('game_set_id',$request->game_set_id)->get();
-            if($key->quiz_option_id == $request->quiz_content_id){
-                $score = 10 * 1 / count($attempt);
-            }
+            $attempt = GameClaim::where('game_set_id',$request->game_set_id)->where('user_id',$user->_id)->get();
 
+            if($key->quiz_option_id == $request->quiz_option_id){
+                $score = $score + 10 * 1 / count($attempt);
+            }
             $user_answer = new GameAnswer();
 
             $user_answer->quiz_option_id = $request->quiz_option_id;
-            $user_answer->quiz_claim_id = $request->quiz_claim_id;
+            $user_answer->game_claim_id = $request->game_claim_id;
             $user_answer->quiz_content_id = $request->content_id;
             $user_answer->user_id = $user->_id;
             $user_answer->score = $score;
             $user_answer->created_at = Carbon::now();
 
             $user_answer->save();
+
+            if($this->isComplete($quiz->quiz_id, $request->game_claim_id)){
+                $game_claim = GameClaim::find($request->game_claim_id);
+
+                $game_claim->is_completed = true;
+                $game_claim->save();
+            }
 
             return response()->json([
                 'success' => true,
@@ -57,4 +72,20 @@ class GameAnswerController extends Controller
         }
     }
 
+    function isComplete($quizId, $game_claim_id) {
+        $quiz = Quiz::with('questions.content')->find($quizId);
+        $claim = GameAnswer::where('game_claim_id',$game_claim_id)->get();
+
+        if (!$quiz) {
+            echo "Quiz not found.";
+            return;
+        }
+        $total = 0;
+        foreach($quiz->questions as $q){
+            $total = $total + count($q->content);
+        }
+        
+        return $total == count($claim);
+    }
+    
 }
