@@ -138,7 +138,7 @@ class PacketController extends Controller
                     'id' => $choice->_id,
                     'choice' => $choice->choice,
                 ];
-            })->all();
+            })->shuffle()->all();
 
             return [
                 'id' => $question['_id'],

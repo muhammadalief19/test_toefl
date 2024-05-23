@@ -65,7 +65,7 @@ class GameClaimController extends Controller
                         ->find($game_set->quiz_id);
 
             $exist_claim = GameClaim::with('game_answer')->where('game_set_id',$request->game_set_id)->where('is_completed',false)->first();
-
+            
             if(!$exist_claim){      
                 // DB::beginTransaction(); the hell mongo ribet
                 
@@ -84,7 +84,7 @@ class GameClaimController extends Controller
                 'success' => true,
                 'data' => [
                     'claimId' => !$exist_claim ? $user_game->_id : $exist_claim->_id,
-                    'user_answer' => $exist_claim->game_answer,
+                    'user_answer' => !$exist_claim ?  [] : $exist_claim->game_answer,
                     'quiz' => $quiz,
                 ],
             ]);
