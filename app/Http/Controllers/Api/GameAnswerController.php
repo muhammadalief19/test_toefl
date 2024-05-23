@@ -25,22 +25,21 @@ class GameAnswerController extends Controller
                 'quiz_option_id' => 'required',
                 'quiz_content_id' => 'required',
                 'game_claim_id' => 'required',
-                'game_set_id' => 'required'
             ]);
             
-            
-            // $quiz_len = Quiz::with('questions.content');
-            $quiz = GameSet::find($request->game_set_id);
+            $game_claim = GameClaim::find($request->game_claim_id);
+            $quiz = GameSet::find($game_claim->game_set_id);
 
             $score = 0;
 
             $key = QuizAnswerKey::where('quiz_content_id',$request->quiz_content_id)->first();
 
-            $attempt = GameClaim::where('game_set_id',$request->game_set_id)->where('user_id',$user->_id)->get();
+            $attempt = GameClaim::where('game_set_id', $quiz->_id)->where('user_id',$user->_id)->get();
 
-            if($key->quiz_option_id == $request->quiz_option_id){
+            if($key->quiz_option_id == $request->quiz_option_id && count($attempt) > 0){
                 $score = $score + 10 * 1 / count($attempt);
             }
+
             $user_answer = new GameAnswer();
 
             $user_answer->quiz_option_id = $request->quiz_option_id;
@@ -52,8 +51,7 @@ class GameAnswerController extends Controller
 
             $user_answer->save();
 
-            if($this->isComplete($quiz->quiz_id, $request->game_claim_id)){
-                $game_claim = GameClaim::find($request->game_claim_id);
+            if($this->isComplete($quiz->quiz_id, $game_claim->_id)){
 
                 $game_claim->is_completed = true;
                 $game_claim->save();
