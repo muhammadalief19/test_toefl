@@ -140,6 +140,8 @@ class PacketController extends Controller
                 ];
             })->all();
 
+            shuffle($multipleChoices);
+
             return [
                 'id' => $question['_id'],
                 'type_question' => $question['type_question'] ?? null,
