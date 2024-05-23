@@ -61,10 +61,13 @@ class GameClaimController extends Controller
                 return response()->json(['success' => false, 'data' => null, 'message' => 'Game set not found'], 404);
             }
 
+            $quiz = Quiz::with('type', 'questions.content.options', 'questions.content.answer_key.option')
+                        ->find($game_set->quiz_id);
+                        
             $exist_claim = GameClaim::where('game_set_id',$request->game_set_id)->where('is_completed',false)->first();
 
             if(!$exist_claim){      
-                DB::beginTransaction();
+                // DB::beginTransaction(); the hell mongo ribet
                 
                 $user_game = new GameClaim();
                 
@@ -72,12 +75,10 @@ class GameClaimController extends Controller
                 $user_game->game_set_id = $request->game_set_id;
                 $user_game->is_completed = false;
                 $user_game->save();
-                DB::commit();
+                // DB::commit();
             }
         
             
-            $quiz = Quiz::with('type', 'questions.content.options', 'questions.content.answer_key.option')
-                        ->find($game_set->quiz_id);
             
             return response()->json([
                 'success' => true,

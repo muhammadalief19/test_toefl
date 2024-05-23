@@ -49,7 +49,7 @@ class QuizEnrollController extends Controller
 
             if(!$exist_claim){
 
-                DB::beginTransaction();
+                // DB::beginTransaction();
                 $claim_quiz = new QuizClaim();
                 
                 $claim_quiz->quiz_id = $request->quiz_id;
@@ -57,7 +57,7 @@ class QuizEnrollController extends Controller
                 $claim_quiz->is_completed = false;
                 
                 $claim_quiz->save();
-                DB::commit();
+                // DB::commit();
             }
 
 
