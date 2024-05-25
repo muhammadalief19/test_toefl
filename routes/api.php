@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\QuizAnswerController;
 use App\Http\Controllers\Api\QuizController;
 use App\Http\Controllers\Api\QuizGameScoreController;
 use App\Http\Controllers\Api\QuizResultController;
+use App\Http\Controllers\Api\QuizTypeController;
 use App\Http\Controllers\Api\RandomWordController;
 use App\Http\Controllers\Api\ScrambledWordController;
 use App\Http\Controllers\Api\ValueHomeController;
@@ -57,6 +58,7 @@ Route::middleware('auth:api')->group(function () {
     });
 
     Route::resource('/quizs',QuizController::class);
+    Route::resource('/quiztypes',QuizTypeController::class);
     Route::resource('/games',GameController::class);
     Route::resource('/gameclaims',GameClaimController::class);
     Route::resource('/leaderboard',QuizGameScoreController::class);

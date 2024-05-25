@@ -16,4 +16,10 @@ class QuizType extends Model
         'name', 'desc'
     ];
 
+    public function quiz(){
+        return $this->hasMany(Quiz::class,'quiz_type_id','_id');
+    }
+
+    
+
 }

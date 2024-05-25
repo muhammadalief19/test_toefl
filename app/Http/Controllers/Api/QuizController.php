@@ -51,28 +51,19 @@ class QuizController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $type_id)
+    public function show(string $id)
     {
-
         try{
-            $user = auth()->user();
-            $quizs = Quiz::with([
-                'type',
-                'quiz_claim' => function($query) use ($user) {
-                    $query->where('user_id', $user->id)
-                          ->orderBy('is_completed', 'asc');
-                }
-            ])->where('quiz_type_id',$type_id)->get();
-    
+            $quiz = Quiz::with('type','questions.content.options','questions.content.answer_key.option')->find($id);
+
             return response()->json([
-                'success' => true,
-                'data' => $quizs
+                'data' => $quiz
             ]);
+
         }catch(Exception $e){
             return response()->json([
-                'success' => false,
-                'data' => $e->getMessage()
-            ]);
+                'data' => 'lol'
+            ]); 
         }
     }
 
