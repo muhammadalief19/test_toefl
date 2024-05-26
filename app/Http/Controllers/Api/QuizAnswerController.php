@@ -51,7 +51,7 @@ class QuizAnswerController extends Controller
 
             $attempt = QuizClaim::where('quiz_id',$quiz_claim->quiz_id)->where('user_id',$user->_id)->get();
             if($key->quiz_option_id == $request->quiz_content_id && count($attempt) > 0){
-                $score = 10 * 1 / count($attempt);
+                $score = $score + 10 * 1 / count($attempt);
             }
 
             $user_answer = new QuizAnswer();
