@@ -81,7 +81,45 @@ class QuizEnrollController extends Controller
      */
     public function show(string $id)
     {
-        //
+        try {
+            $user = auth()->user();
+
+            $quiz_claims = QuizClaim::with('game_answer')->where('quiz_id',$id)->where('user_id',$user->_id)->where('is_completed',true)->get();
+            
+            $claim_id = '';
+            $maxScore = 0;
+
+            $quiz = Quiz::with('type', 'questions.content.options', 'questions.content.answer_key.option')
+                        ->find($id);
+            
+
+            foreach ($quiz_claims as $quiz_claim) {
+                $totalScore = 0;
+                foreach ($quiz_claim->game_answer as $game_answer) {
+                    $totalScore += $game_answer->score;
+                }
+
+                if ($totalScore > $maxScore) {
+                    $maxScore = $totalScore;
+                    $claim_id = $quiz_claim->_id; 
+                }
+            }
+
+            $highestQuizClaim = QuizClaim::with('game_answer')->find($claim_id);
+        
+            
+            
+            return response()->json([
+                'success' => true,
+                'data' => [
+                    'claimId' => $claim_id,
+                    'user_answer' => $highestQuizClaim->game_answer,
+                    'quiz' => $quiz,
+                ],
+            ]);
+        } catch (Exception $e) {
+            return response()->json(['success' => false, 'data' => null, 'message' => $e->getMessage()]);
+        }
     }
 
     /**
