@@ -70,7 +70,7 @@ class QuizEnrollController extends Controller
                 ]
             ]);
            }catch(Exception $e){
-            return response()->json(['success' => false, 'data' => null]);
+            return response()->json(['success' => false, 'data' => $e->getMessage()]);
            }
            
     }
