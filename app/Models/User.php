@@ -30,7 +30,13 @@ class User extends Authenticatable implements JWTSubject
         'prodi',
         'nrp',
         'role',
-
+        'is_verified_register',
+        'otp_register',
+        'is_verified_forgot',
+        'otp_forgot',
+        'otp_forgot_expired_at',
+        'otp_register_expired_at',
+        'email_verified_at',
     ];
 
     /**
