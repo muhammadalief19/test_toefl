@@ -65,7 +65,7 @@ class QuizEnrollController extends Controller
                 'success' => true,
                 'data'=> [
                     'claimId' => !$exist_claim ? $claim_quiz->_id : $exist_claim->_id,
-                    'user_answer' => $exist_claim->quiz_answer,
+                    'user_answer' => !$exist_claim ? [] : ($exist_claim->quiz_answer ?? []),
                     'quiz' => $quiz
                 ]
             ]);
