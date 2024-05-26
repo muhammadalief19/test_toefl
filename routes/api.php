@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\GameController;
 use App\Http\Controllers\Api\PairingClaimController;
 use App\Http\Controllers\Api\QuizAnswerController;
 use App\Http\Controllers\Api\QuizController;
+use App\Http\Controllers\Api\QuizEnrollController;
 use App\Http\Controllers\Api\QuizGameScoreController;
 use App\Http\Controllers\Api\QuizResultController;
 use App\Http\Controllers\Api\QuizTypeController;
@@ -62,6 +63,7 @@ Route::middleware('auth:api')->group(function () {
     Route::resource('/quiztypes',QuizTypeController::class);
     Route::resource('/games',GameController::class);
     Route::resource('/gameclaims',GameClaimController::class);
+    Route::resource('/quizclaims',QuizEnrollController::class);
     Route::resource('/leaderboard',QuizGameScoreController::class);
     Route::resource('/gameanswer',GameAnswerController::class);
     Route::resource('/quizanswer',QuizAnswerController::class);
