@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Quiz;
 use App\Models\QuizAnswer;
 use App\Models\QuizAnswerKey;
 use App\Models\QuizClaim;
@@ -65,6 +66,11 @@ class QuizAnswerController extends Controller
 
             $user_answer->save();
 
+            if($this->isComplete($quiz_claim->quiz_id, $quiz_claim->_id)){
+                $quiz_claim->is_completed = true;
+                $quiz_claim->save();
+            }
+
             return response()->json([
                 'success' => true,
                 'data' => true
@@ -78,6 +84,21 @@ class QuizAnswerController extends Controller
         }
     }
 
+    function isComplete($quizId, $quiz_claim_id) {
+        $quiz = Quiz::with('questions.content')->find($quizId);
+        $claim = QuizAnswer::where('quiz_claim_id',$quiz_claim_id)->get();
+
+        if (!$quiz) {
+            echo "Quiz not found.";
+            return;
+        }
+        $total = 0;
+        foreach($quiz->questions as $q){
+            $total = $total + count($q->content);
+        }
+        
+        return $total == count($claim);
+    }
     /**
      * Display the specified resource.
      */
