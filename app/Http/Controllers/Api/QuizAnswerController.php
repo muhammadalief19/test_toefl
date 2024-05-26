@@ -41,14 +41,15 @@ class QuizAnswerController extends Controller
                 'quiz_option_id' => 'required',
                 'quiz_content_id' => 'required',
                 'quiz_claim_id' => 'required',
-                'quiz_id' => 'required'
             ]);
             
+
+            $quiz_claim = QuizClaim::find($request->quiz_claim_id);
             $score = 0;
 
             $key = QuizAnswerKey::where('quiz_content_id',$request->quiz_content_id)->first();
 
-            $attempt = QuizClaim::where('quiz_id',$request->quiz_id)->get();
+            $attempt = QuizClaim::where('quiz_id',$quiz_claim->quiz_id)->get();
             if($key->quiz_option_id == $request->quiz_content_id){
                 $score = 10 * 1 / count($attempt);
             }
