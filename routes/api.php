@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\BookmarkController;
 use App\Http\Controllers\Api\GameAnswerController;
 use App\Http\Controllers\Api\GameClaimController;
 use App\Http\Controllers\Api\GameController;
+use App\Http\Controllers\Api\PairingClaimController;
 use App\Http\Controllers\Api\QuizAnswerController;
 use App\Http\Controllers\Api\QuizController;
 use App\Http\Controllers\Api\QuizGameScoreController;
@@ -67,4 +68,5 @@ Route::middleware('auth:api')->group(function () {
     Route::resource('/quizgameresult',QuizResultController::class);
     Route::resource('/randomword',RandomWordController::class);
     Route::resource('/scrambledword',ScrambledWordController::class);
+    Route::resource('/pairingclaims',PairingClaimController::class);
 });
