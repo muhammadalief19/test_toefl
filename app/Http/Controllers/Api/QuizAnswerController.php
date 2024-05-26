@@ -58,7 +58,7 @@ class QuizAnswerController extends Controller
 
             $user_answer->quiz_option_id = $request->quiz_option_id;
             $user_answer->quiz_claim_id = $request->quiz_claim_id;
-            $user_answer->quiz_content_id = $request->content_id;
+            $user_answer->quiz_content_id = $request->quiz_content_id;
             $user_answer->user_id = $user->_id;
             $user_answer->score = $score;
             $user_answer->created_at = Carbon::now();

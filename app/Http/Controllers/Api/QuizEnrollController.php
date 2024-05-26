@@ -53,7 +53,6 @@ class QuizEnrollController extends Controller
                 $claim_quiz = new QuizClaim();
                 
                 $claim_quiz->quiz_id = $request->quiz_id;
-                $claim_quiz->quiz_content_id = $request->quiz_content_id;
                 $claim_quiz->user_id = $user_id;
                 $claim_quiz->is_completed = false;
                 
