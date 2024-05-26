@@ -84,7 +84,7 @@ class QuizEnrollController extends Controller
         try {
             $user = auth()->user();
 
-            $quiz_claims = QuizClaim::with('game_answer')->where('quiz_id',$id)->where('user_id',$user->_id)->where('is_completed',true)->get();
+            $quiz_claims = QuizClaim::with('quiz_answer')->where('quiz_id',$id)->where('user_id',$user->_id)->where('is_completed',true)->get();
             
             $claim_id = '';
             $maxScore = 0;
@@ -95,8 +95,8 @@ class QuizEnrollController extends Controller
 
             foreach ($quiz_claims as $quiz_claim) {
                 $totalScore = 0;
-                foreach ($quiz_claim->game_answer as $game_answer) {
-                    $totalScore += $game_answer->score;
+                foreach ($quiz_claim->quiz_answer as $quiz_answer) {
+                    $totalScore += $quiz_answer->score;
                 }
 
                 if ($totalScore > $maxScore) {
@@ -105,7 +105,7 @@ class QuizEnrollController extends Controller
                 }
             }
 
-            $highestQuizClaim = QuizClaim::with('game_answer')->find($claim_id);
+            $highestQuizClaim = QuizClaim::with('quiz_answer')->find($claim_id);
         
             
             
@@ -113,7 +113,7 @@ class QuizEnrollController extends Controller
                 'success' => true,
                 'data' => [
                     'claimId' => $claim_id,
-                    'user_answer' => $highestQuizClaim->game_answer,
+                    'user_answer' => $highestQuizClaim->quiz_answer,
                     'quiz' => $quiz,
                 ],
             ]);
