@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Answer;
 use App\Models\GameAnswer;
 use App\Models\GameClaim;
+use App\Models\QuizAnswer;
 use App\Models\QuizAnswerKey;
 use App\Models\QuizClaim;
 use Exception;
@@ -26,7 +27,7 @@ class QuizResultController extends Controller
                 $claim = GameAnswer::where('game_claim_id',$request->claim_id)->get();
                 
             }else{
-                $claim = QuizClaim::where('quiz_claim_id',$request->claim_id)->get();
+                $claim = QuizAnswer::where('quiz_claim_id',$request->claim_id)->get();
             }
 
             foreach($claim as $c){

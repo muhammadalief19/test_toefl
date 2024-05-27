@@ -22,7 +22,7 @@ class ScrambledWordController extends Controller
         }catch(Exception $e){
             return response()->json([
                 'success' => false,
-                'data'=> $e->getMessage()
+                'data'=> false
             ]);   
         }
         
@@ -53,7 +53,7 @@ class ScrambledWordController extends Controller
         }catch(Exception $e){
             return response()->json([
                 'success' => false,
-                'data'=> $e->getMessage()
+                'data'=> false
             ]);
         }
     }

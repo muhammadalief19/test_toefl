@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Quiz;
 use App\Models\QuizAnswer;
 use App\Models\QuizAnswerKey;
 use App\Models\QuizClaim;
@@ -41,28 +42,34 @@ class QuizAnswerController extends Controller
                 'quiz_option_id' => 'required',
                 'quiz_content_id' => 'required',
                 'quiz_claim_id' => 'required',
-                'quiz_id' => 'required'
             ]);
             
+
+            $quiz_claim = QuizClaim::find($request->quiz_claim_id);
             $score = 0;
 
             $key = QuizAnswerKey::where('quiz_content_id',$request->quiz_content_id)->first();
 
-            $attempt = QuizClaim::where('quiz_id',$request->quiz_id)->get();
-            if($key->quiz_option_id == $request->quiz_content_id){
-                $score = 10 * 1 / count($attempt);
+            $attempt = QuizClaim::where('quiz_id',$quiz_claim->quiz_id)->where('user_id',$user->_id)->get();
+            if($key->quiz_option_id == $request->quiz_option_id && count($attempt) > 0){
+                $score = $score + 10 * 1 / count($attempt);
             }
 
             $user_answer = new QuizAnswer();
 
             $user_answer->quiz_option_id = $request->quiz_option_id;
             $user_answer->quiz_claim_id = $request->quiz_claim_id;
-            $user_answer->quiz_content_id = $request->content_id;
+            $user_answer->quiz_content_id = $request->quiz_content_id;
             $user_answer->user_id = $user->_id;
             $user_answer->score = $score;
             $user_answer->created_at = Carbon::now();
 
             $user_answer->save();
+
+            if($this->isComplete($quiz_claim->quiz_id, $quiz_claim->_id)){
+                $quiz_claim->is_completed = true;
+                $quiz_claim->save();
+            }
 
             return response()->json([
                 'success' => true,
@@ -77,6 +84,21 @@ class QuizAnswerController extends Controller
         }
     }
 
+    function isComplete($quizId, $quiz_claim_id) {
+        $quiz = Quiz::with('questions.content')->find($quizId);
+        $claim = QuizAnswer::where('quiz_claim_id',$quiz_claim_id)->get();
+
+        if (!$quiz) {
+            echo "Quiz not found.";
+            return;
+        }
+        $total = 0;
+        foreach($quiz->questions as $q){
+            $total = $total + count($q->content);
+        }
+        
+        return $total == count($claim);
+    }
     /**
      * Display the specified resource.
      */
