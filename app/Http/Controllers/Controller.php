@@ -22,7 +22,7 @@ use Illuminate\Routing\Controller as BaseController;
  * )
  *
  * @OA\Server(
- *      url="https://lokabestari.live/api/",
+ *      url=L5_SWAGGER_CONST_HOST,
  *      description="Demo API Server"
  * )
  * 
