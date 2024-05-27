@@ -90,7 +90,6 @@ class AuthController extends Controller
                 'email' => $userCheck ? $userCheck->email : null,
                 'is_verified_register' => $userCheck ? $userCheck->is_verified_register : null,
                 'email_verified_at' => $userCheck ? $userCheck->email_verified_at : null,
-                'token' => $token
             ];
 
             if ($userCheck['is_verified_register'] == false) {
@@ -127,7 +126,8 @@ class AuthController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => 'User login successfully',
-                'data' => $mappedDataUser
+                'data' => $mappedDataUser,
+                'token' => $token
             ]);
         } catch (Exception $e) {
             return response()->json([
