@@ -113,7 +113,8 @@ class AuthController extends Controller
                     return response()->json([
                         'success' => true,
                         'message' => 'Please verify your email first before login, check your email for verification',
-                        'data' => $mappedDataUser // lek false (column isverified e) ngarah ke kode otp, ws dikirim ho
+                        'data' => $mappedDataUser, // lek false (column isverified e) ngarah ke kode otp, ws dikirim ho
+                        'token' => $token
                     ]);
                 }
 
