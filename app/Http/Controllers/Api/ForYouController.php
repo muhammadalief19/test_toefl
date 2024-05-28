@@ -19,7 +19,7 @@ class ForYouController extends Controller
             $randomQuiz = $allQuizzes->random();
             $quizs[] = $randomQuiz;
         
-            $types = ['Listening', 'Grammar', 'Reading', 'Vocabulary'];
+            $types = ['Vocabulary', 'Grammar', 'Reading', 'Listening'];
         
             function getRandomQuizByType($type) {
                 $quizzesByType = Quiz::with('type')->whereHas('type', function($q) use ($type) {
