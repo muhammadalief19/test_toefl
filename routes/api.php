@@ -63,6 +63,7 @@ Route::middleware('auth:api')->group(function () {
         Route::get('/get-all/targets', 'getAllTargetValue');
         Route::patch('/add-and-patch-target', 'addTarget');
         Route::get('/get-score-toefl', 'getLevelUser');
+        Route::get('/get-onboarding-target','getTargetOnBoarding');
     });
 
     Route::resource('/randomword', RandomWordController::class);

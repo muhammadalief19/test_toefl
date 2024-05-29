@@ -110,4 +110,20 @@ class ValueHomeController extends Controller
             ], 500);
         }
     }
+
+    public function getTargetOnBoarding(){
+        try{
+            $targets = Target::whereIn('score_target',[500,425,550,600])->get();
+
+            return response()->json([
+                'success' => true,
+                'message' => $targets,
+            ]);
+        }catch(Exception $e){
+            return response()->json([
+                'success' => true,
+                'message' => [],
+            ]);
+        }
+    }
 }
