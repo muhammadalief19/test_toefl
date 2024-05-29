@@ -39,6 +39,8 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('check/password', 'checkPassword');
     Route::post('change/password', 'changePassword');
 });
+Route::get('/get-onboarding-target',[ValueHomeController::class, 'getTargetOnBoarding']);
+
 
 Route::middleware('auth:api')->group(function () {
     Route::controller(PacketController::class)->group(function () {
@@ -63,7 +65,6 @@ Route::middleware('auth:api')->group(function () {
         Route::get('/get-all/targets', 'getAllTargetValue');
         Route::patch('/add-and-patch-target', 'addTarget');
         Route::get('/get-score-toefl', 'getLevelUser');
-        Route::get('/get-onboarding-target','getTargetOnBoarding');
     });
 
     Route::resource('/randomword', RandomWordController::class);
