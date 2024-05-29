@@ -367,7 +367,7 @@ class AuthController extends Controller
             // send new otp email notification
             $get_user_email = $user['email'];
             $get_user_name = $user['name'];
-            Mail::to($user['email'])->send(new ForgotMail($get_user_email, $get_user_name, $validTokenRegister));
+            Mail::to($user['email'])->send(new RegisterOtpMail($get_user_email, $get_user_name, $validTokenRegister));
 
             $updateOtp = $user->update([
                 'otp_register' => $validTokenRegister,
