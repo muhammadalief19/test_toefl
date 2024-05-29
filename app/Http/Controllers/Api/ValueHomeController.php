@@ -18,7 +18,7 @@ class ValueHomeController extends Controller
         $userTarget = [
             'id' => $userTarget->target ? $userTarget->target->_id : "",
             'name_level_target' => $userTarget->target ? $userTarget->name_level_target : "",
-            'score_target' => $userTarget->target ? $userTarget->score_target : "",
+            'score_target' => $userTarget->target ? $userTarget->score_target : 0,
         ];
 
         $targets = Target::all();
