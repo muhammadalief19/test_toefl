@@ -78,7 +78,10 @@ class QuizGameScoreController extends Controller
                 return $b['total_score'] <=> $a['total_score'];
             });
 
-            return response()->json(['data' => $all_scores]);
+            $top_10_scores = array_slice($all_scores, 0, 10);
+
+
+            return response()->json(['data' => $top_10_scores]);
                 
         } catch (\Exception $e) {
             return response()->json(['error' => 'An error occurred while retrieving scores. Please try again later.'], 500);
