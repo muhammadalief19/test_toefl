@@ -117,12 +117,12 @@ class ValueHomeController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => $targets,
+                'data' => $targets,
             ]);
         }catch(Exception $e){
             return response()->json([
                 'success' => true,
-                'message' => [],
+                'data' => [],
             ]);
         }
     }
