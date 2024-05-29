@@ -16,9 +16,9 @@ class ValueHomeController extends Controller
     {
         $userTarget = User::with('target')->where('_id', auth()->user()->_id)->first();
         $userTarget = [
-            'id' => $userTarget->target->_id,
-            'name_level_target' => $userTarget->target->name_level_target,
-            'score_target' => $userTarget->target->score_target,
+            'id' => $userTarget->target ? $userTarget->target->_id : "",
+            'name_level_target' => $userTarget->target ? $userTarget->name_level_target : "",
+            'score_target' => $userTarget->target ? $userTarget->score_target : "",
         ];
 
         $targets = Target::all();
