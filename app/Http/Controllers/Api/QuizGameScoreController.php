@@ -79,9 +79,9 @@ class QuizGameScoreController extends Controller
             });
 
             $top_10_scores = array_slice($all_scores, 0, 10);
+            $me = auth()->user();
 
-
-            return response()->json(['data' => $top_10_scores]);
+            return response()->json(['user' => $me,'data' => $top_10_scores]);
                 
         } catch (\Exception $e) {
             return response()->json(['error' => 'An error occurred while retrieving scores. Please try again later.'], 500);
