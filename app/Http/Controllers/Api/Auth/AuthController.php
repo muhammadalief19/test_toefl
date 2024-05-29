@@ -77,11 +77,12 @@ class AuthController extends Controller
 
             $credentials = $request->only('email', 'password');
 
+            
             if (!$token = JWTAuth::attempt($credentials)) {
                 return response()->json([
                     'success' => false,
                     'message' => 'email or password not registered',
-                ], 401);
+                ], 200);
             }
 
             $mappedDataUser = [
@@ -198,6 +199,14 @@ class AuthController extends Controller
 
             $now = now();  // Waktu saat ini
             $expiredAt = $now->copy()->addHour()->toDateTimeString();
+
+            $requestEmailCheck = User::where('email', $request->email)->first();
+            if($requestEmailCheck) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'email already digae'
+                ],200);
+            }
 
             $user = User::create([
                 'name' => $request->name,
