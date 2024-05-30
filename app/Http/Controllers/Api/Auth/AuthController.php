@@ -851,7 +851,7 @@ class AuthController extends Controller
                     'id' => $userInit->_id,
                     'level' => "",
                     'current_score' => "",
-                    'target_score' => $userInit->target ? $userInit->target->score_target : "",
+                    'target_score' => $userInit->target ? $userInit->target->score_target : 0,
                     'name_user' => $userInit->name,
                     'email_user' => $userInit->email,
                 ]
@@ -865,7 +865,7 @@ class AuthController extends Controller
                 'id' => $userInit->_id,
                 'level' => $scoreUserLatest->level_profiency,
                 'current_score' => $scoreUserLatest->score_toefl,
-                'target_score' => $userInit->target ? $userInit->target->score_target : "",
+                'target_score' => $userInit->target ? $userInit->target->score_target : 0,
                 'name_user' => $userInit->name,
                 'email_user' => $userInit->email,
             ]
