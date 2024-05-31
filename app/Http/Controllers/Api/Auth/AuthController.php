@@ -850,7 +850,7 @@ class AuthController extends Controller
                 'data' => [
                     'id' => $userInit->_id,
                     'level' => "",
-                    'current_score' => "",
+                    'current_score' => 0,
                     'target_score' => $userInit->target ? $userInit->target->score_target : 0,
                     'name_user' => $userInit->name,
                     'email_user' => $userInit->email,
