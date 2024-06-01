@@ -8,6 +8,7 @@ use App\Models\NestedQuestion;
 use App\Models\Paket;
 use App\Models\Question;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PacketFullController extends Controller
 {
@@ -355,6 +356,7 @@ class PacketFullController extends Controller
             $file = $request->file('question_nested');
             $fileName = $file->getClientOriginalName();
             $filePath = $file->storeAs('nested_question', $fileName, 'public');
+            $filePath = Storage::cloud()->put($filePath, $file);
             $questionData['question_nested'] = $filePath;
             NestedQuestion::where('_id', $id)->update([
                 'question_nested' => $questionData['question_nested'],
