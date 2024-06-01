@@ -53,7 +53,7 @@ class PacketFullController extends Controller
                 $file = $request->file('question');
                 $fileName = $file->getClientOriginalName();
                 // $filePath = $file->storeAs('questions', $fileName, 'public');
-            $filePath = Storage::cloud()->put('/questions/', $file);
+            $filePath = Storage::cloud()->put('/questions', $file);
 
                 $questionData['question'] = $filePath;
             } else {
@@ -80,7 +80,7 @@ class PacketFullController extends Controller
                 $file = $request->file('question');
                 $fileName = $file->getClientOriginalName();
                 // $filePath = $file->storeAs('questions', $fileName, 'public');
-            $filePath = Storage::cloud()->put('/questions/', $file);
+            $filePath = Storage::cloud()->put('/questions', $file);
 
                 $questionData['question'] = $filePath;
             } else {
@@ -107,7 +107,7 @@ class PacketFullController extends Controller
                 $file = $request->file('question');
                 $fileName = $file->getClientOriginalName();
                 // $filePath = $file->storeAs('questions', $fileName, 'public');
-            $filePath = Storage::cloud()->put('/questions/', $file);
+            $filePath = Storage::cloud()->put('/questions', $file);
 
                 $questionData['question'] = $filePath;
             } else {
@@ -134,7 +134,7 @@ class PacketFullController extends Controller
                 $file = $request->file('question');
                 $fileName = $file->getClientOriginalName();
                 // $filePath = $file->storeAs('questions', $fileName, 'public');
-            $filePath = Storage::cloud()->put('/questions/', $file);
+            $filePath = Storage::cloud()->put('/questions', $file);
 
                 $questionData['question'] = $filePath;
             } else {
@@ -161,7 +161,7 @@ class PacketFullController extends Controller
                 $file = $request->file('question');
                 $fileName = $file->getClientOriginalName();
                 // $filePath = $file->storeAs('questions', $fileName, 'public');
-            $filePath = Storage::cloud()->put('/questions/', $file);
+            $filePath = Storage::cloud()->put('/questions', $file);
 
                 $questionData['question'] = $filePath;
             } else {
@@ -188,7 +188,7 @@ class PacketFullController extends Controller
                 $file = $request->file('question');
                 $fileName = $file->getClientOriginalName();
                 // $filePath = $file->storeAs('questions', $fileName, 'public');
-            $filePath = Storage::cloud()->put('/questions/', $file);
+            $filePath = Storage::cloud()->put('/questions', $file);
 
                 $questionData['question'] = $filePath;
             } else {
@@ -250,7 +250,7 @@ class PacketFullController extends Controller
             $file = $request->file('question');
             $fileName = $file->getClientOriginalName();
             // $filePath = $file->storeAs('questions', $fileName, 'public');
-            $filePath = Storage::cloud()->put('/questions/', $file);
+            $filePath = Storage::cloud()->put('/questions', $file);
 
             $questionData['question'] = $filePath;
         } else {
@@ -306,7 +306,7 @@ class PacketFullController extends Controller
             $file = $request->file('question_nested');
             $fileName = $file->getClientOriginalName();
             // $filePath = $file->storeAs('nested_question', $fileName, 'public');
-            $filePath = Storage::cloud()->put('/nested_question/', $file);
+            $filePath = Storage::cloud()->put('/nested_question', $file);
 
             $questionData['question_nested'] = $filePath;
             NestedQuestion::create([
@@ -372,7 +372,7 @@ class PacketFullController extends Controller
             $file = $request->file('question_nested');
             $fileName = $file->getClientOriginalName();
             // $filePath = $file->storeAs('nested_question', $fileName, 'public');
-            $filePath = Storage::cloud()->put('/nested_question/', $file);
+            $filePath = Storage::cloud()->put('/nested_question', $file);
             $questionData['question_nested'] = $filePath;
             NestedQuestion::where('_id', $id)->update([
                 'question_nested' => $questionData['question_nested'],
