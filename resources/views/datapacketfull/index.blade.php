@@ -44,7 +44,7 @@
                         <td>
                             @if(Str::startsWith($question->question, 'questions/'))
                             <audio controls>
-                                <source src="{{ asset('storage/' . $question->question) }}" type="audio/mpeg">
+                                <source src="{{ env('AWS_ENDPOINT').'/'.env('AWS_BUCKET').'/'.$question->question }}" type="audio/mpeg">
                                 Your browser does not support the audio element.
                             </audio>
                             @else

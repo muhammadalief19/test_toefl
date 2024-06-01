@@ -51,7 +51,7 @@
                                             'nested_question/'))
                                             <audio controls>
                                                 <source
-                                                    src="{{ asset('storage/' . $initNestedQuestion->question_nested) }}"
+                                                    src="{{ env('AWS_ENDPOINT').'/'.env('AWS_BUCKET').'/'. $initNestedQuestion->question_nested }}"
                                                     type="audio/mpeg">
                                                 Your browser does not support the audio element.
                                             </audio>
@@ -86,7 +86,7 @@
                                                     @if(Str::startsWith($nested->question->question, 'questions/'))
                                                     <audio controls>
                                                         <source
-                                                            src="{{ asset('storage/' . $nested->question->question) }}"
+                                                            src="{{ env('AWS_ENDPOINT').'/'.env('AWS_BUCKET').'/'.$nested->question->question }}"
                                                             type="audio/mpeg">
                                                         Your browser does not support the audio element.
                                                     </audio>
@@ -132,7 +132,7 @@
 
                                             @if(Str::startsWith($question->question, 'questions/'))
                                             <audio controls>
-                                                <source src="{{ asset('storage/' . $question->question) }}"
+                                                <source src="{{ env('AWS_ENDPOINT').'/'.env('AWS_BUCKET').'/'. $question->question }}"
                                                     type="audio/mpeg">
                                                 Your browser does not support the audio element.
                                             </audio>
