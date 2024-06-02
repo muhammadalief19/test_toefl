@@ -88,7 +88,7 @@
                                     <td> {{ $loop->iteration }}</td>
                                     <td>@if(Str::startsWith($nested->question_nested, 'nested_question/'))
                                         <audio controls>
-                                            <source src="{{ env('AWS_ENDPOINT').'/'.env('AWS_BUCKET').'/'.$nested->question_nested) }}"
+                                            <source src="{{ env('AWS_ENDPOINT').'/'.env('AWS_BUCKET').'/'.$nested->question_nested }}"
                                                 type="audio/mpeg">
                                             Your browser does not support the audio element.
                                         </audio>
