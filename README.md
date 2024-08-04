@@ -110,10 +110,7 @@ Pada aplikasi eTOEFL, kami menggunakan Storage Server untuk menyimpan dan mengam
 eTOEFL adalah aplikasi berbasis mobile yang dikembangkan dengan Flutter dan memungkinkan pengguna untuk mengakses berbagai fitur dengan mudah. Kemudian, backend aplikasi menggunakan framework Laravel untuk mengatur autentikasi pengguna dan berinteraksi dengan database untuk penyimpanan dan pengambilan data. Untuk database aplikasi menggunakan MongoDB NoSQL yang berfungsi menyimpan dan mengambil data dari database serta memberikan respons terhadap permintaan pengguna. Terakhir, Server berfungsi sebagai perantara antara aplikasi mobile, backend, dan database. Server juga menerima request dari pengguna, kemudian meneruskannya ke backend dan database yang nantinya akan mengirimkan kembali respons kepada pengguna
 
 ## Desain Sistem
-
-<div align="center">
-  <img src="./img/1.png" alt="" width="35%" />
-</div>
+![1 (1)](https://github.com/user-attachments/assets/ee8e0f7c-4f41-42f8-b874-338e951e166b)
 
 1. **Storage Server** berjalan pada port 3000 yang bertanggung jawab untuk menyimpan dan mengambil data, khususnya file atau dokumen besar yang diperlukan oleh aplikasi.
 
@@ -434,9 +431,7 @@ eTOEFL adalah aplikasi berbasis mobile yang dikembangkan dengan Flutter dan memu
 
 ## Tahapan Pelaksaan
 
-<div align="center">
-  <img src="./img/tahapan-pelaksanaan.jpg" alt="" width="100%" />
-</div>
+ ![tahapan-pelaksanaan (2)](https://github.com/user-attachments/assets/710085be-3a3c-403d-839e-3c48b001063f)
 
 ## Implementasi
 
