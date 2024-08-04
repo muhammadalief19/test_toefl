@@ -1,92 +1,485 @@
-# 3funding Project
+<div align="center">
+  <h1 style="text-align: center;font-weight: bold">Project Charter Container Based App<br>
+Mobile Apps e-TOEFL</h1>
+  <h3 style="text-align: center;">Dosen Pengampu : Dr. Ferry Astika Saputra, S.T., M.Sc.</h3>
+</div>
+<br />
+<div align="center">
+  <img src="https://upload.wikimedia.org/wikipedia/id/4/44/Logo_PENS.png" alt="Logo PENS">
+  <h3 style="text-align: center;">Disusun Oleh : <br>Kelompok 3 dan 5</h3>
+  <div style="align: center;">
+    <table>
+      <tr>
+        <th>No</th>
+        <th>Nama</th>
+        <th>NRP</th>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>Gede Hari Yoga Nanda</td>
+        <td>3122500005</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>Arsyita Devanaya Arianto</td>
+        <td>3122500008</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>Ali Azhar</td>
+        <td>3122500011</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>Mahendra Khibrah R. S</td>
+        <td>3122500013</td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>Mayada Azizah</td>
+        <td>3122500015</td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td>Gandi Rukmaning Ayu</td>
+        <td>3122500016</td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td>Adam Rasyid Nurmuhammad</td>
+        <td>3122500018</td>
+      </tr>
+      <tr>
+        <td>8</td>
+        <td>Adinda Zahra Q</td>
+        <td>3122500020</td>
+      </tr>
+      <tr>
+        <td>9</td>
+        <td>M Reza Muktasib</td>
+        <td>3122500024</td>
+      </tr>
+      <tr>
+        <td>10</td>
+        <td>Adira Callysta</td>
+        <td>3122500025</td>
+      </tr>
+      <tr>
+        <td>11</td>
+        <td>Shofira Izza N</td>
+        <td>3122500026</td>
+      </tr>
+    </table>
+  </div>
 
+<h2 style="text-align: center;line-height: 1.5">Politeknik Elektronika Negeri Surabaya<br>Departemen Teknik Informatika Dan Komputer<br>Program Studi Teknik Informatika<br>2023/2024</h2>
+</div>
 
+## Daftar Isi
 
-## Getting started
+- [Daftar Isi](#daftar-isi)
+- [Pendahuluan](#pendahuluan)
+- [Ruang Lingkup](#ruang-lingkup)
+- [Desain Sistem](#desain-sistem)
+- [Tim dan Tugas](#tim-dan-tugas)
+- [Tahapan Pelaksaan](#tahapan-pelaksaan)
+- [Implementasi](#implementasi)
+- [Sistem testing](#sistem-testing)
+- [Kesimpulan](#kesimpulan)
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+<hr>
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+## Abstrak
 
-## Add your files
+E-TOEFL adalah aplikasi mobile berbasis Flutter yang dirancang untuk membantu mahasiswa PENS dalam mempersiapkan tes e-TOEFL. Aplikasi ini menawarkan pengalaman belajar yang dipersonalisasi, memungkinkan pengguna memilih topik latihan dan memantau skor simulasi. Backend aplikasi menggunakan Laravel untuk autentikasi dan berinteraksi dengan MongoDB NoSQL yang menyimpan data dan melakukan operasi CRUD. Docker Engine digunakan untuk mengembangkan, mengirimkan, dan menjalankan aplikasi dalam kontainer, memastikan portabilitas, isolasi, dan kemudahan deployment. Desain sistem meliputi Storage Server pada port 3000 untuk penyimpanan file, Web Server Laravel pada port 80 untuk logika bisnis dan komunikasi dengan Storage Server dan MongoDB, serta MongoDB pada port 27017 untuk penyimpanan data aplikasi. Docker Engine menghubungkan antarmuka pengguna mobile dengan layanan backend. Tahapan pelaksanaan mencakup perencanaan dan analisis, desain dan prototyping, pengembangan dan implementasi, serta deployment dan pemeliharaan. Pada sistem testing terdapat pengujian unit, integrasi, sistem, dan uji pengguna. Docker memastikan konsistensi lingkungan pengujian. Aplikasi e-TOEFL diharapkan meningkatkan aksesibilitas dan efektivitas persiapan tes e-TOEFL bagi mahasiswa dengan sistem backend yang handal dan terkontainerisasi.
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+*Keywords:* *e-toefl, container, docker*
 
-```
-cd existing_repo
-git remote add origin https://gitlab.com/guaryyy/3funding-project.git
-git branch -M main
-git push -uf origin main
-```
+## Tahap Pelaksanaan
 
-## Integrate with your tools
+Proyek berlangsung selama 6 minggu, mulai dari tanggal 25 April 2024 hingga 30 Mei 2024. Dimana tahapan pelaksanaannya mencakup perencanaan dan analisis hingga pengujian.
 
-- [ ] [Set up project integrations](https://gitlab.com/guaryyy/3funding-project/-/settings/integrations)
+## Pendahuluan
 
-## Collaborate with your team
+Docker adalah platform perangkat lunak yang memudahkan pembuatan, pengujian, dan penerapan aplikasi dengan cepat. Docker mengemas perangkat lunak ke dalam kontainer yang berisi semua kebutuhan perangkat lunak agar bisa berfungsi, seperti pustaka, alat sistem, kode, dan runtime. Dengan Docker, kita dapat dengan mudah menerapkan dan menskalakan aplikasi di berbagai lingkungan. Docker memiliki beberapa manfaat yaitu, portabilitas aplikasi yang dapat dijalankan di lingkungan apapun tanpa perlu mengubah konfigurasi, isolasi yang memastikan setiap kontainer berjalan terpisah dan aman dari aplikasi lain, kemudahan deployment dan skalabilitas aplikasi untuk menambah atau mengurangi instance kontainer dengan mudah.
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+Pada aplikasi eTOEFL, kami menggunakan Storage Server untuk menyimpan dan mengambil data, seperti file atau dokumen besar. Kami juga memanfaatkan Web Server yang menggunakan framework Laravel untuk mengelola request pengguna serta berinteraksi dengan Storage Server dan MongoDB Database untuk operasi CRUD. Selanjutnya, MongoDB Database digunakan untuk menyimpan data aplikasi. Terakhir, Docker Engine dipakai untuk mengembangkan, mmengirimkan dan menjalankan aplikasi dalam kontainer. Kemudian, Docker akan menghubungkan antarmuka pengguna pada perangkat mobile dengan backend seperti Web Server, MongoDB, dan Storage Server.
 
-## Test and Deploy
+## Ruang Lingkup
 
-Use the built-in continuous integration in GitLab.
+eTOEFL adalah aplikasi berbasis mobile yang dikembangkan dengan Flutter dan memungkinkan pengguna untuk mengakses berbagai fitur dengan mudah. Kemudian, backend aplikasi menggunakan framework Laravel untuk mengatur autentikasi pengguna dan berinteraksi dengan database untuk penyimpanan dan pengambilan data. Untuk database aplikasi menggunakan MongoDB NoSQL yang berfungsi menyimpan dan mengambil data dari database serta memberikan respons terhadap permintaan pengguna. Terakhir, Server berfungsi sebagai perantara antara aplikasi mobile, backend, dan database. Server juga menerima request dari pengguna, kemudian meneruskannya ke backend dan database yang nantinya akan mengirimkan kembali respons kepada pengguna
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+## Desain Sistem
 
-***
+<div align="center">
+  <img src="./img/1.png" alt="" width="35%" />
+</div>
 
-# Editing this README
+1. **Storage Server** berjalan pada port 3000 yang bertanggung jawab untuk menyimpan dan mengambil data, khususnya file atau dokumen besar yang diperlukan oleh aplikasi.
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
+2. **Web Server Laravel** berjalan pada port 80, dikembangkan dengan framework laravel dengan peran sebagai pusat logika bisnis aplikasi dan mengelola permintaan dari frontend. Web server laravel bekerja untuk menerima permintaan dari docker engine, berkomunikasi dengan storage server untuk manajemen file, dan menjalankan operasi CRUD ke MongoDB database.
 
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+3. **MongoDB Database** berjalan pada port 27017 dan menerima permintaan dari web server larave melalui Docker Engine. MongoDB database bertugas untuk menyimpan data aplikasi dalam format NoSQL dan menjalankan operasi CRUD yang diminta oleh web server Laravel.
 
-## Name
-Choose a self-explaining name for your project.
+4. **Docker Engine** berperan sebagai perantara antara Mobile FE dan layanan backend seperti web server laravel, storage server, dan MongoDB database. Docker Engine berkomunikasi dengan Mobile FE melalui layanan backend yang sesuai, menerima permintaan, dan mengirimkan response.
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+5. **Mobile FE** berfungsi untuk menyajikan antarmuka pengguna yang dapat diakses melalui perangkat mobile. Mobile FE berinteraksi dengan Docker Engine untuk mengakses layanan backend dan menerima response.
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+## Tim dan Tugas
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+**Link Backlog:** https://docs.google.com/spreadsheets/d/1H3uiufmB5BPQeNi5vA3qUKwm-h5uV2LpxK4VTh3sPIg/edit?usp=sharing
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+<table>
+    <tr>
+      <th>No</th>
+      <th>Bakclog</th>
+      <th>ToDo</th>
+      <th>Eksekutor</th>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>Mobile HomePage</td>
+      <td>Slicing Card Target Score</td>
+      <td>Arsyita Devanaya Arianto</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td>Consume Api Target Score</td>
+      <td>Arsyita Devanaya Arianto</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td>Slicing Chart Pie Lingkaran</td>
+      <td>Mahendra Khibrah R. S</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td>Consume Rank User</td>
+      <td>M Reza Muktasib</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td>Slicing Card Navigasi Rank</td>
+      <td>Ali Azhar P.B</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td>Consume For You List</td>
+      <td>M Reza Muktasib</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td>Slicing For You Card</td>
+      <td>Arsyita Devanaya Arianto</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td>Slicing Simulation Card</td>
+      <td>Arsyita Devanaya Arianto</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td>Consume Learning Path Category Quiz</td>
+      <td>M Reza Muktasib</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td>Slicing Learning Path Card</td>
+      <td>Arsyita Devanaya Arianto</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td>Design Card Set Target/td>
+      <td>Gandi Rukmaning Ayu, Adinda Zahra Q, Mayada Azizah</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td>Design Chart Pie Lingkaran</td>
+      <td>Gandi Rukmaning Ayu</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td>Design For You Card</td>
+      <td>Mayada Azizah, Adinda Zahra Q</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td>Design Learning Path Card</td>
+      <td>Gandi Rukmaning Ayu, Mayada Azizah, Adinda Zahra Q</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td>Design Simulation Card</td>
+      <td>Adinda Zahra Q, Adinda Zahra Q</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td>Slicing Bottom Nav Bar</td>
+      <td>M Reza Muktasib</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Mobile Bookmark</td>
+      <td>Slicing Card Bookmark</td>
+      <td>Adam Rasyid Nurmuhammad</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td>Consume Bookmark List</td>
+      <td>Mahendra Khibrah R. S</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td>Design Card Bookmark</td>
+      <td>Mayada Azizah, Adinda Zahra Q</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Mobile Profile</td>
+      <td>Design Profile Page</td>
+      <td>Gandi Rukmaning Ayu</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td>Consume Profile User</td>
+      <td>Shofira Izza N</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td>Slicing Profile Page</td>
+      <td>Arsyita Devanaya Arianto</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Target Score</td>
+      <td>Slicing Target Score List</td>
+      <td>Adam Rasyid Nurmuhammad</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td>Consume Target Score List</td>
+      <td>Mahendra Khibrah R. S</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td>Design Target Score Page</td>
+      <td>Mayada Azizah, Adinda Zahra Q</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>Simulation Test List Page</td>
+      <td>Slicing Test List Page</td>
+      <td>Mahendra Khibrah R. S</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td>Consume List Test Page</td>
+      <td>Mahendra Khibrah R. S</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>Simulation Test Page</td>
+      <td>Slicing Bottom Nav Bar</td>
+      <td>Mahendra Khibrah R. S</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td>Design Bottom Nav Bar</td>
+      <td>Mayada Azizah, Adinda Zahra Q</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td>Slicing List Soal Bottom Sheet</td>
+      <td>Mahendra Khibrah R. S</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td>Design List Soal Bottom Sheet</td>
+      <td>Mayada Azizah, Adinda Zahra Q</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td>Implementasi Logic Test Question</td>
+      <td>Mahendra Khibrah R. S</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td>Consume Test Question Option dan Key</td>
+      <td>Mahendra Khibrah R. S</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td>Implementasi Logic Test Session</td>
+      <td>Mahendra Khibrah R. S</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td>Membuat State Management Test</td>
+      <td>Mahendra Khibrah R. S</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td>Slicing Test Result</td>
+      <td>Adam Rasyid Nurmuhammad</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td>Logic Test Result</td>
+      <td>Mahendra Khibrah R. S</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>Leaderboard</td>
+      <td>Design Leaderboard</td>
+      <td>Gandi Rukmaning Ayu, Mayada Azizah</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td>Slicing Leaderboard</td>
+      <td>Gandi Rukmaning Ayu</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td>Consume Leaderboard</td>
+      <td>Arsyita Devanaya Arianto</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>Quiz List Page</td>
+      <td>Design Quiz List Page</td>
+      <td>Gandi Rukmaning Ayu</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td>Slicing Quiz List Page</td>
+      <td>Arsyita Devanaya Arianto, M Reza Muktasib</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td>Consume Quiz List Page</td>
+      <td>M Reza Muktasib</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>Quiz Page</td>
+      <td>Consume Quiz Question</td>
+      <td>M Reza Muktasib</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td>Logic Take Quiz</td>
+      <td>M Reza Muktasib</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td>Logic Result</td>
+      <td>M Reza Muktasib</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>Game Page</td>
+      <td>Desain Layout Game Path </td>
+      <td>Gandi Rukmaning Ayu</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td>Slicing Layout Game Path</td>
+      <td>M Reza Muktasib</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td>Create Logic Path Background</td>
+      <td>M Reza Muktasib</td>
+    </tr>
+  </table>
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+## Tahapan Pelaksaan
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+<div align="center">
+  <img src="./img/tahapan-pelaksanaan.jpg" alt="" width="100%" />
+</div>
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+## Implementasi
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+**Tahap 1: Perencanaan & Analisis (Minggu 1-2)**
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+Tujuan & Sasaran: Output dari tahap ini adalah dokumen yang berisi tujuan dan sasaran implementasi E-TOEFL. Dokumen ini harus jelas, terukur, dapat dicapai, relevan, dan berjangka waktu (SMART). <br>
+Mengidentifikasi Target Pengguna: Output dari tahap ini adalah profil target pengguna E-TOEFL. Profil ini harus mencakup informasi demografis, kebutuhan, dan ekspektasi pengguna. <br>
+Gamifikasi: Output dari tahap ini adalah desain gamifikasi yang akan diterapkan pada E-TOEFL. Desain ini harus menarik dan memotivasi pengguna untuk menyelesaikan tes. <br>
+Rancangan Database: Output dari tahap ini adalah rancangan database yang akan digunakan untuk menyimpan data pengguna, hasil tes, dan informasi lainnya. <br>
+Pemilihan Teknologi: Output dari tahap ini adalah pilihan teknologi yang akan digunakan untuk mengembangkan E-TOEFL. Pilihan teknologi ini harus mempertimbangkan faktor-faktor seperti skalabilitas, keamanan, dan kemudahan penggunaan.
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+**Tahap 2: Desain & Prototyping (Minggu 3-4)**
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+Desain UI/UX: Output dari tahap ini adalah desain antarmuka pengguna (UI) dan pengalaman pengguna (UX) E-TOEFL. Desain ini harus intuitif, mudah digunakan, dan estetis. <br>
+Pengembangan Konten: Output dari tahap ini adalah konten tes E-TOEFL. Konten ini harus sesuai dengan standar internasional dan relevan dengan kebutuhan target pengguna.
 
-## License
-For open source projects, say how it is licensed.
+**Tahap 3: Pengembangan & Implementasi (Minggu 5-6)**
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+Pengembangan FE Mobile: Output dari tahap ini adalah aplikasi mobile E-TOEFL. Aplikasi ini harus memungkinkan pengguna untuk mengikuti tes dari perangkat mobile mereka. <br>
+Pengembangan BE: Output dari tahap ini adalah backend E-TOEFL. Backend ini harus bertanggung jawab untuk memproses data pengguna, hasil tes, dan informasi lainnya. <br>
+Containerization Docker: Output dari tahap ini adalah container Docker untuk E-TOEFL. Container ini akan memungkinkan E-TOEFL untuk dijalankan dengan mudah di berbagai lingkungan.
+
+**Tahap 4: Testing & Deployment (Minggu 7-8)**
+
+Testing Installation: Output dari tahap ini adalah instalasi E-TOEFL di lingkungan produksi. Instalasi ini harus memastikan bahwa E-TOEFL berjalan dengan lancar dan aman. <br>
+Functional Testing: Output dari tahap ini adalah pengujian fungsional E-TOEFL. Pengujian ini harus memastikan bahwa semua fitur E-TOEFL berfungsi dengan benar. <br>
+Uji Coba: Output dari tahap ini adalah hasil uji coba E-TOEFL dengan pengguna nyata. Uji coba ini harus mengidentifikasi masalah dan bug yang masih ada. <br>
+Peluncuran: Output dari tahap ini adalah peluncuran E-TOEFL ke publik. Peluncuran ini harus dilakukan dengan strategi yang tepat untuk memastikan kelancaran dan kesuksesan.
+
+## Sistem testing
+
+### Fungsional Testing API
+![image](https://github.com/gandirayu/Administrasi_Jaringan/assets/123063394/e64aad55-9f83-44ba-b8d0-a06f0e5efd36)
+
+## Kesimpulan
+
+Melalui tahapan pelaksanaan ini, diharapkan aplikasi e-TOEFL dapat membantu mahasiswa PENS dalam mempersiapkan diri menghadapi tes e-TOEFL dengan lebih baik, memberikan pengalaman belajar yang dipersonalisasi, serta membuat tes e-TOEFL lebih mudah diakses. Implementasi teknologi yang tepat serta pengujian yang komprehensif akan memastikan aplikasi berjalan dengan baik dan memenuhi kebutuhan pengguna.
+
+Penerapan teknologi Docker Engine dalam aplikasi E-TOEFL menghadirkan banyak keuntungan. Konsistensi dan efisiensi operasional terjamin, deployment dan skalabilitas menjadi mudah, serta keamanan dan keandalan aplikasi terjaga. Docker Engine mengisolasi aplikasi, membuatnya aman dan terlindungi. Image yang tidak dapat diubah memastikan aplikasi selalu berjalan dalam kondisi yang ideal. Keunggulan ini menjadikan Docker Engine sebagai alat penting dalam memastikan kelancaran dan keandalan E-TOEFL.
+
+Keunggulan utama dari penggunaan Docker dalam proyek ini meliputi:
+
+- **Portabilitas:** Aplikasi dapat berjalan di berbagai lingkungan tanpa perlu mengubah konfigurasi, sehingga memudahkan proses pengembangan dan deployment.
+- **Isolasi Lingkungan:** Setiap container berjalan terpisah, yang memastikan tidak ada konflik antara layanan yang berbeda dan meningkatkan keamanan
+- **Skalabilitas:** Dengan Docker, menambah atau mengurangi instance container dapat dilakukan dengan mudah sesuai kebutuhan, memungkinkan aplikasi untuk mengelola beban kerja yang dinamis
+- **Efisiensi:** Docker memungkinkan pemanfaatan sumber daya yang lebih baik dan meminimalkan overhead yang biasanya terkait dengan virtualisasi tradisional.
