@@ -27,6 +27,12 @@ class User extends Authenticatable implements JWTSubject
         'email',
         'password',
         'target_id',
+        'full_name',
+        'phone_number',
+        'date_of_birth',
+        'registration_date',
+        'profile_picture',
+        'status',
         'prodi',
         'nrp',
         'role',
@@ -78,5 +84,66 @@ class User extends Authenticatable implements JWTSubject
     public function target()
     {
         return $this->belongsTo(Target::class);
+    }
+
+    public function role()
+    {
+        return $this->belongsTo(UserRole::class, 'role', '_id');
+    }
+
+    public function assessment() {
+        return $this->hasMany(Assesmen::class, 'user_id', '_id');
+    }
+
+    public function learningProfile() {
+        return $this->hasMany(LearningProfile::class, 'user_id', '_id');
+    }
+
+    public function learningHistory() {
+        return $this->hasMany(LearningHistory::class, 'user_id', '_id');
+    }
+
+    public function preference() {
+        return $this->hasMany(Preference::class, 'user_id', '_id');
+    }
+
+    public function recommendation() {
+        return $this->hasMany(Recommendation::class, 'user_id', '_id');
+    }
+
+    public function quizAnswer() {
+        return $this->hasMany(QuizAnswer::class, 'user_id', '_id');
+    }
+
+    public function topic() {
+        return $this->hasMany(Topic::class, 'user_id', '_id');
+    }
+
+    public function post() {
+        return $this->hasMany(Post::class, 'posted_by', '_id');
+    }
+
+    public function comment() {
+        return $this->hasMany(Comment::class, 'commented_by', '_id');
+    }
+
+    public function privateMessageSend() {
+        return $this->hasMany(PrivateMessage::class, 'sender_id', '_id');
+    }
+
+    public function privateMessageAccept() {
+        return $this->hasMany(PrivateMessage::class, 'recipient_id', '_id');
+    }
+
+    public function activityLog() {
+        return $this->hasMany(ActivityLog::class, 'user_id', '_id');
+    }
+
+    public function payment() {
+        return $this->hasMany(Payment::class, 'user_id', '_id');
+    }
+
+    public function notification() {
+        return $this->hasMany(Notification::class, 'user_id', '_id');
     }
 }

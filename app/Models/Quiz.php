@@ -7,13 +7,24 @@ use MongoDB\Laravel\Eloquent\Model;
 
 class Quiz extends Model
 {
+
+    use HasFactory;
     protected $connection = 'mongodb';
-    protected $collection = 'quizs';
+    protected $collection = 'quizzes';
 
     protected $fillable = [
-        'quiz_name','quiz_type_id','order'
+        'order', 
+        'module_id', 
+        'title', 
+        'description', 
+        'total_questions', 
+        'passing_core', 
+        'created_at'
     ];
-    use HasFactory;
+
+    public function module() {
+        return $this->belongsTo(Module::class, 'module_id', '_id');
+    }
 
     public function type(){
         return $this->belongsTo(QuizType::class,'quiz_type_id','_id');
