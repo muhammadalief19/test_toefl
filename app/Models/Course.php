@@ -31,7 +31,7 @@ class Course extends Model
     }
 
     public function module() {
-        return $this->belongsTo(Module::class, 'course_id', '_id');
+        return $this->hasOne(Module::class, 'course_id', '_id');
     }
 
     public function learningHistory() {

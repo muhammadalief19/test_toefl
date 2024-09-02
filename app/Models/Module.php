@@ -19,7 +19,7 @@ class Module extends Model
     ];
 
     public function course() {
-        return $this->hasMany(Course::class, 'course_id', '_id');
+        return $this->belongsTo(Course::class, 'course_id', '_id');
     }
 
     public function material() {
