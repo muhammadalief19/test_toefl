@@ -46,4 +46,7 @@ class Course extends Model
         return $this->belongsTo(Payment::class, 'course_id', '_id');
     }
 
+    public function instructor() {
+        return $this->belongsTo(User::class, 'instructor_id', '_id');
+    }
 }
