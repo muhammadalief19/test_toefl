@@ -16,13 +16,9 @@ class QuizAnswer extends Model
         'quiz_option_id', 
         'quiz_claim_id', 
         'quiz_content_id', 
-        'question_id', 
-        'quiz_id', 
-        'user_id', 
-        'seletected_answer', 
-        'is_correct',
+        'user_id',
         'score' ,
-        'answered_at'
+        'created_at'
     ];
 
     public function claim(){

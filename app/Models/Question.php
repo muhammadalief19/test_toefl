@@ -10,7 +10,16 @@ class Question extends Model
     protected $connection = 'mongodb';
     protected $collection = 'questions';
     protected $fillable = [
-        'packet_id', 'type_question', 'part_question', 'description_part_question', 'question', 'key_question'
+        'quiz_id',
+        'packet_id', 
+        'part_question', 
+        'description_part_question', 
+        'key_question',
+        'question_text',
+        'question_type',
+        'options',
+        'correct_answer',
+        'score'
     ];
     use HasFactory;
 

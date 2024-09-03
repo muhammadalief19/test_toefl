@@ -10,7 +10,14 @@ class UserAnswer extends Model
     protected $connection = 'mongodb';
     protected $collection = 'user_answers';
     protected $fillable = [
-        'user_id', 'packet_id', 'question_id', 'bookmark', 'answer_user', 'correct'
+        'user_id', 
+        'packet_id', 
+        'question_id', 
+        'quiz_id', 
+        'bookmark', 
+        'selected_answer', 
+        'is_correct',
+        'answered_at'
     ];
     use HasFactory;
 
@@ -34,3 +41,4 @@ class UserAnswer extends Model
         return $this->hasMany(Answer::class, 'question_id', 'question_id');
     }
 }
+
