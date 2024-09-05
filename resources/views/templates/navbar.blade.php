@@ -5,7 +5,7 @@
             <path d="M28.964 35.536H19.532L18.02 40H11.576L20.72 14.728H27.848L36.992 40H30.476L28.964 35.536ZM27.38 30.784L24.248 21.532L21.152 30.784H27.38Z" fill="white"/>
         </svg>
         <div class="brand-title">
-            <img src="{{ asset('assets/images/logo/GoldMateTransparant.png') }}" style="width: 120px; height: 50px; z-index: 5; position:absolute; margin-top:10px; top: 0;">
+            <img src="{{ asset('assets/images/logo/GoldMateTransparant.png') }}" style="width: 140px; height: 50px; z-index: 5; position:absolute; margin-top:10px; top: 0;">
         </div>
     </a>
 

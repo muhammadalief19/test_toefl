@@ -93,7 +93,7 @@
 	<link href="{{ asset('') }}assets/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0">
     <link href="{{ asset('') }}assets/css/style.css" rel="stylesheet">
-    <link rel="icon" type="image/png" sizes="2x2" href="{{ asset('') }}assets/images/logo/Icon.png">
+    <link rel="icon" type="image/png" sizes="2x2" href="{{ asset('') }}assets/images/logo/IconWhite.png">
 
 </head>
 
@@ -102,7 +102,7 @@
 		<div class="login-aside text-center d-flex flex-column flex-row-auto">
 			<div class="d-flex flex-column-auto flex-column pt-lg-40 pt-15">
 				<div class="text-center mb-lg-4 mb-2 pt-5 logo">
-					<img class="w-75" src="{{ asset('') }}assets/images/logo/GoldMateTransparantComplete.png" alt="">
+					<img class="w-75" src="{{ asset('') }}assets/images/logo/GoldMateWhite.png" alt="">
 				</div>
 				<h3 class="mb-2 text-white">Welcome back!</h3>
 				<p class="mb-4">User Experience & Interface Design <br>Strategy SaaS Solutions</p>
