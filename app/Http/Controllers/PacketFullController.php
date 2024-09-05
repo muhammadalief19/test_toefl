@@ -33,6 +33,7 @@ class PacketFullController extends Controller
 
     public function postEntryQuestionFull(Request $request)
     {
+        // dd($request->all());
         $request->validate([
             'packet_id' => 'required',
             'type_question' => 'required',
@@ -46,18 +47,18 @@ class PacketFullController extends Controller
                 'type_question' => $request->type_question,
                 'part_question' => 'A',
                 'description_part_question' => 'Short Talks',
-                'key_question' => $request->key_question
+                'key_question' => $request->key_question,
             ];
 
             if ($request->hasFile('question')) {
                 $file = $request->file('question');
                 $fileName = $file->getClientOriginalName();
-                // $filePath = $file->storeAs('/questions', $fileName, 'public');
-            $filePath = Storage::cloud()->put('/questions', $file);
+                $filePath = $file->storeAs('/questions', $fileName, 'public');
+            // $filePath = Storage::cloud()->put('/questions', $file);
 
-                $questionData['question'] = $filePath;
+                $questionData['question_text'] = $filePath;
             } else {
-                $questionData['question'] = $request->question;
+                $questionData['question_text'] = $request->question;
             }
 
             $map = Question::create($questionData);
@@ -73,18 +74,18 @@ class PacketFullController extends Controller
                 'type_question' => $request->type_question,
                 'part_question' => 'B',
                 'description_part_question' => 'Long Conversation',
-                'key_question' => $request->key_question
+                'key_question' => $request->key_question,
             ];
 
             if ($request->hasFile('question')) {
                 $file = $request->file('question');
                 $fileName = $file->getClientOriginalName();
-                // $filePath = $file->storeAs('/questions', $fileName, 'public');
-            $filePath = Storage::cloud()->put('/questions', $file);
+                $filePath = $file->storeAs('/questions', $fileName, 'public');
+            // $filePath = Storage::cloud()->put('/questions', $file);
 
-                $questionData['question'] = $filePath;
+                $questionData['question_text'] = $filePath;
             } else {
-                $questionData['question'] = $request->question;
+                $questionData['question_text'] = $request->question;
             }
 
             $map = Question::create($questionData);
@@ -100,18 +101,18 @@ class PacketFullController extends Controller
                 'type_question' => $request->type_question,
                 'part_question' => 'C',
                 'description_part_question' => 'Mini-Lectures',
-                'key_question' => $request->key_question
+                'key_question' => $request->key_question,
             ];
 
             if ($request->hasFile('question')) {
                 $file = $request->file('question');
                 $fileName = $file->getClientOriginalName();
-                // $filePath = $file->storeAs('/questions', $fileName, 'public');
-            $filePath = Storage::cloud()->put('/questions', $file);
+                $filePath = $file->storeAs('/questions', $fileName, 'public');
+            // $filePath = Storage::cloud()->put('/questions', $file);
 
-                $questionData['question'] = $filePath;
+                $questionData['question_text'] = $filePath;
             } else {
-                $questionData['question'] = $request->question;
+                $questionData['question_text'] = $request->question;
             }
 
             $map = Question::create($questionData);
@@ -127,18 +128,18 @@ class PacketFullController extends Controller
                 'type_question' => $request->type_question,
                 'part_question' => 'A',
                 'description_part_question' => 'Sentence Completitions',
-                'key_question' => $request->key_question
+                'key_question' => $request->key_question,
             ];
 
             if ($request->hasFile('question')) {
                 $file = $request->file('question');
                 $fileName = $file->getClientOriginalName();
-                // $filePath = $file->storeAs('/questions', $fileName, 'public');
-            $filePath = Storage::cloud()->put('/questions', $file);
+                $filePath = $file->storeAs('/questions', $fileName, 'public');
+            // $filePath = Storage::cloud()->put('/questions', $file);
 
-                $questionData['question'] = $filePath;
+                $questionData['question_text'] = $filePath;
             } else {
-                $questionData['question'] = $request->question;
+                $questionData['question_text'] = $request->question;
             }
 
             $map = Question::create($questionData);
@@ -154,18 +155,18 @@ class PacketFullController extends Controller
                 'type_question' => $request->type_question,
                 'part_question' => 'B',
                 'description_part_question' => 'Error Recognition',
-                'key_question' => $request->key_question
+                'key_question' => $request->key_question,
             ];
 
             if ($request->hasFile('question')) {
                 $file = $request->file('question');
                 $fileName = $file->getClientOriginalName();
-                // $filePath = $file->storeAs('/questions', $fileName, 'public');
-            $filePath = Storage::cloud()->put('/questions', $file);
+                $filePath = $file->storeAs('/questions', $fileName, 'public');
+            // $filePath = Storage::cloud()->put('/questions', $file);
 
-                $questionData['question'] = $filePath;
+                $questionData['question_text'] = $filePath;
             } else {
-                $questionData['question'] = $request->question;
+                $questionData['question_text'] = $request->question;
             }
 
             $map = Question::create($questionData);
@@ -181,18 +182,18 @@ class PacketFullController extends Controller
                 'type_question' => $request->type_question,
                 'part_question' => "",
                 'description_part_question' => "",
-                'key_question' => $request->key_question
+                'key_question' => $request->key_question,
             ];
 
             if ($request->hasFile('question')) {
                 $file = $request->file('question');
                 $fileName = $file->getClientOriginalName();
-                // $filePath = $file->storeAs('/questions', $fileName, 'public');
-            $filePath = Storage::cloud()->put('/questions', $file);
+                $filePath = $file->storeAs('/questions', $fileName, 'public');
+            // $filePath = Storage::cloud()->put('/questions', $file);
 
-                $questionData['question'] = $filePath;
+                $questionData['question_text'] = $filePath;
             } else {
-                $questionData['question'] = $request->question;
+                $questionData['question_text'] = $request->question;
             }
 
             $map = Question::create($questionData);
@@ -223,10 +224,10 @@ class PacketFullController extends Controller
 
         $key = Question::where('_id', $id)->first();
         $key = $key->key_question;
-        
+
         MultipleChoice::where('question_id', $question->id)->delete();
 
-        
+
         MultipleChoice::create([
             'question_id' => $question->id,
             'choice' => $key,
@@ -238,7 +239,7 @@ class PacketFullController extends Controller
                 'choice' => $choice,
             ]);
         }
-        
+
         $message = ($oldKeyQuestion != $question->key_question) ? 'Data Question dan Multiple Choice berhasil diperbarui' : 'Data Multiple Choice berhasil diperbarui';
 
         return back()->with('success', $message);
@@ -249,16 +250,16 @@ class PacketFullController extends Controller
         if ($request->hasFile('question')) {
             $file = $request->file('question');
             $fileName = $file->getClientOriginalName();
-            // $filePath = $file->storeAs('/questions', $fileName, 'public');
-            $filePath = Storage::cloud()->put('/questions', $file);
+            $filePath = $file->storeAs('/questions', $fileName, 'public');
+            // $filePath = Storage::cloud()->put('/questions', $file);
 
-            $questionData['question'] = $filePath;
+            $questionData['question_text'] = $filePath;
         } else {
-            $questionData['question'] = $request->question ? $request->question : null;
+            $questionData['question_text'] = $request->question ? $request->question : null;
         }
 
         $question = Question::findOrFail($id);
-        $question->question = $questionData['question'];
+        $question->question_text = $questionData['question_text'];
         $question->save();
 
         return back()->with('success', 'Data Question Berhasil Diubah');
@@ -299,14 +300,14 @@ class PacketFullController extends Controller
     public function addNestedFullQuestion(Request $request, $id)
     {
           $request->validate([
-            'question_nested' => 'required', 
+            'question_nested' => 'required',
         ]);
 
         if ($request->hasFile('question_nested')) {
             $file = $request->file('question_nested');
             $fileName = $file->getClientOriginalName();
-            // $filePath = $file->storeAs('/nested_question', $fileName, 'public');
-            $filePath = Storage::cloud()->put('/nested_question', $file);
+            $filePath = $file->storeAs('/nested_question', $fileName, 'public');
+            // $filePath = Storage::cloud()->put('/nested_question', $file);
 
             $questionData['question_nested'] = $filePath;
             NestedQuestion::create([
@@ -364,15 +365,15 @@ class PacketFullController extends Controller
         return back()->with('success', 'Data Nested Question Berhasil Dihapus');
     }
 
-    // masukin 
+    // masukin
     public function editNested(Request $request, $id)
     {
 
         if ($request->hasFile('question_nested')) {
             $file = $request->file('question_nested');
             $fileName = $file->getClientOriginalName();
-            // $filePath = $file->storeAs('/nested_question', $fileName, 'public');
-            $filePath = Storage::cloud()->put('/nested_question', $file);
+            $filePath = $file->storeAs('/nested_question', $fileName, 'public');
+            // $filePath = Storage::cloud()->put('/nested_question', $file);
             $questionData['question_nested'] = $filePath;
             NestedQuestion::where('_id', $id)->update([
                 'question_nested' => $questionData['question_nested'],
@@ -385,5 +386,34 @@ class PacketFullController extends Controller
         }
 
         return back()->with('success', 'Data Nested Question Berhasil Diubah');
+    }
+
+    public function searchFullPaket(Request $request)
+    {
+        if($request->has('search')){
+            $dataPacketFull = Paket::where('name_packet', 'LIKE', '%'.$request->search.'%')->where('tipe_test_packet', 'Full Test')->get();
+        } else {
+            $dataPacketFull = Paket::where('name_packet', 'LIKE', '%'.$request->search.'%')->where('tipe_test_packet', 'Full Test')->get();
+        }
+
+        return view('datapacketfull.first', compact('dataPacketFull'));
+    }
+
+    public function searchQuestion(Request $request, $id)
+    {
+        $search = $request->input('search');
+        if($request->has('search')){
+            $dataPacketFull = Paket::with(['questions' => function($query) use ($search) {
+                $query->where('question_text', 'LIKE', "%{$search}%");
+            }])->where('_id', $id)->get();
+        } else {
+            $dataPacketFull = Paket::with(['questions' => function($query) use ($search) {
+                $query->where('question_text', 'LIKE', "%{$search}%");
+            }])->where('_id', $id)->get();
+        }
+
+
+        $dataId = $id;
+        return view('datapacketfull.index', compact('dataPacketFull', 'dataId'));
     }
 }

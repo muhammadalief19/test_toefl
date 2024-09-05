@@ -1,38 +1,35 @@
 @extends('templates.master')
 @section('title', 'Nested Question ')
 @section('page-name', 'Entry Nested Question')
-@push('styles')
 
+@push('styles')
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha256-PI8n5gCcz9cQqQXm3PEtDuPG8qx9oFsFctPg0S5zb8g=" crossorigin="anonymous">
 <style>
     .modal-content {
         background-color: #ffffff;
         border-radius: 10px;
     }
-
     .modal-header {
         background-color: #f0f0f0;
     }
-
     .modal-body {
         background-color: #f0f0f0;
     }
-
     .modal-footer {
         background-color: #f0f0f0;
     }
 </style>
-
 @endpush
 
 @section('content')
-<section class="section">
-    <div class="container">
-        <div class="center">
-            <div class="card">
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-12">
                 <div class="card">
                     <div class="card-header">
                         Data Pertanyaan yang sudah ke assign ke nested pertanyaan <button class="btn btn-sm"
-                            data-toggle="modal" data-target="#cekNested"><i class="fa fa-eye"></i></button>
+                            data-bs-toggle="modal" data-bs-target="#cekNested"><i class="fa fa-eye"></i></button>
                         <- cek pertanyaan nested nya </div>
 
                             {{-- modal check nested Question --}}
@@ -42,7 +39,7 @@
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h5 class="modal-title" id="cekNested">Add Nested Question</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
@@ -51,7 +48,7 @@
                                             'nested_question/'))
                                             <audio controls>
                                                 <source
-                                                    src="{{ env('AWS_RESOURCE').'/'.env('AWS_BUCKET').'/'. $initNestedQuestion->question_nested }}"
+                                                    src="{{'nested_question/'.$initNestedQuestion->question_nested }}"
                                                     type="audio/mpeg">
                                                 Your browser does not support the audio element.
                                             </audio>
@@ -81,17 +78,15 @@
                                                 <td> {{ $loop->iteration }}</td>
 
                                                 <td>
-
-
-                                                    @if(Str::startsWith($nested->question->question, 'questions/'))
+                                                    @if(Str::startsWith($nested->question->question, 'nested_question/'))
                                                     <audio controls>
                                                         <source
-                                                            src="{{ env('AWS_RESOURCE').'/'.env('AWS_BUCKET').'/'.$nested->question->question }}"
+                                                            src="{{ 'nested_question/'.$nested->question->question }}"
                                                             type="audio/mpeg">
                                                         Your browser does not support the audio element.
                                                     </audio>
                                                     @else
-                                                   
+
                                                     {{ Str::limit($nested->question->question, 50, '...') }}
                                                     @endif
 
@@ -132,12 +127,12 @@
 
                                             @if(Str::startsWith($question->question, 'questions/'))
                                             <audio controls>
-                                                <source src="{{ env('AWS_RESOURCE').'/'.env('AWS_BUCKET').'/'. $question->question }}"
+                                                <source src="{{ 'nested_question/'. $question->question }}"
                                                     type="audio/mpeg">
                                                 Your browser does not support the audio element.
                                             </audio>
                                             @else
-                                         
+
                                             {{ Str::limit($question->question, 50, '...') }}
                                             @endif
 
@@ -166,31 +161,32 @@
 
 
 @endsection
+
 @push('scripts')
 
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha256-3gQJhtmj7YnV1fmtbVcnAV6eI4ws0Tr48bVZCThtCGQ=" crossorigin="anonymous"></script>
 <script>
     $(document).ready(function() {
         $('#table3').DataTable({
             "paging": true,
-            "searching": true, 
+            "searching": true,
             "pageLength" : 5,
             "columnDefs": [
-                { "searchable": true, "targets": [0, 1] } 
+                { "searchable": true, "targets": [0, 1] }
             ],
-           
+
         });
     });
 
     $(document).ready(function() {
         $('#table4').DataTable({
             "paging": true,
-            "searching": true, 
+            "searching": true,
             "pageLength" : 5,
             "columnDefs": [
-                { "searchable": true, "targets": [0, 1] } 
+                { "searchable": true, "targets": [0, 1] }
             ],
-           
+
         });
     });
 </script>

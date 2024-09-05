@@ -13,3 +13,8 @@
         </div>
     </div>
 </footer>
+{{-- <div class="footer">
+    <div class="copyright">
+        <p>Copyright © <script>document.write(new Date().getFullYear());</script> All Rights Reserved</p>
+    </div>
+</div> --}}

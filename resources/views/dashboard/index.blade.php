@@ -1,14 +1,9 @@
 @extends('templates.master')
-@section('title', 'Dashboard Panel')
-@section('page-name', 'Dashboard Panel')
-@push('styles')
 
-@endpush
+@section('title', 'Dashboard')
+@section('page-name', 'Dashboard')
+
 @section('content')
-<div class="row">
-    <p>kuntul</p>
-</div>
+    <!-- Tambahkan konten halaman dashboard di sini -->
+    <h1>Welcome to Dashboard</h1>
 @endsection
-@push('scripts')
-
-@endpush

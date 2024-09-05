@@ -27,10 +27,10 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         User::create([
-            'name' => "Admin TOEFL",
-            'email' => "admintoefl@gmail.com",
+            'name' => "Maya",
+            'email' => "maya@gmail.com",
             'password' => Hash::make('password'),
-            'loundry_name_user' => "Maya Loundry",
+            'role' => "admin"
         ]);
     }
 }

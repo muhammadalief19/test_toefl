@@ -9,7 +9,7 @@ class PacketMiniController extends Controller
 {
     public function getMiniPaket()
     {
-        $dataPacketMini = Paket::with('questions')->where('tipe_test_packet', 'Mini Test')->get();
+        $dataPacketMini = Paket::with('questions')->where('tipe_test_packet', 'Mini Test')->simplePaginate(3);
         return view('datapacketmini.index', compact('dataPacketMini'));
     }
 
@@ -58,5 +58,16 @@ class PacketMiniController extends Controller
         ]);
 
         return back()->with('success', 'Data Packet berhasil ditambahkan');
+    }
+
+    public function searchMiniPaket(Request $request)
+    {
+        if($request->has('search')){
+            $dataPacketMini = Paket::where('name_packet', 'LIKE', '%'.$request->search.'%')->where('tipe_test_packet', 'Mini Test')->simplePginate(3);
+        } else {
+            $dataPacketMini = Paket::where('name_packet', 'LIKE', '%'.$request->search.'%')->where('tipe_test_packet', 'Mini Test')->simplePaginate(3);
+        }
+
+        return view('datapacketmini.index', compact('dataPacketMini'));
     }
 }
