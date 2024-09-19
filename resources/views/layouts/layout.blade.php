@@ -93,7 +93,12 @@
         <!--**********************************
             Content body start
         ***********************************-->
-
+        <div class="content-body">
+            <!-- row -->
+            <div class="container-fluid">
+                @yield('content')
+            </div>
+        </div>
         <!--**********************************
             Content body end
             ***********************************-->
@@ -101,12 +106,6 @@
                 Footer start
                 ***********************************-->
         @include('components.footer')
-    </div>
-    <div class="content-body">
-        <!-- row -->
-        <div class="container-fluid">
-            @yield('content')
-        </div>
     </div>
 
     <!--**********************************
@@ -138,7 +137,7 @@
     <script src="{{ asset('') }}templates/js/plugins-init/datatables.init.js"></script>
 
     <!-- Dashboard 1 -->
-    <script src="{{ asset('') }}templates/js/dashboard/dashboard-1.js"></script>
+    <script src="{{ asset('') }}templates/js/dashboard/dashboard-2.js"></script>
     <script src="{{ asset('') }}templates/vendor/wow-master/dist/wow.min.js"></script>
     <script src="{{ asset('') }}templates/vendor/bootstrap-datetimepicker/js/moment.js"></script>
     <script src="{{ asset('') }}templates/vendor/datepicker/js/bootstrap-datepicker.min.js"></script>
@@ -148,6 +147,10 @@
     <script src="{{ asset('') }}templates/js/custom.min.js"></script>
     <script src="{{ asset('') }}templates/js/demo.js"></script>
     <script src="{{ asset('') }}templates/js/styleSwitcher.js"></script>
+    <script>
+        const year = document.querySelector("#year");
+        year.innerText = `${new Date().getFullYear()}`;
+    </script>
     @stack('scripts')
 </body>
 
