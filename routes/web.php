@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PacketFullController;
 use App\Http\Controllers\PacketMiniController;
 use App\Http\Controllers\StoryQuestionController;
+use App\Http\Controllers\UserRoleController;
 use Illuminate\Support\Facades\Route;
 
 Route::controller(AuthController::class)->group(function () {
@@ -58,5 +59,17 @@ Route::middleware('authenticated')->group(function () {
 
     Route::controller(StoryQuestionController::class)->group(function () {
         Route::get('/entry/nested-question', 'index')->name('entrynested.index');
+    });
+
+    Route::controller(UserRoleController::class)->group(function () {
+        Route::get('/user-role', 'index')->name('userRole.index');
+        Route::post('/user-role', 'store')->name('userRole.store');
+        Route::patch('/user-role/update/{id}', 'update')->name('userRole.update');
+        Route::get('/user-role/destroy/{id}', 'destroy')->name('userRole.delete');
+    });
+
+    Route::get('/page', function() {
+        $data['title'] = "PAGE EXAMPLE";
+        return view('layouts.page', compact(['data']));
     });
 });
