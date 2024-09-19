@@ -4,7 +4,7 @@
     Name                 : Akadmi
     Author               : DexignLab
     Author Portfolio     : https://themeforest.net/user/dexignlab/portfolio
-    
+
 
 
     Table of Sass Contents
@@ -15,7 +15,7 @@
         _mixin
         _variable
 
-    2. bootstrap 
+    2. bootstrap
         -Here goes all official bootstrap scss files
 
     3. Global/Base
@@ -10300,7 +10300,7 @@ svg.pulse-svg {
 			position: absolute;
 			top: -2px;
 			right: 0;
-			
+
 		}
 		 */ }
 
@@ -10515,7 +10515,7 @@ svg.pulse-svg {
         min-width: 19.375rem;
         padding: 1rem 0 1rem;
         top: 100%;
-		
+
         .notification_title {
             background: var(--primary);
             color: $white;
@@ -10529,7 +10529,7 @@ svg.pulse-svg {
 			width: 2.8125rem ;
 			height: 2.8125rem ;
 			font-size: 1.125rem ;
-			
+
             // &:last-child{
             //     border-bottom: 0rem;
             // }
@@ -10584,7 +10584,7 @@ svg.pulse-svg {
 	            // color: $dark;
             text-align: center;
 			border-top: 0.0625rem solid $b-color;
-				
+
             i {
                 margin-left: 0.625rem;
             }
@@ -11626,7 +11626,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
 						left:0rem;
 						@include transitionMedium;
 						border-radius:1.25rem;
-						
+
 					} */ }
   [data-sidebar-style="full"][data-layout="vertical"] .dlabnav .metismenu > li.mm-active > a {
     font-weight: 500;
@@ -14062,7 +14062,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
 				.dlabnav .metismenu > li.mm-active > a,
 				.dlabnav .metismenu > li:hover > a{
 						background:transparent;
-				}	
+				}
 			} */ }
   [data-sidebarbg="color_2"][data-theme-version="dark"] .dlabnav,
   [data-sidebarbg="color_2"] .dlabnav {
@@ -14180,7 +14180,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
 				.dlabnav .metismenu > li.mm-active > a,
 				.dlabnav .metismenu > li:hover > a{
 						background:transparent;
-				}	
+				}
 			} */ }
   [data-sidebarbg="color_3"][data-theme-version="dark"] .dlabnav,
   [data-sidebarbg="color_3"] .dlabnav {
@@ -14298,7 +14298,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
 				.dlabnav .metismenu > li.mm-active > a,
 				.dlabnav .metismenu > li:hover > a{
 						background:transparent;
-				}	
+				}
 			} */ }
   [data-sidebarbg="color_4"][data-theme-version="dark"] .dlabnav,
   [data-sidebarbg="color_4"] .dlabnav {
@@ -14416,7 +14416,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
 				.dlabnav .metismenu > li.mm-active > a,
 				.dlabnav .metismenu > li:hover > a{
 						background:transparent;
-				}	
+				}
 			} */ }
   [data-sidebarbg="color_5"][data-theme-version="dark"] .dlabnav,
   [data-sidebarbg="color_5"] .dlabnav {
@@ -14534,7 +14534,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
 				.dlabnav .metismenu > li.mm-active > a,
 				.dlabnav .metismenu > li:hover > a{
 						background:transparent;
-				}	
+				}
 			} */ }
   [data-sidebarbg="color_6"][data-theme-version="dark"] .dlabnav,
   [data-sidebarbg="color_6"] .dlabnav {
@@ -14652,7 +14652,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
 				.dlabnav .metismenu > li.mm-active > a,
 				.dlabnav .metismenu > li:hover > a{
 						background:transparent;
-				}	
+				}
 			} */ }
   [data-sidebarbg="color_7"][data-theme-version="dark"] .dlabnav,
   [data-sidebarbg="color_7"] .dlabnav {
@@ -14770,7 +14770,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
 				.dlabnav .metismenu > li.mm-active > a,
 				.dlabnav .metismenu > li:hover > a{
 						background:transparent;
-				}	
+				}
 			} */ }
   [data-sidebarbg="color_8"][data-theme-version="dark"] .dlabnav,
   [data-sidebarbg="color_8"] .dlabnav {
@@ -14888,7 +14888,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
 				.dlabnav .metismenu > li.mm-active > a,
 				.dlabnav .metismenu > li:hover > a{
 						background:transparent;
-				}	
+				}
 			} */ }
   [data-sidebarbg="color_9"][data-theme-version="dark"] .dlabnav,
   [data-sidebarbg="color_9"] .dlabnav {
@@ -15006,7 +15006,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
 				.dlabnav .metismenu > li.mm-active > a,
 				.dlabnav .metismenu > li:hover > a{
 						background:transparent;
-				}	
+				}
 			} */ }
   [data-sidebarbg="color_10"][data-theme-version="dark"] .dlabnav,
   [data-sidebarbg="color_10"] .dlabnav {
@@ -15124,7 +15124,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
 				.dlabnav .metismenu > li.mm-active > a,
 				.dlabnav .metismenu > li:hover > a{
 						background:transparent;
-				}	
+				}
 			} */ }
   [data-sidebarbg="color_11"][data-theme-version="dark"] .dlabnav,
   [data-sidebarbg="color_11"] .dlabnav {
@@ -15242,7 +15242,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
 				.dlabnav .metismenu > li.mm-active > a,
 				.dlabnav .metismenu > li:hover > a{
 						background:transparent;
-				}	
+				}
 			} */ }
   [data-sidebarbg="color_12"][data-theme-version="dark"] .dlabnav,
   [data-sidebarbg="color_12"] .dlabnav {
@@ -15360,7 +15360,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
 				.dlabnav .metismenu > li.mm-active > a,
 				.dlabnav .metismenu > li:hover > a{
 						background:transparent;
-				}	
+				}
 			} */ }
   [data-sidebarbg="color_13"][data-theme-version="dark"] .dlabnav,
   [data-sidebarbg="color_13"] .dlabnav {
@@ -15478,7 +15478,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
 				.dlabnav .metismenu > li.mm-active > a,
 				.dlabnav .metismenu > li:hover > a{
 						background:transparent;
-				}	
+				}
 			} */ }
   [data-sidebarbg="color_14"][data-theme-version="dark"] .dlabnav,
   [data-sidebarbg="color_14"] .dlabnav {
@@ -15596,7 +15596,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
 				.dlabnav .metismenu > li.mm-active > a,
 				.dlabnav .metismenu > li:hover > a{
 						background:transparent;
-				}	
+				}
 			} */ }
   [data-sidebarbg="color_15"][data-theme-version="dark"] .dlabnav,
   [data-sidebarbg="color_15"] .dlabnav {
@@ -15727,7 +15727,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
     /* .sidebar-info h4, .sidebar-info .h4,
 					.header-profile2 span{
 						color:$white;
-				
+
 					} */ }
     [data-headerbg="color_2"][data-theme-version="dark"] .header-right .notification_dropdown .nav-link,
     [data-headerbg="color_2"] .header-right .notification_dropdown .nav-link {
@@ -15790,7 +15790,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
     /* .sidebar-info h4, .sidebar-info .h4,
 					.header-profile2 span{
 						color:$white;
-				
+
 					} */ }
     [data-headerbg="color_3"][data-theme-version="dark"] .header-right .notification_dropdown .nav-link,
     [data-headerbg="color_3"] .header-right .notification_dropdown .nav-link {
@@ -15853,7 +15853,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
     /* .sidebar-info h4, .sidebar-info .h4,
 					.header-profile2 span{
 						color:$white;
-				
+
 					} */ }
     [data-headerbg="color_4"][data-theme-version="dark"] .header-right .notification_dropdown .nav-link,
     [data-headerbg="color_4"] .header-right .notification_dropdown .nav-link {
@@ -15916,7 +15916,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
     /* .sidebar-info h4, .sidebar-info .h4,
 					.header-profile2 span{
 						color:$white;
-				
+
 					} */ }
     [data-headerbg="color_5"][data-theme-version="dark"] .header-right .notification_dropdown .nav-link,
     [data-headerbg="color_5"] .header-right .notification_dropdown .nav-link {
@@ -15979,7 +15979,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
     /* .sidebar-info h4, .sidebar-info .h4,
 					.header-profile2 span{
 						color:$white;
-				
+
 					} */ }
     [data-headerbg="color_6"][data-theme-version="dark"] .header-right .notification_dropdown .nav-link,
     [data-headerbg="color_6"] .header-right .notification_dropdown .nav-link {
@@ -16042,7 +16042,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
     /* .sidebar-info h4, .sidebar-info .h4,
 					.header-profile2 span{
 						color:$white;
-				
+
 					} */ }
     [data-headerbg="color_7"][data-theme-version="dark"] .header-right .notification_dropdown .nav-link,
     [data-headerbg="color_7"] .header-right .notification_dropdown .nav-link {
@@ -16105,7 +16105,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
     /* .sidebar-info h4, .sidebar-info .h4,
 					.header-profile2 span{
 						color:$white;
-				
+
 					} */ }
     [data-headerbg="color_8"][data-theme-version="dark"] .header-right .notification_dropdown .nav-link,
     [data-headerbg="color_8"] .header-right .notification_dropdown .nav-link {
@@ -16168,7 +16168,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
     /* .sidebar-info h4, .sidebar-info .h4,
 					.header-profile2 span{
 						color:$white;
-				
+
 					} */ }
     [data-headerbg="color_9"][data-theme-version="dark"] .header-right .notification_dropdown .nav-link,
     [data-headerbg="color_9"] .header-right .notification_dropdown .nav-link {
@@ -16231,7 +16231,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
     /* .sidebar-info h4, .sidebar-info .h4,
 					.header-profile2 span{
 						color:$white;
-				
+
 					} */ }
     [data-headerbg="color_10"][data-theme-version="dark"] .header-right .notification_dropdown .nav-link,
     [data-headerbg="color_10"] .header-right .notification_dropdown .nav-link {
@@ -16294,7 +16294,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
     /* .sidebar-info h4, .sidebar-info .h4,
 					.header-profile2 span{
 						color:$white;
-				
+
 					} */ }
     [data-headerbg="color_11"][data-theme-version="dark"] .header-right .notification_dropdown .nav-link,
     [data-headerbg="color_11"] .header-right .notification_dropdown .nav-link {
@@ -16357,7 +16357,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
     /* .sidebar-info h4, .sidebar-info .h4,
 					.header-profile2 span{
 						color:$white;
-				
+
 					} */ }
     [data-headerbg="color_12"][data-theme-version="dark"] .header-right .notification_dropdown .nav-link,
     [data-headerbg="color_12"] .header-right .notification_dropdown .nav-link {
@@ -16420,7 +16420,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
     /* .sidebar-info h4, .sidebar-info .h4,
 					.header-profile2 span{
 						color:$white;
-				
+
 					} */ }
     [data-headerbg="color_13"][data-theme-version="dark"] .header-right .notification_dropdown .nav-link,
     [data-headerbg="color_13"] .header-right .notification_dropdown .nav-link {
@@ -16483,7 +16483,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
     /* .sidebar-info h4, .sidebar-info .h4,
 					.header-profile2 span{
 						color:$white;
-				
+
 					} */ }
     [data-headerbg="color_14"][data-theme-version="dark"] .header-right .notification_dropdown .nav-link,
     [data-headerbg="color_14"] .header-right .notification_dropdown .nav-link {
@@ -16546,7 +16546,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
     /* .sidebar-info h4, .sidebar-info .h4,
 					.header-profile2 span{
 						color:$white;
-				
+
 					} */ }
     [data-headerbg="color_15"][data-theme-version="dark"] .header-right .notification_dropdown .nav-link,
     [data-headerbg="color_15"] .header-right .notification_dropdown .nav-link {
@@ -26788,10 +26788,10 @@ table.dataTable thead .sorting_desc:after {
 	opacity:0;
 }
 .dlab-scroll::-webkit-scrollbar-thumb{
-	background:  rgba(111, 133, 147, 0.0); 
+	background:  rgba(111, 133, 147, 0.0);
 }
 .dlab-scroll:hover::-webkit-scrollbar-thumb{
-	background:  rgba(111, 133, 147, 0.1); 
+	background:  rgba(111, 133, 147, 0.1);
 } */
 body > * {
   scrollbar-width: thin;
@@ -26802,7 +26802,7 @@ body > * {
   opacity: 0; }
 
 /* ::-webkit-scrollbar-thumb{
-	background:  rgba(111, 133, 147, 0.0); 
+	background:  rgba(111, 133, 147, 0.0);
 } */
 ::-webkit-scrollbar-thumb {
   background: rgba(111, 133, 147, 0.1); }
@@ -27697,7 +27697,7 @@ body > * {
       left: 0;
       opacity: 0.7; }
   .authincation .login-aside {
-    background: var(--primary);
+    background: #ffc93c;
     padding-top: 5rem;
     max-width: 35rem;
     width: 100%;
@@ -27712,7 +27712,7 @@ body > * {
       right: -8.75rem;
       z-index: -1;
       top: 0;
-      background-color: var(--primary);
+      background-color: #ffc93c;
       box-shadow: 0.125rem 0rem 1.875rem rgba(0, 0, 0, 0.15); }
     .authincation .login-aside .aside-image {
       min-height: 28.125rem;

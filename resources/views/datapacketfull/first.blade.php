@@ -176,7 +176,6 @@
                                     @endforeach
                                 </tbody>
                             </table>
-                            {{-- {{ $dataPacketFull->links() }} --}}
                         </div>
                     </div>
                 </div>
