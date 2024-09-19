@@ -61,6 +61,7 @@
                 <i class="material-symbols-outlined">home</i>
                 <span class="nav-text">Home</span>
             </a>
+            </li>
             <li class="">
                 <a class="has-arrow" href="javascript:void(0);" aria-expanded="false">
                     <i class="material-icons">folder</i>
@@ -71,9 +72,14 @@
                     <li><a href="{{ route('packetmini.first') }}">Data Packet Mini</a></li>
                 </ul>
             </li>
-            <li><a class="" href="{{ route('logout') }}" aria-expanded="false">
-                <span class="nav-text">Logout</span>
-            </a>
+            <li>
+                <a class="" href="{{ route('logout') }}" aria-expanded="false">
+                    <i class="material-symbols-outlined">
+                        logout
+                    </i>
+                    <span class="nav-text">Logout</span>
+                </a>
+            </li>
             {{-- <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
                 <i class="material-symbols-outlined">person</i>
                 <span class="nav-text">Teacher</span>

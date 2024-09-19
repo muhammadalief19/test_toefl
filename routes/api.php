@@ -34,13 +34,13 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('/reset', 'reset');
     Route::post('/users/verify-otp',  'verifyOtpRegister');
     Route::post('/users/new-otp',  'newOtp');
-    Route::get('/users/profile',  'profile');
-    Route::post('/logout',  'logout');
+    Route::get('/users/profile', 'profile');
+    Route::post('/edit/profile', 'updateProfile');
+    Route::post('/logout', 'logout');
     Route::post('check/password', 'checkPassword');
     Route::post('change/password', 'changePassword');
 });
 Route::get('/get-onboarding-target',[ValueHomeController::class, 'getTargetOnBoarding']);
-
 
 Route::middleware('auth:api')->group(function () {
     Route::controller(PacketController::class)->group(function () {
@@ -82,3 +82,4 @@ Route::middleware('auth:api')->group(function () {
     Route::resource('/pairingclaims',PairingClaimController::class);
     Route::resource('/foryou', ForYouController::class);
 });
+Route::post('/storequiz', [QuizController::class, 'store']);
