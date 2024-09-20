@@ -21,15 +21,10 @@ class UserRoleController extends Controller
         $data = $this->data;
         $data["userRoleData"] = UserRole::all();
         $data["no"] = 1;
-        $dataPacketFull = Paket::with('questions')->where('tipe_test_packet', 'Full Test')->get();
 
-        return view('userRole.index', compact(['data', 'dataPacketFull']));
+        return view('userRole.index', compact(['data']));
     }
-
-    public function create()
-    {
-    }
-
+    
     public function store(Request $request)
     {
         $validatedData = $request->validate(
