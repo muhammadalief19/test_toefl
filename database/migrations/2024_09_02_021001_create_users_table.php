@@ -22,10 +22,12 @@ return new class extends Migration
             $table->date('date_of_birth')->nullable();
             $table->timestamp('registration_date')->nullable();
             $table->string('profile_picture')->nullable();
+            $table->string('address')->nullable();
             $table->enum('status', ['active', 'inactive'])->nullable();
             $table->string('prodi');
             $table->string('nrp');
             $table->foreignId('role')->constrained('user_roles');
+            $table->string('last_seen')->nullable();
             $table->boolean('is_verified_register')->nullable();
             $table->string('otp_register')->nullable();
             $table->boolean('is_verified_forgot')->nullable();

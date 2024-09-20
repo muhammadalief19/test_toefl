@@ -35,6 +35,8 @@ class User extends Authenticatable implements JWTSubject
         'status',
         'prodi',
         'nrp',
+        'address',
+        'last_seen',
         'role',
         'is_verified_register',
         'otp_register',
