@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AllPacketController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\CourseCategoryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PacketFullController;
 use App\Http\Controllers\PacketMiniController;
@@ -65,11 +66,13 @@ Route::middleware('authenticated')->group(function () {
         Route::get('/user-role', 'index')->name('userRole.index');
         Route::post('/user-role', 'store')->name('userRole.store');
         Route::patch('/user-role/update/{id}', 'update')->name('userRole.update');
-        Route::get('/user-role/destroy/{id}', 'destroy')->name('userRole.delete');
+        Route::delete('/user-role/destroy/{id}', 'destroy')->name('userRole.delete');
     });
 
-    Route::get('/page', function() {
-        $data['title'] = "PAGE EXAMPLE";
-        return view('layouts.page', compact(['data']));
+    Route::controller(CourseCategoryController::class)->prefix('/course-category')->group(function() {
+        Route::get('/', 'index')->name('courseCategory.index');
+        Route::post('/store', 'store')->name('courseCategory.store');
+        Route::patch('/update/{id}', 'update')->name('courseCategory.update');
+        Route::delete('/delete/{id}', 'destroy')->name('courseCategory.destroy');
     });
 });

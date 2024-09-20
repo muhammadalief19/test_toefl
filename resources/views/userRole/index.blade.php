@@ -72,7 +72,7 @@
                                                             <i class="fa fa-pencil"></i>
                                                         </a>
                                                         <button class="btn btn-danger shadow btn-icon-sm"
-                                                            onclick="confirmDelete('{{ route('userRole.delete', $item->_id) }}')">
+                                                            onclick="confirmDelete('{{  $item->_id }}')">
                                                             <i class="fa fa-trash"></i>
                                                         </button>
                                                     </div>
@@ -97,7 +97,7 @@
                                                                         <label for="role_name">Role Name</label>
                                                                         <input type="text" class="form-control"
                                                                             id="role_name" name="role_name"
-                                                                            value="{{ $item->role_name }}" required>
+                                                                            value="{{ $item->role_name }}" autocomplete="off" required>
                                                                     </div>
                                                                     <div class="modal-footer">
                                                                         <button type="button" class="btn btn-danger"
@@ -147,7 +147,7 @@
                         @csrf
                         <div class="form-group">
                             <label for="role_name">Role Name</label>
-                            <input class="form-control" type="text" name="role_name" id="role_name" required>
+                            <input class="form-control" type="text" name="role_name" id="role_name" autocomplete="off" required>
                         </div>
                 </div>
                 <div class="modal-footer">
@@ -167,8 +167,7 @@
     </script>
     <script src="{{ asset('') }}templates/vendor/wow-master/dist/wow.min.js"></script>
     <script>
-        function confirmDelete(deleteUrl) {
-            // Tampilkan SweetAlert2 untuk konfirmasi penghapusan
+        function confirmDelete(id) {
             Swal.fire({
                 title: 'Apakah Anda yakin?',
                 text: "Anda tidak akan dapat mengembalikan ini!",
@@ -181,7 +180,17 @@
             }).then((result) => {
                 if (result.value) {
                     if (result.isConfirmed) {
-                        window.location.href = deleteUrl;
+                        $.ajax({
+                            type: 'POST',
+                            url: `/user-role/destroy/${id}`,
+                            data: {
+                                "_token": "{{ csrf_token() }}",
+                                "_method": 'DELETE',
+                            },
+                            success: function (data) {
+                                window.location.href = "/user-role";
+                            }
+                        });
                     }
                 } else if (
                     result.dismiss === Swal.DismissReason.cancel

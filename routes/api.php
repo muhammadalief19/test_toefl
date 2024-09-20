@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AnswerController;
+use App\Http\Controllers\Api\AssessmentController;
 use App\Http\Controllers\Api\Auth\AuthController;
 use App\Http\Controllers\Api\PacketController;
 use App\Http\Controllers\Api\BookmarkController;
@@ -67,6 +68,10 @@ Route::middleware('auth:api')->group(function () {
         Route::get('/get-score-toefl', 'getLevelUser');
     });
 
+    Route::controller(AssessmentController::class)->prefix('/assessment')->group(function () {
+        Route::post('/store', 'store')->name('assessment.api.store');
+    });
+
     Route::resource('/randomword', RandomWordController::class);
     Route::resource('/quizs',QuizController::class);
     Route::resource('/quiztypes',QuizTypeController::class);
@@ -82,4 +87,5 @@ Route::middleware('auth:api')->group(function () {
     Route::resource('/pairingclaims',PairingClaimController::class);
     Route::resource('/foryou', ForYouController::class);
 });
+
 Route::post('/storequiz', [QuizController::class, 'store']);

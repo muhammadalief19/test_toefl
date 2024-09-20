@@ -26,6 +26,15 @@
                     <li class=""><a href="{{ route('userRole.index') }}">Data User Role</a></li>
                 </ul>
             </li>
+            <li class="">
+                <a class="has-arrow" href="javascript:void(0);" aria-expanded="false">
+                    <i class="material-icons">menu_book</i>
+                    <span class="nav-text">Course</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li class=""><a href="{{ route('courseCategory.index') }}">Course Category</a></li>
+                </ul>
+            </li>
             <li><a class="" href="{{ route('logout') }}" aria-expanded="false">
                     <i class="material-symbols-outlined">logout</i>
                     <span class="nav-text">Logout</span>
