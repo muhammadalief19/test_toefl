@@ -24,6 +24,7 @@
                 </a>
                 <ul aria-expanded="false">
                     <li class=""><a href="{{ route('userRole.index') }}">Data User Role</a></li>
+                    <li class=""><a href="{{ route('users.menu') }}">Users</a></li>
                 </ul>
             </li>
             <li class="">
@@ -31,6 +32,9 @@
                     <i class="material-icons">menu_book</i>
                     <span class="nav-text">Course</span>
                 </a>
+                <ul aria-expanded="false">
+                    <li class=""><a href="{{ route('courseCategory.index') }}">Course List</a></li>
+                </ul>
                 <ul aria-expanded="false">
                     <li class=""><a href="{{ route('courseCategory.index') }}">Course Category</a></li>
                 </ul>

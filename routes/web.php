@@ -2,11 +2,13 @@
 
 use App\Http\Controllers\AllPacketController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Auth\SSOController;
 use App\Http\Controllers\CourseCategoryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PacketFullController;
 use App\Http\Controllers\PacketMiniController;
 use App\Http\Controllers\StoryQuestionController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserRoleController;
 use Illuminate\Support\Facades\Route;
 
@@ -75,4 +77,12 @@ Route::middleware('authenticated')->group(function () {
         Route::patch('/update/{id}', 'update')->name('courseCategory.update');
         Route::delete('/delete/{id}', 'destroy')->name('courseCategory.destroy');
     });
+
+    Route::controller(UserController::class)->prefix('/users')->group(function() {
+        Route::get('/menu', 'menu')->name('users.menu');
+        Route::get('/{id}', 'index')->name('users.index');
+    });
 });
+
+Route::get('/sso/login', [SSOController::class, 'showLoginForm'])->name('sso.login');
+Route::post('/sso/login', [SSOController::class, 'login'])->name('sso.log');
