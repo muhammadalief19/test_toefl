@@ -22,14 +22,9 @@ class UserRoleController extends Controller
         $data = $this->data;
         $data["userRoleData"] = UserRole::all();
         $data["no"] = 1;
-<<<<<<< HEAD
-        
-=======
-
->>>>>>> 87d2c1dce56f566c881725f17ec68542bd4d2c51
         return view('userRole.index', compact(['data']));
     }
-    
+
     public function store(Request $request)
     {
         $validatedData = $request->validate(
