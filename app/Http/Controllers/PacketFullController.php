@@ -12,10 +12,18 @@ use Illuminate\Support\Facades\Storage;
 
 class PacketFullController extends Controller
 {
+    private $data;
+
+    public function __construct()
+    {
+        $this->data["title"] = "Data Packet Full";
+    }
+
     public function getFullPaket()
     {
+        $data = $this->data;
         $dataPacketFull = Paket::with('questions')->where('tipe_test_packet', 'Full Test')->get();
-        return view('datapacketfull.first', compact('dataPacketFull'));
+        return view('datapacketfull.first', compact('dataPacketFull','data'));
     }
     public function index($id)
     {
@@ -81,7 +89,7 @@ class PacketFullController extends Controller
                 $file = $request->file('question');
                 $fileName = $file->getClientOriginalName();
                 $filePath = $file->storeAs('/questions', $fileName, 'public');
-            // $filePath = Storage::cloud()->put('/questions', $file);
+                // $filePath = Storage::cloud()->put('/questions', $file);
 
                 $questionData['question_text'] = $filePath;
             } else {

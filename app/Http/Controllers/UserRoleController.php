@@ -6,6 +6,7 @@ use App\Models\Paket;
 use App\Models\UserRole;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
+use App\Http\Controllers\toastr;
 
 class UserRoleController extends Controller
 {
@@ -21,9 +22,8 @@ class UserRoleController extends Controller
         $data = $this->data;
         $data["userRoleData"] = UserRole::all();
         $data["no"] = 1;
-        $dataPacketFull = Paket::with('questions')->where('tipe_test_packet', 'Full Test')->get();
-
-        return view('userRole.index', compact(['data', 'dataPacketFull']));
+        
+        return view('userRole.index', compact(['data']));
     }
 
     public function create()
