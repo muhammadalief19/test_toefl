@@ -35,7 +35,9 @@ class User extends Authenticatable implements JWTSubject
         'status',
         'prodi',
         'nrp',
-        'role',
+        'address',
+        'last_seen',
+        'role_id',
         'is_verified_register',
         'otp_register',
         'is_verified_forgot',
@@ -86,10 +88,10 @@ class User extends Authenticatable implements JWTSubject
         return $this->belongsTo(Target::class);
     }
 
-    // public function role()
-    // {
-    //     return $this->belongsTo(UserRole::class, 'role', '_id');
-    // }
+    public function role()
+    {
+        return $this->belongsTo(UserRole::class, 'role_id', '_id');
+    }
 
     public function assessment() {
         return $this->hasMany(Assesment::class, 'user_id', '_id');

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Mail\ForgotMail;
 use App\Mail\RegisterOtpMail;
 use App\Models\User;
+use App\Models\UserRole;
 use App\Models\UserScorer;
 use DateInterval;
 use DateTime;
@@ -208,10 +209,13 @@ class AuthController extends Controller
                 ],200);
             }
 
+            $role = UserRole::where('role_name', 'user')->first();
+
             $user = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
+                'role_id' => $role->_id,
                 'otp_register' => $validTokenRegister,
                 'otp_register_expired_at' => $expiredAt,
                 'otp_forgot' => null,
