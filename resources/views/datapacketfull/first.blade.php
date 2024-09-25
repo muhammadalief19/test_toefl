@@ -50,7 +50,7 @@
                                     <thead>
                                         <tr>
                                             <th class="">No</th>
-                                            <th class="">Packet Full Test</th>
+                                            <th class="">Packet Mini Test</th>
                                             <th class="text-center">Jumlah Pertanyaan</th>
                                             <th class="text-center">Service Nested</th>
                                             <th class="text-center">Service Pertanyaan</th>

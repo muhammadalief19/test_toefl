@@ -31,7 +31,7 @@ class DatabaseSeeder extends Seeder
         //     'name' => "Maya",
         //     'email' => "maya@gmail.com",
         //     'password' => Hash::make('password'),
-        //     'role' => "admin"
+        //     'role_id' => "adminrole_id",
         // ]);
         UserRole::create([
             "role_name" => "admin"

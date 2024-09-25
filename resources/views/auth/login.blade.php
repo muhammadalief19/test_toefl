@@ -39,7 +39,6 @@
 				<img class="img1 move-1" src="images/background/pic3.png" alt="">
 				<img class="img2 move-2" src="images/background/pic4.png" alt="">
 				<img class="img3 move-3" src="images/background/pic5.png" alt="">
-
 			</div>
 		</div>
 		<div class="container flex-row-fluid d-flex flex-column justify-content-center position-relative overflow-hidden p-7 mx-auto">

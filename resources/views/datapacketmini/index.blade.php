@@ -33,7 +33,7 @@
             <div class="card" id="accordion-two">
                 <div class="card-header flex-wrap d-flex justify-content-between px-3">
                     <div>
-                        <h4 class="card-title">Data Full Packet</h4>
+                        <h4 class="card-title">Data Mini Packet</h4>
                     </div>
                     <ul class="nav nav-tabs dzm-tabs" id="myTab" role="tablist">
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">
