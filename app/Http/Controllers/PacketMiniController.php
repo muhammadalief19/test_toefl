@@ -7,18 +7,26 @@ use Illuminate\Http\Request;
 
 class PacketMiniController extends Controller
 {
+    private $data;
+    public function __construct()
+    {
+        $this->data["title"] = "Data Packet Mini";
+    }
+
     public function getMiniPaket()
     {
+        $data = $this->data;
         $dataPacketMini = Paket::with('questions')->where('tipe_test_packet', 'Mini Test')->simplePaginate(3);
-        return view('datapacketmini.index', compact('dataPacketMini'));
+        return view('datapacketmini.index', compact('dataPacketMini', 'data'));
     }
 
     public function index($id)
     {
+        $data = $this->data;
         $dataPacketFull = Paket::with('questions')->where('tipe_test_packet', 'Mini Test')
             ->where('_id', $id)->get();
         $dataId = $id;
-        return view('datapacketfull.index', compact('dataPacketFull', 'dataId'));
+        return view('datapacketfull.index', compact('dataPacketFull', 'dataId', 'data'));
     }
 
     public function getEntryQuestionMini($id)

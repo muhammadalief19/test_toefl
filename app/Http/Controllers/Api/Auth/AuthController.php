@@ -170,7 +170,6 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {
-
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'email' => [
@@ -192,9 +191,6 @@ class AuthController extends Controller
         if ($validator->fails()) {
             return response()->json($validator->errors()->toJson(), 422);
         }
-
-
-
         try {
             $validTokenRegister = rand(1000, 9999);
 
@@ -365,9 +361,44 @@ class AuthController extends Controller
      * )
      */
 
+    public function updateAge(Request $request) {
+        $user = User::where('_id', auth()->user()->id)->first();
+        try {
+            $request->validate([
+                'age' => 'string',
+            ]);
+            $updateData = [
+                'age' => $request->input('age'),
+            ];
 
-     public function updateProfile(Request $request)
-{
+            // Update data user
+            $updateProfile = $user->update($updateData);
+
+            if ($updateProfile) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Profile updated successfully!',
+                ]);
+            }
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to update profile',
+            ]);
+        } catch (Exception $e) {
+            // Jika terjadi error
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+
+    }
+
+    
+
+    public function updateProfile(Request $request)
+    {
     $user = User::where('_id', auth()->user()->id)->first();
 
     try {

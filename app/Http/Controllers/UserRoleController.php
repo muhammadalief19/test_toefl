@@ -6,6 +6,7 @@ use App\Models\Paket;
 use App\Models\UserRole;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
+use App\Http\Controllers\toastr;
 
 class UserRoleController extends Controller
 {
@@ -21,10 +22,9 @@ class UserRoleController extends Controller
         $data = $this->data;
         $data["userRoleData"] = UserRole::all();
         $data["no"] = 1;
-
         return view('userRole.index', compact(['data']));
     }
-    
+
     public function store(Request $request)
     {
         $validatedData = $request->validate(

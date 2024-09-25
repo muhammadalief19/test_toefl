@@ -12,23 +12,33 @@ use Illuminate\Support\Facades\Storage;
 
 class PacketFullController extends Controller
 {
+    private $data;
+
+    public function __construct()
+    {
+        $this->data["title"] = "Data Packet Full";
+    }
+
     public function getFullPaket()
     {
+        $data = $this->data;
         $dataPacketFull = Paket::with('questions')->where('tipe_test_packet', 'Full Test')->get();
-        return view('datapacketfull.first', compact('dataPacketFull'));
+        return view('datapacketfull.first', compact('dataPacketFull','data'));
     }
     public function index($id)
     {
+        $data = $this->data;
         $dataPacketFull = Paket::with('questions')->where('tipe_test_packet', 'Full Test')->where('_id', $id)
             ->get();
         $dataId = $id;
-        return view('datapacketfull.index', compact('dataPacketFull', 'dataId'));
+        return view('datapacketfull.index', compact('dataPacketFull', 'dataId', 'data'));
     }
 
     public function getEntryQuestionFull($id)
     {
+        $data = $this->data;
         $dataPacketFull = Paket::where('_id', $id)->first();
-        return view('datapacketfull.entry', compact('dataPacketFull'));
+        return view('datapacketfull.entry', compact('dataPacketFull','data'));
     }
 
     public function postEntryQuestionFull(Request $request)
@@ -81,7 +91,7 @@ class PacketFullController extends Controller
                 $file = $request->file('question');
                 $fileName = $file->getClientOriginalName();
                 $filePath = $file->storeAs('/questions', $fileName, 'public');
-            // $filePath = Storage::cloud()->put('/questions', $file);
+                // $filePath = Storage::cloud()->put('/questions', $file);
 
                 $questionData['question_text'] = $filePath;
             } else {
@@ -135,7 +145,7 @@ class PacketFullController extends Controller
                 $file = $request->file('question');
                 $fileName = $file->getClientOriginalName();
                 $filePath = $file->storeAs('/questions', $fileName, 'public');
-            // $filePath = Storage::cloud()->put('/questions', $file);
+                // $filePath = Storage::cloud()->put('/questions', $file);
 
                 $questionData['question_text'] = $filePath;
             } else {
@@ -292,9 +302,10 @@ class PacketFullController extends Controller
 
     public function entryNestedFullQuestion($id)
     {
+        $data = $this->data;
         $initPaket = $id;
         $nestedQuestionPacket = NestedQuestion::where('packet_id', $id)->get();
-        return view('datapacketfull.entrynested', compact('nestedQuestionPacket', 'initPaket'));
+        return view('datapacketfull.entrynested', compact('nestedQuestionPacket', 'initPaket', 'data'));
     }
 
     public function addNestedFullQuestion(Request $request, $id)
@@ -328,6 +339,7 @@ class PacketFullController extends Controller
 
     public function getAllNested($idNested, $idPaket)
     {
+        $data = $this->data;
         $initNestedQuestion = NestedQuestion::where('_id', $idNested)->first();
         $getAllQuestionPaket = Question::where('packet_id', $idPaket)->get();
 
@@ -346,7 +358,7 @@ class PacketFullController extends Controller
 
         $getAllNestedQuestionPaket = Nested::with('question')->where('nested_question_id', $idNested)->get();
 
-        return view('datapacketfull.getallnested', compact('getAllQuestionNotNested', 'getAllNestedQuestionPaket', 'idNested', 'initNestedQuestion'));
+        return view('datapacketfull.getallnested', compact('getAllQuestionNotNested', 'getAllNestedQuestionPaket', 'idNested', 'initNestedQuestion', 'data'));
     }
 
     public function storeDataNested(Request $request, $id)
