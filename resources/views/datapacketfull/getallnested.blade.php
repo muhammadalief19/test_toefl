@@ -138,8 +138,6 @@
 @endsection
 
 @push('scripts')
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha256-3gQJhtmj7YnV1fmtbVcnAV6eI4ws0Tr48bVZCThtCGQ=" crossorigin="anonymous"></script>
 <script>
     $(document).ready(function() {
         $('#table3').DataTable({
