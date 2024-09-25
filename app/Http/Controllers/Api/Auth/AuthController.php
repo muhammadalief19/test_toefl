@@ -224,7 +224,6 @@ class AuthController extends Controller
                 'is_verified_forgot' => false,
                 'target_id' => "",
                 'email_verified_at' => null,
-
             ]);
 
             $token = Auth::guard('api')->login($user);
@@ -440,7 +439,6 @@ class AuthController extends Controller
             $updateOtp = $user->update([
                 'otp_register' => $validTokenRegister,
                 'otp_register_expired_at' => $expiredAt
-
             ]);
 
             if ($updateOtp) {

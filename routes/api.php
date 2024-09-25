@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\AssessmentController;
 use App\Http\Controllers\Api\Auth\AuthController;
 use App\Http\Controllers\Api\PacketController;
 use App\Http\Controllers\Api\BookmarkController;
+use App\Http\Controllers\Api\DifficultyLevelController;
 use App\Http\Controllers\Api\ForYouController;
 use App\Http\Controllers\Api\GameAnswerController;
 use App\Http\Controllers\Api\GameClaimController;
@@ -70,6 +71,10 @@ Route::middleware('auth:api')->group(function () {
 
     Route::controller(AssessmentController::class)->prefix('/assessment')->group(function () {
         Route::post('/store', 'store')->name('assessment.api.store');
+    });
+
+    Route::controller(DifficultyLevelController::class)->prefix('/level')->group(function () {
+        Route::post('/', 'index')->name('level.api.index');
     });
 
     Route::resource('/randomword', RandomWordController::class);

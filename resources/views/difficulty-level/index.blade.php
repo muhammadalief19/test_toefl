@@ -33,11 +33,11 @@
             <div class="card" id="accordion-two">
                 <div class="card-header flex-wrap d-flex justify-content-between px-3">
                     <div>
-                        <h4 class="card-title">Data Users</h4>
+                        <h4 class="card-title">Data Difficulty Level</h4>
                     </div>
                     <ul class="nav nav-tabs dzm-tabs" id="myTab" role="tablist">
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">
-                            + New User
+                            + New Level
                         </button>
                     </ul>
                 </div>
@@ -52,30 +52,17 @@
                                         <tr>
                                             <th>No</th>
                                             <th>Name</th>
-                                            <th>Role</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($data['userData'] as $item)
+                                        @foreach ($data['difficultyLevelData'] as $item)
                                             <tr>
                                                 <td>
                                                     {{ $data['no']++ }}
                                                 </td>
                                                 <td>
-                                                    {{ $item->name }}
-                                                </td>
-                                                <td>
-                                                    @if ($item->role->role_name == 'admin')
-                                                        <span
-                                                            class="badge badge-rounded badge-outline-primary">{{ $item->role->role_name }}</span>
-                                                    @elseif ($item->role->role_name == 'instructor')
-                                                        <span
-                                                            class="badge badge-rounded badge-outline-danger">{{ $item->role->role_name }}</span>
-                                                    @else
-                                                        <span
-                                                            class="badge badge-rounded badge-outline-success">{{ $item->role->role_name }}</span>
-                                                    @endif
+                                                    {{ $item->level_name }}
                                                 </td>
                                                 <td>
                                                     <div class="d-flex">
@@ -85,7 +72,7 @@
                                                             <i class="fa fa-pencil"></i>
                                                         </a>
                                                         <button class="btn btn-danger shadow btn-icon-sm"
-                                                            onclick="confirmDelete('{{ $item->_id }}')">
+                                                            onclick="confirmDelete('{{  $item->_id }}')">
                                                             <i class="fa fa-trash"></i>
                                                         </button>
                                                     </div>
@@ -96,30 +83,21 @@
                                                     <div class="modal-dialog modal-dialog-center">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                @if ($data['role']->role_name == 'admin')
-                                                                    <h1 class="modal-title fs-5" id="editModalLabel">Edit
-                                                                        Admin</h1>
-                                                                @elseif ($data['role']->role_name == 'instructor')
-                                                                    <h1 class="modal-title fs-5" id="editModalLabel">Edit
-                                                                        Instructor</h1>
-                                                                @else
-                                                                    <h1 class="modal-title fs-5" id="editModalLabel">Edit
-                                                                        User</h1>
-                                                                @endif
+                                                                <h1 class="modal-title fs-5" id="editModalLabel">Edit Role
+                                                                </h1>
                                                                 <button type="button" class="btn-close"
                                                                     data-bs-dismiss="modal" aria-label="Close"></button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                <form action="{{ route('users.update', $item->_id) }}"
+                                                                <form action="{{ route('level.update', $item->_id) }}"
                                                                     method="POST">
                                                                     @csrf
                                                                     @method('PATCH')
                                                                     <div class="form-group">
-                                                                        <label for="name">Name</label>
+                                                                        <label for="level_name">Level Name</label>
                                                                         <input type="text" class="form-control"
-                                                                            id="name" name="name"
-                                                                            value="{{ $item->name }}"
-                                                                            autocomplete="off" required>
+                                                                            id="level_name" name="level_name"
+                                                                            value="{{ $item->level_name }}" autocomplete="off" required>
                                                                     </div>
                                                                     <div class="modal-footer">
                                                                         <button type="button" class="btn btn-danger"
@@ -140,7 +118,6 @@
                                         <tr>
                                             <th>No</th>
                                             <th>Name</th>
-                                            <th>Role</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </tfoot>
@@ -162,29 +139,16 @@
         <div class="modal-dialog modal-dialog-center">
             <div class="modal-content">
                 <div class="modal-header">
-                    @if ($data['role']->role_name == 'admin')
-                        <h1 class="modal-title fs-5" id="addModalLabel">Admin Baru</h1>
-                    @elseif ($data['role']->role_name == 'instructor')
-                        <h1 class="modal-title fs-5" id="addModalLabel">Instructor Baru</h1>
-                    @else
-                        <h1 class="modal-title fs-5" id="addModalLabel">User Baru</h1>
-                    @endif
+                    <h1 class="modal-title fs-5" id="addModalLabel">Level Baru</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('users.store') }}" method="POST">
+                    <form action="{{ route('level.store') }}" method="POST">
                         @csrf
-                        <div class="form-group mb-2">
-                            <label for="name">Name</label>
-                            <input class="form-control" type="text" name="name" id="name"
-                                autocomplete="off" required>
-                        </div>
                         <div class="form-group">
-                            <label for="email">Email</label>
-                            <input class="form-control" type="email" name="email" id="email"
-                                autocomplete="off" required>
+                            <label for="level_name">Level Name</label>
+                            <input class="form-control" type="text" name="level_name" id="level_name" autocomplete="off" >
                         </div>
-                        <input type="hidden" name="role_id" value="{{ $data["role"]->_id }}">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
@@ -218,13 +182,13 @@
                     if (result.isConfirmed) {
                         $.ajax({
                             type: 'POST',
-                            url: `/users/delete/${id}`,
+                            url: `/level/delete/${id}`,
                             data: {
                                 "_token": "{{ csrf_token() }}",
                                 "_method": 'DELETE',
                             },
-                            success: function(data) {
-                                window.location.href = "/users/{{ $data['role']->_id }}";
+                            success: function (data) {
+                                window.location.href = "/level";
                             }
                         });
                     }

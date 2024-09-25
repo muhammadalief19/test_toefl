@@ -52,7 +52,7 @@ class UserRoleController extends Controller
         $role = UserRole::find($id);
 
         if(!$role) {
-            toastr()->success('User Role Tidak Ditemukan');
+            toastr()->error('User Role Tidak Ditemukan');
             return back();
         }
 
@@ -80,7 +80,7 @@ class UserRoleController extends Controller
         $role = UserRole::find($id);
 
         if(!$role) {
-            toastr()->success('User Role Tidak Ditemukan');
+            toastr()->error('User Role Tidak Ditemukan');
             return back();
         }
 

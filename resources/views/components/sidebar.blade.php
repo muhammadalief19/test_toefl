@@ -33,11 +33,19 @@
                     <span class="nav-text">Course</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li class=""><a href="{{ route('courseCategory.index') }}">Course List</a></li>
+                    <li class=""><a href="{{ route('course.index') }}">Course List</a></li>
                 </ul>
                 <ul aria-expanded="false">
                     <li class=""><a href="{{ route('courseCategory.index') }}">Course Category</a></li>
                 </ul>
+            </li>
+            <li>
+                <a class="" href="{{ route('level.index') }}" aria-expanded="false">
+                    <i class="material-symbols-outlined">
+                        keyboard_arrow_up
+                    </i>
+                    <span class="nav-text">Level</span>
+                </a>
             </li>
             <li><a class="" href="{{ route('logout') }}" aria-expanded="false">
                     <i class="material-symbols-outlined">logout</i>

@@ -4,6 +4,8 @@ use App\Http\Controllers\AllPacketController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\SSOController;
 use App\Http\Controllers\CourseCategoryController;
+use App\Http\Controllers\CourseController;
+use App\Http\Controllers\DifficultyLevelController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PacketFullController;
 use App\Http\Controllers\PacketMiniController;
@@ -81,6 +83,20 @@ Route::middleware('authenticated')->group(function () {
     Route::controller(UserController::class)->prefix('/users')->group(function() {
         Route::get('/menu', 'menu')->name('users.menu');
         Route::get('/{id}', 'index')->name('users.index');
+        Route::post('/store', 'store')->name('users.store');
+        Route::patch('/update/{id}', 'update')->name('users.update');
+        Route::delete('/delete/{id}', 'destroy')->name('users.delete');
+    });
+
+    Route::controller(DifficultyLevelController::class)->prefix('/level')->group(function() {
+        Route::get('/', 'index')->name('level.index');
+        Route::post('/store', 'store')->name('level.store');
+        Route::patch('/update/{id}', 'update')->name('level.update');
+        Route::delete('/delete/{id}', 'destroy')->name('level.destroy');
+    });
+
+    Route::controller(CourseController::class)->prefix('/course')->group(function() {
+        Route::get('/', 'index')->name('course.index');
     });
 });
 
