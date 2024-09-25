@@ -1,3 +1,11 @@
+@php
+    function rupiah($angka){
+	
+	$hasil_rupiah = "Rp " . number_format($angka,2,',','.');
+	return $hasil_rupiah;
+}
+@endphp
+
 @extends('layouts.layout')
 
 @section('content')
@@ -52,6 +60,7 @@
                                         <tr>
                                             <th>No</th>
                                             <th>Name</th>
+                                            <th>Instructor</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
@@ -62,7 +71,10 @@
                                                     {{ $data['no']++ }}
                                                 </td>
                                                 <td>
-                                                    {{ $item->level_name }}
+                                                    {{ $item->course_name }}
+                                                </td>
+                                                <td>
+                                                    {{ $item->instructor->name }}
                                                 </td>
                                                 <td>
                                                     <div class="d-flex">
@@ -71,10 +83,15 @@
                                                             data-bs-target="#editModal{{ $item->_id }}">
                                                             <i class="fa fa-pencil"></i>
                                                         </a>
-                                                        <button class="btn btn-danger shadow btn-icon-sm"
+                                                        <button class="btn btn-danger shadow btn-icon-sm me-1"
                                                             onclick="confirmDelete('{{ $item->_id }}')">
                                                             <i class="fa fa-trash"></i>
                                                         </button>
+                                                        <a class="btn btn-warning shadow btn-icon-sm me-1" href="#"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#detailModal{{ $item->_id }}">
+                                                            <i class="fa fa-solid fa-circle-exclamation"></i>
+                                                        </a>
                                                     </div>
                                                 </td>
                                                 {{-- update modal --}}
@@ -89,16 +106,72 @@
                                                                     data-bs-dismiss="modal" aria-label="Close"></button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                <form action="{{ route('level.update', $item->_id) }}"
+                                                                <form action="{{ route('course.update', $item->_id) }}"
                                                                     method="POST">
                                                                     @csrf
                                                                     @method('PATCH')
-                                                                    <div class="form-group">
-                                                                        <label for="level_name">Level Name</label>
-                                                                        <input type="text" class="form-control"
-                                                                            id="level_name" name="level_name"
-                                                                            value="{{ $item->level_name }}"
-                                                                            autocomplete="off" required>
+                                                                    <div class="form-group mb-3">
+                                                                        <label for="course_name">Course Name</label>
+                                                                        <input class="form-control" type="text"
+                                                                            name="course_name" id="course_name"
+                                                                            autocomplete="off"
+                                                                            value="{{ $item->course_name }}">
+                                                                    </div>
+                                                                    <div class="form-group mb-3">
+                                                                        <label for="category_id">Category</label>
+                                                                        <select class="default-select form-control wide"
+                                                                            id="category_id" name="category_id">
+                                                                            @foreach ($data['courseCategoriesData'] as $category)
+                                                                                <option value="{{ $category->_id }}"
+                                                                                    {{ $item->category_id == $category->_id ? 'selected' : '' }}>
+                                                                                    {{ $category->category_name }}
+                                                                                </option>
+                                                                            @endforeach
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="form-group mb-3">
+                                                                        <label for="level_name">Instructor</label>
+                                                                        <select class="default-select form-control wide"
+                                                                            name="instructor_id" id="instructor_id">
+                                                                            @foreach ($data['instructorsData'] as $instructor)
+                                                                                <option value="{{ $instructor->_id }}"
+                                                                                    {{ $item->instructor_id == $instructor->_id ? 'selected' : '' }}>
+                                                                                    {{ $instructor->name }}
+                                                                                </option>
+                                                                            @endforeach
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="form-group mb-3">
+                                                                        <label for="level_name">Level</label>
+                                                                        <select class="default-select form-control wide"
+                                                                            name="difficulty_level_id"
+                                                                            id="difficulty_level_id">
+                                                                            </option>
+                                                                            @foreach ($data['levelsData'] as $level)
+                                                                                <option value="{{ $level->_id }}"
+                                                                                    {{ $item->level_id == $level->_id ? 'selected' : '' }}>
+                                                                                    {{ $level->level_name }}
+                                                                                </option>
+                                                                            @endforeach
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="form-group mb-3">
+                                                                        <label for="duration">Duration ( Minute )</label>
+                                                                        <input class="form-control" type="number"
+                                                                            name="duration" id="duration"
+                                                                            autocomplete="off"
+                                                                            value="{{ $item->duration }}">
+                                                                    </div>
+                                                                    <div class="form-group mb-3">
+                                                                        <label for="price">Price</label>
+                                                                        <input class="form-control" type="number"
+                                                                            name="price" id="price"
+                                                                            autocomplete="off"
+                                                                            value="{{ $item->price }}">
+                                                                    </div>
+                                                                    <div class="form-group mb-3">
+                                                                        <label for="description">Description</label>
+                                                                        <textarea class="form-control" name="description" id="description" cols="30" rows="10">{{ $item->description }}</textarea>
                                                                     </div>
                                                                     <div class="modal-footer">
                                                                         <button type="button" class="btn btn-danger"
@@ -112,6 +185,84 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                {{-- update modal --}}
+                                                {{-- detail modal --}}
+                                                <div class="modal fade" id="detailModal{{ $item->_id }}"
+                                                    tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-center">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h1 class="modal-title fs-5" id="detailModalLabel">Detail
+                                                                    Course</h1>
+                                                                <button type="button" class="btn-close"
+                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <div class="row mb-3">
+                                                                    <h4 class="text-primary mb-2">
+                                                                        Course Name
+                                                                    </h4>
+                                                                    <p class="">
+                                                                        {{ $item->course_name }}
+                                                                    </p>
+                                                                </div>
+                                                                <div class="row mb-3">
+                                                                    <h4 class="text-primary mb-2">
+                                                                        Category
+                                                                    </h4>
+                                                                    <p class="">
+                                                                        {{ $item->category->category_name }}
+                                                                    </p>
+                                                                </div>
+                                                                <div class="row mb-3">
+                                                                    <h4 class="text-primary mb-2">
+                                                                        Instructor
+                                                                    </h4>
+                                                                    <p class="">
+                                                                        {{ $item->instructor->name }}
+                                                                    </p>
+                                                                </div>
+                                                                <div class="row mb-3">
+                                                                    <h4 class="text-primary mb-2">
+                                                                        Level
+                                                                    </h4>
+                                                                    <p class="">
+                                                                        {{ $item->difficultyLevel->level_name }}
+                                                                    </p>
+                                                                </div>
+                                                                <div class="row mb-3">
+                                                                    <h4 class="text-primary mb-2">
+                                                                        Duration
+                                                                    </h4>
+                                                                    <p class="">
+                                                                        {{ intdiv($item->duration, 60).' Menit '.($item->duration % 60).' Detik'; }}
+                                                                    </p>
+                                                                </div>
+                                                                <div class="row mb-3">
+                                                                    <h4 class="text-primary mb-2">
+                                                                        Price
+                                                                    </h4>
+                                                                    <p class="">
+                                                                        {{ rupiah($item->price) }}
+                                                                    </p>
+                                                                </div>
+                                                                <div class="row mb-3">
+                                                                    <h4 class="text-primary mb-2">
+                                                                        Description
+                                                                    </h4>
+                                                                    <p class="">
+                                                                        {{ $item->description }}
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-danger"
+                                                                    data-bs-dismiss="modal">Close</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                {{-- update modal --}}
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -119,6 +270,7 @@
                                         <tr>
                                             <th>No</th>
                                             <th>Name</th>
+                                            <th>Instructor</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </tfoot>
@@ -140,24 +292,70 @@
         <div class="modal-dialog modal-dialog-center">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="addModalLabel">Level Baru</h1>
+                    <h1 class="modal-title fs-5" id="addModalLabel">Course Baru</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('level.store') }}" method="POST">
+                    <form action="{{ route('course.store') }}" method="POST">
                         @csrf
                         <div class="form-group mb-3">
-                            <label for="level_name">Level Name</label>
-                            <input class="form-control" type="text" name="level_name" id="level_name"
+                            <label for="course_name">Course Name</label>
+                            <input class="form-control" type="text" name="course_name" id="course_name"
                                 autocomplete="off">
                         </div>
                         <div class="form-group mb-3">
-                            <label for="level_name">Category</label>
-                            <select multiple class="default-select form-control wide mt-3">
-                                @foreach ($collection as $item)
-                                    <option>1</option>
+                            <label for="category_id">Category</label>
+                            <select class="default-select form-control wide" id="category_id" name="category_id">
+                                <option value="">
+                                    Not Selected
+                                </option>
+                                @foreach ($data['courseCategoriesData'] as $item)
+                                    <option value="{{ $item->_id }}">
+                                        {{ $item->category_name }}
+                                    </option>
                                 @endforeach
                             </select>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="level_name">Instructor</label>
+                            <select class="default-select form-control wide" name="instructor_id" id="instructor_id">
+                                <option value="">
+                                    Not Selected
+                                </option>
+                                @foreach ($data['instructorsData'] as $item)
+                                    <option value="{{ $item->_id }}">
+                                        {{ $item->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="level_name">Level</label>
+                            <select class="default-select form-control wide" name="difficulty_level_id"
+                                id="difficulty_level_id">
+                                <option value="">
+                                    Not Selected
+                                </option>
+                                @foreach ($data['levelsData'] as $item)
+                                    <option value="{{ $item->_id }}">
+                                        {{ $item->level_name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="duration">Duration ( Minute )</label>
+                            <input class="form-control" type="number" name="duration" id="duration"
+                                autocomplete="off">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="price">Price</label>
+                            <input class="form-control" type="number" name="price" id="price"
+                                autocomplete="off">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="description">Description</label>
+                            <textarea class="form-control" name="description" id="description" cols="30" rows="10"></textarea>
                         </div>
                 </div>
                 <div class="modal-footer">
@@ -189,13 +387,13 @@
                     if (result.isConfirmed) {
                         $.ajax({
                             type: 'POST',
-                            url: `/level/delete/${id}`,
+                            url: `/course/delete/${id}`,
                             data: {
                                 "_token": "{{ csrf_token() }}",
                                 "_method": 'DELETE',
                             },
                             success: function(data) {
-                                window.location.href = "/level";
+                                window.location.href = "/course";
                             }
                         });
                     }

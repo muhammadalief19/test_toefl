@@ -34,8 +34,6 @@
                 </a>
                 <ul aria-expanded="false">
                     <li class=""><a href="{{ route('course.index') }}">Course List</a></li>
-                </ul>
-                <ul aria-expanded="false">
                     <li class=""><a href="{{ route('courseCategory.index') }}">Course Category</a></li>
                 </ul>
             </li>

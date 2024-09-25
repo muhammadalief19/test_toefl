@@ -97,6 +97,9 @@ Route::middleware('authenticated')->group(function () {
 
     Route::controller(CourseController::class)->prefix('/course')->group(function() {
         Route::get('/', 'index')->name('course.index');
+        Route::post('/store', 'store')->name('course.store');
+        Route::patch('/update/{id}', 'update')->name('course.update');
+        Route::delete('/delete/{id}', 'destroy')->name('course.destroy');
     });
 });
 
