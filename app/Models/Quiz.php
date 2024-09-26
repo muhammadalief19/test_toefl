@@ -14,6 +14,7 @@ class Quiz extends Model
 
     protected $fillable = [
         'order', 
+        'quiz_type_id',
         'module_id', 
         'title', 
         'description', 

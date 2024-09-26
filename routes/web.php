@@ -9,6 +9,7 @@ use App\Http\Controllers\DifficultyLevelController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PacketFullController;
 use App\Http\Controllers\PacketMiniController;
+use App\Http\Controllers\QuizTypeController;
 use App\Http\Controllers\StoryQuestionController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserRoleController;
@@ -100,6 +101,13 @@ Route::middleware('authenticated')->group(function () {
         Route::post('/store', 'store')->name('course.store');
         Route::patch('/update/{id}', 'update')->name('course.update');
         Route::delete('/delete/{id}', 'destroy')->name('course.destroy');
+    });
+
+    Route::controller(QuizTypeController::class)->prefix('/quiz-type')->group(function() {
+        Route::get('/', 'index')->name('quizType.index');
+        Route::post('/store', 'store')->name('quizType.store');
+        Route::patch('/update/{id}', 'update')->name('quizType.update');
+        Route::delete('/delete/{id}', 'destroy')->name('quizType.destroy');
     });
 });
 

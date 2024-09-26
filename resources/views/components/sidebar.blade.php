@@ -29,6 +29,16 @@
             </li>
             <li class="">
                 <a class="has-arrow" href="javascript:void(0);" aria-expanded="false">
+                    <i class="material-icons">quiz</i>
+                    <span class="nav-text">Quiz</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li class=""><a href="{{ route('course.index') }}">Quiz List</a></li>
+                    <li class=""><a href="{{ route('quizType.index') }}">Quiz Type</a></li>
+                </ul>
+            </li>
+            <li class="">
+                <a class="has-arrow" href="javascript:void(0);" aria-expanded="false">
                     <i class="material-icons">menu_book</i>
                     <span class="nav-text">Course</span>
                 </a>

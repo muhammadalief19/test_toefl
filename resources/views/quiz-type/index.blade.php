@@ -1,3 +1,11 @@
+@php
+    function rupiah($angka){
+	
+	$hasil_rupiah = "Rp " . number_format($angka,2,',','.');
+	return $hasil_rupiah;
+}
+@endphp
+
 @extends('layouts.layout')
 
 @section('content')
@@ -33,11 +41,11 @@
             <div class="card" id="accordion-two">
                 <div class="card-header flex-wrap d-flex justify-content-between px-3">
                     <div>
-                        <h4 class="card-title">Data Course Categories</h4>
+                        <h4 class="card-title">Data Quiz Type</h4>
                     </div>
                     <ul class="nav nav-tabs dzm-tabs" id="myTab" role="tablist">
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">
-                            + New Category
+                            + New Quiz Type
                         </button>
                     </ul>
                 </div>
@@ -56,13 +64,13 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($data['courseCategoryData'] as $item)
+                                        @foreach ($data['quizTypesData'] as $item)
                                             <tr>
                                                 <td>
                                                     {{ $data['no']++ }}
                                                 </td>
                                                 <td>
-                                                    {{ $item->category_name }}
+                                                    {{ $item->name }}
                                                 </td>
                                                 <td>
                                                     <div class="d-flex">
@@ -71,10 +79,15 @@
                                                             data-bs-target="#editModal{{ $item->_id }}">
                                                             <i class="fa fa-pencil"></i>
                                                         </a>
-                                                        <button class="btn btn-danger shadow btn-icon-sm"
+                                                        <button class="btn btn-danger shadow btn-icon-sm me-1"
                                                             onclick="confirmDelete('{{ $item->_id }}')">
                                                             <i class="fa fa-trash"></i>
                                                         </button>
+                                                        <a class="btn btn-warning shadow btn-icon-sm me-1" href="#"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#detailModal{{ $item->_id }}">
+                                                            <i class="fa fa-solid fa-circle-exclamation"></i>
+                                                        </a>
                                                     </div>
                                                 </td>
                                                 {{-- update modal --}}
@@ -89,15 +102,20 @@
                                                                     data-bs-dismiss="modal" aria-label="Close"></button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                <form action="{{ route('courseCategory.update', $item->_id) }}"
+                                                                <form action="{{ route('quizType.update', $item->_id) }}"
                                                                     method="POST">
                                                                     @csrf
                                                                     @method('PATCH')
-                                                                    <div class="form-group">
-                                                                        <label for="category_name">Role Name</label>
-                                                                        <input type="text" class="form-control"
-                                                                            id="category_name" name="category_name"
-                                                                            value="{{ $item->category_name }}" autocomplete="off" required>
+                                                                    <div class="form-group mb-3">
+                                                                        <label for="name">Quiz Type Name</label>
+                                                                        <input class="form-control" type="text"
+                                                                            name="name" id="name"
+                                                                            autocomplete="off"
+                                                                            value="{{ $item->name }}">
+                                                                    </div>
+                                                                    <div class="form-group mb-3">
+                                                                        <label for="desc">Description</label>
+                                                                        <textarea class="form-control" name="desc" id="desc" cols="30" rows="10">{{ $item->desc }}</textarea>
                                                                     </div>
                                                                     <div class="modal-footer">
                                                                         <button type="button" class="btn btn-danger"
@@ -111,6 +129,44 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                {{-- update modal --}}
+                                                {{-- detail modal --}}
+                                                <div class="modal fade" id="detailModal{{ $item->_id }}"
+                                                    tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-center">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h1 class="modal-title fs-5" id="detailModalLabel">Detail
+                                                                    Quiz Type</h1>
+                                                                <button type="button" class="btn-close"
+                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <div class="row mb-3">
+                                                                    <h4 class="text-primary mb-2">
+                                                                        Quiz Type Name
+                                                                    </h4>
+                                                                    <p class="">
+                                                                        {{ $item->name }}
+                                                                    </p>
+                                                                </div>
+                                                                <div class="row mb-3">
+                                                                    <h4 class="text-primary mb-2">
+                                                                        Description
+                                                                    </h4>
+                                                                    <p class="">
+                                                                        {{ $item->desc }}
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-danger"
+                                                                    data-bs-dismiss="modal">Close</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                {{-- update modal --}}
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -139,22 +195,27 @@
         <div class="modal-dialog modal-dialog-center">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="addModalLabel">New Category</h1>
+                    <h1 class="modal-title fs-5" id="addModalLabel">Quiz Type Baru</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="{{ route('courseCategory.store') }}" method="POST">
-                    <div class="modal-body">
+                <div class="modal-body">
+                    <form action="{{ route('quizType.store') }}" method="POST">
                         @csrf
-                        <div class="form-group">
-                            <label for="category_name">Category Name</label>
-                            <input class="form-control" type="text" name="category_name" id="category_name" autocomplete="off" required>
+                        <div class="form-group mb-3">
+                            <label for="name">Quiz Type Name</label>
+                            <input class="form-control" type="text" name="name" id="name"
+                                autocomplete="off">
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Simpan Perubahan
-                        </button>
-                    </div>
+                        <div class="form-group mb-3">
+                            <label for="desc">Description</label>
+                            <textarea class="form-control" name="desc" id="desc" cols="30" rows="10"></textarea>
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Simpan Perubahan
+                    </button>
+                </div>
                 </form>
             </div>
         </div>
@@ -165,7 +226,6 @@
     <script src="{{ asset('') }}templates/vendor/wow-master/dist/wow.min.js"></script>
     <script>
         function confirmDelete(id) {
-            // Tampilkan SweetAlert2 untuk konfirmasi penghapusan
             Swal.fire({
                 title: 'Apakah Anda yakin?',
                 text: "Anda tidak akan dapat mengembalikan ini!",
@@ -180,13 +240,13 @@
                     if (result.isConfirmed) {
                         $.ajax({
                             type: 'POST',
-                            url: `/course-category/delete/${id}`,
+                            url: `/quiz-type/delete/${id}`,
                             data: {
                                 "_token": "{{ csrf_token() }}",
                                 "_method": 'DELETE',
                             },
-                            success: function (data) {
-                                window.location.href = "/course-category";
+                            success: function(data) {
+                                window.location.href = "/quiz-type";
                             }
                         });
                     }

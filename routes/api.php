@@ -20,6 +20,8 @@ use App\Http\Controllers\Api\QuizTypeController;
 use App\Http\Controllers\Api\RandomWordController;
 use App\Http\Controllers\Api\ScrambledWordController;
 use App\Http\Controllers\Api\ValueHomeController;
+use App\Http\Controllers\Api\CourseCategoryController;
+use App\Models\CourseCategory;
 use App\Models\Quiz;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
