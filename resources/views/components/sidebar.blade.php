@@ -37,6 +37,26 @@
                     <li class=""><a href="{{ route('courseCategory.index') }}">Course Category</a></li>
                 </ul>
             </li>
+            <li class="">
+                <a class="has-arrow" href="javascript:void(0);" aria-expanded="false">
+                    <i class="material-icons">forum</i>
+                    <span class="nav-text">Manage Forum</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li class=""><a href="{{ route('forum.index') }}">Forum</a></li>
+                    <li class=""><a href="{{ route('topic.index') }}">Topic</a></li>
+                </ul>
+            </li>
+            <li class="">
+                <a class="has-arrow" href="javascript:void(0);" aria-expanded="false">
+                    <i class="material-icons">forum</i>
+                    <span class="nav-text">Manage Post</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li class=""><a href="{{ route('forum.index') }}">Forum</a></li>
+                    <li class=""><a href="{{ route('topic.index') }}">Topic</a></li>
+                </ul>
+            </li>
             <li>
                 <a class="" href="{{ route('level.index') }}" aria-expanded="false">
                     <i class="material-symbols-outlined">
@@ -45,6 +65,8 @@
                     <span class="nav-text">Level</span>
                 </a>
             </li>
+
+
             <li><a class="" href="{{ route('logout') }}" aria-expanded="false">
                     <i class="material-symbols-outlined">logout</i>
                     <span class="nav-text">Logout</span>

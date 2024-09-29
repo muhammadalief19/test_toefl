@@ -16,7 +16,6 @@ class Topic extends Model
         'forum_id',
         'topic_title',
         'created_by',
-        'created_at'
     ];
 
     public function forum() {

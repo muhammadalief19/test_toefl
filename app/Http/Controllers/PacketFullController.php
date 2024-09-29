@@ -16,7 +16,7 @@ class PacketFullController extends Controller
 
     public function __construct()
     {
-        $this->data["title"] = "Data Packet Full";
+        $this->data["title"] = "Full Packet";
     }
 
     public function getFullPaket()

@@ -11,6 +11,8 @@ use App\Http\Controllers\PacketFullController;
 use App\Http\Controllers\PacketMiniController;
 use App\Http\Controllers\StoryQuestionController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ForumController;
+use App\Http\Controllers\TopicController;
 use App\Http\Controllers\UserRoleController;
 use Illuminate\Support\Facades\Route;
 
@@ -78,6 +80,20 @@ Route::middleware('authenticated')->group(function () {
         Route::post('/store', 'store')->name('courseCategory.store');
         Route::patch('/update/{id}', 'update')->name('courseCategory.update');
         Route::delete('/delete/{id}', 'destroy')->name('courseCategory.destroy');
+    });
+
+    Route::controller(ForumController::class)->prefix('/forum')->group(function() {
+        Route::get('/', 'index')->name('forum.index');
+        Route::post('/store', 'store')->name('forum.store');
+        Route::patch('/update/{id}', 'update')->name('forum.update');
+        Route::delete('/delete/{id}', 'destroy')->name('forum.delete');
+    });
+
+    Route::controller(TopicController::class)->prefix('/topic')->group(function() {
+        Route::get('/', 'index')->name('topic.index');
+        Route::post('/store', 'store')->name('topic.store');
+        Route::patch('/update/{id}', 'update')->name('topic.update');
+        Route::delete('/delete/{id}', 'destroy')->name('topic.delete');
     });
 
     Route::controller(UserController::class)->prefix('/users')->group(function() {

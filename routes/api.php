@@ -5,12 +5,15 @@ use App\Http\Controllers\Api\AssessmentController;
 use App\Http\Controllers\Api\Auth\AuthController;
 use App\Http\Controllers\Api\PacketController;
 use App\Http\Controllers\Api\BookmarkController;
+use App\Http\Controllers\Api\CommentController;
 use App\Http\Controllers\Api\DifficultyLevelController;
+use App\Http\Controllers\Api\ForumController;
 use App\Http\Controllers\Api\ForYouController;
 use App\Http\Controllers\Api\GameAnswerController;
 use App\Http\Controllers\Api\GameClaimController;
 use App\Http\Controllers\Api\GameController;
 use App\Http\Controllers\Api\PairingClaimController;
+use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\Api\QuizAnswerController;
 use App\Http\Controllers\Api\QuizController;
 use App\Http\Controllers\Api\QuizEnrollController;
@@ -19,6 +22,7 @@ use App\Http\Controllers\Api\QuizResultController;
 use App\Http\Controllers\Api\QuizTypeController;
 use App\Http\Controllers\Api\RandomWordController;
 use App\Http\Controllers\Api\ScrambledWordController;
+use App\Http\Controllers\Api\TopicController;
 use App\Http\Controllers\Api\ValueHomeController;
 use App\Models\Quiz;
 use Illuminate\Http\Request;
@@ -75,7 +79,36 @@ Route::middleware('auth:api')->group(function () {
     });
 
     Route::controller(DifficultyLevelController::class)->prefix('/level')->group(function () {
-        Route::post('/', 'index')->name('level.api.index');
+        Route::get('/', 'index')->name('level.api.index');
+    });
+
+    Route::controller(ForumController::class)->prefix('/forum')->group(function () {
+        Route::get('/', 'index')->name('forum.api.index');
+    });
+
+    Route::controller(TopicController::class)->prefix('/topic')->group(function () {
+        Route::get('/', 'index')->name('topic.api.index');
+        Route::get('/{id}', 'getByID')->name('topic.api.getByID');
+        Route::post('/store', 'store')->name('topic.api.store');
+        Route::patch('/update/{id}', 'update')->name('topic.api.update');
+        Route::delete('/delete/{id}', 'delete')->name('topic.api.delete');
+    });
+
+    Route::controller(CommentController::class)->prefix('/comment')->group(function () {
+        Route::get('/', 'index')->name('comment.api.index');
+        Route::get('/c_id/{id}', 'getByCommentID')->name('comment.api.getByPostID');
+        Route::get('/p_id/{post_id}', 'getByPostID')->name('comment.api.getByCommentID');
+        Route::post('/store', 'store')->name('comment.api.store');
+        Route::patch('/update/{id}', 'update')->name('comment.api.update');
+        Route::delete('/delete/{id}', 'delete')->name('comment.api.delete');
+    });
+
+    Route::controller(PostController::class)->prefix('/post')->group(function () {
+        Route::get('/', 'index')->name('post.api.index');
+        Route::get('/{id}', 'getByID')->name('post.api.getByID');
+        Route::post('/store', 'store')->name('post.api.store');
+        Route::patch('/update/{id}', 'update')->name('post.api.update');
+        Route::delete('/delete/{id}', 'delete')->name('post.api.delete');
     });
 
     Route::resource('/randomword', RandomWordController::class);

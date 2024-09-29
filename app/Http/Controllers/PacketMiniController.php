@@ -10,7 +10,7 @@ class PacketMiniController extends Controller
     private $data;
     public function __construct()
     {
-        $this->data["title"] = "Data Packet Mini";
+        $this->data["title"] = "Mini Packet";
     }
 
     public function getMiniPaket()

@@ -37,7 +37,7 @@
                     </div>
                     <ul class="nav nav-tabs dzm-tabs" id="myTab" role="tablist">
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">
-                            + New Packet
+                            + New User Role
                         </button>
                     </ul>
                 </div>
