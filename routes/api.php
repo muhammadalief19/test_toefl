@@ -21,6 +21,7 @@ use App\Http\Controllers\Api\RandomWordController;
 use App\Http\Controllers\Api\ScrambledWordController;
 use App\Http\Controllers\Api\ValueHomeController;
 use App\Http\Controllers\Api\CourseCategoryController;
+use App\Http\Controllers\Api\LearningProfileController;
 use App\Models\CourseCategory;
 use App\Models\Quiz;
 use Illuminate\Http\Request;
@@ -74,6 +75,10 @@ Route::middleware('auth:api')->group(function () {
 
     Route::controller(AssessmentController::class)->prefix('/assessment')->group(function () {
         Route::post('/store', 'store')->name('assessment.api.store');
+    });
+
+    Route::controller(LearningProfileController::class)->prefix('/learning-profile')->group(function () {
+        Route::post('/store', 'store')->name('learningProfile.api.store');
     });
 
     Route::controller(DifficultyLevelController::class)->prefix('/level')->group(function () {
