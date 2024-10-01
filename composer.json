@@ -16,6 +16,8 @@
         "league/flysystem-aws-s3-v3": "^3.0",
         "midtrans/midtrans-php": "^2.5",
         "mongodb/laravel-mongodb": "^4.3",
+        "pbmedia/laravel-ffmpeg": "*",
+        "php-ffmpeg/php-ffmpeg": "^1.2",
         "phpoffice/phpword": "^1.2",
         "tymon/jwt-auth": "^2.1",
         "yajra/laravel-datatables": "^10.0",

@@ -6,13 +6,16 @@ use App\Http\Controllers\Auth\SSOController;
 use App\Http\Controllers\CourseCategoryController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\DifficultyLevelController;
+use App\Http\Controllers\ForumController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MaterialController;
+use App\Http\Controllers\MaterialTypeController;
+use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\PacketFullController;
 use App\Http\Controllers\PacketMiniController;
 use App\Http\Controllers\QuizTypeController;
 use App\Http\Controllers\StoryQuestionController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\ForumController;
 use App\Http\Controllers\TopicController;
 use App\Http\Controllers\UserRoleController;
 use Illuminate\Support\Facades\Route;
@@ -54,7 +57,6 @@ Route::middleware('authenticated')->group(function () {
     });
 
     Route::controller(PacketMiniController::class)->group(function () {
-
         Route::get('/get-all-paket/mini-test', 'getMiniPaket')->name('packetmini.first');
         Route::get('/data-packet-mini/{id}', 'index')->name('packetmini.index');
         Route::get('/entry-question-mini/{id}', 'getEntryQuestionMini')->name('packetmini.entryQuestion');
@@ -81,6 +83,27 @@ Route::middleware('authenticated')->group(function () {
         Route::post('/store', 'store')->name('courseCategory.store');
         Route::patch('/update/{id}', 'update')->name('courseCategory.update');
         Route::delete('/delete/{id}', 'destroy')->name('courseCategory.destroy');
+    });
+
+    Route::controller(ModuleController::class)->prefix('/module')->group(function() {
+        Route::get('/', 'index')->name('module.index');
+        Route::post('/store', 'store')->name('module.store');
+        Route::patch('/update/{id}', 'update')->name('module.update');
+        Route::delete('/delete/{id}', 'destroy')->name('module.destroy');
+    });
+
+    Route::controller(MaterialController::class)->prefix('/material')->group(function() {
+        Route::get('/', 'index')->name('material.index');
+        Route::post('/store', 'store')->name('material.store');
+        Route::patch('/update/{id}', 'update')->name('material.update');
+        Route::delete('/delete/{id}', 'destroy')->name('material.destroy');
+    });
+
+    Route::controller(MaterialTypeController::class)->prefix('/material-type')->group(function() {
+        Route::get('/', 'index')->name('materialType.index');
+        Route::post('/store', 'store')->name('materialType.store');
+        Route::patch('/update/{id}', 'update')->name('materialType.update');
+        Route::delete('/delete/{id}', 'destroy')->name('materialType.destroy');
     });
 
     Route::controller(ForumController::class)->prefix('/forum')->group(function() {

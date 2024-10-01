@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Contracts\Session\Session;
 use App\Http\Controllers\Controller;
 use App\Models\UserRole;
 use Illuminate\Http\Request;
