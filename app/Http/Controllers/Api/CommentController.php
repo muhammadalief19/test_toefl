@@ -78,12 +78,13 @@ class CommentController extends Controller
                 'commented_by' => 'required',
                 'content' => 'required',
             ]);
+            $date = new Carbon();
 
             $createData = Comment::create([
                 'post_id' => $validatedData['post_id'],
                 'commented_by' => Auth()->user()->_id,
                 'content' => $validatedData['content'],
-                'commented_at' => Carbon::now(),
+                'commented_at' => $date->now()->isoFormat('Y-M-D H:mm:ss'),
             ]);
 
             if($createData) {
@@ -104,17 +105,26 @@ class CommentController extends Controller
 
     public function update(Request $request, $id) {
         try {
+            $date = new Carbon();
+            $comment = Comment::find($id);
+            if(!$comment) {
+                return response()->json([
+                    'status' => 500,
+                    'success' => false,
+                    'data' => 'comment tidak ditemukan'
+                ]);
+            }
             $validatedData = $request->validate([
                 'post_id' => 'required',
                 'commented_by' => 'required',
                 'content' => 'required',
             ]);
 
-            $updateData = Comment::create([
+            $updateData = $comment->update([
                 'post_id' => $validatedData['post_id'],
                 'commented_by' => Auth()->user()->_id,
                 'content' => $validatedData['content'],
-                'commented_at' => Carbon::now(),
+                'commented_at' => $date->now()->isoFormat('Y-M-D H:mm:ss'),
             ]);
 
             if($updateData) {

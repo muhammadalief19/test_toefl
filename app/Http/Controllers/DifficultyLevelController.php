@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class DifficultyLevelController extends Controller
 {
     private $data;
-    
+
     public function __construct()
     {
         $this->data['title'] = 'Difficulty Level';

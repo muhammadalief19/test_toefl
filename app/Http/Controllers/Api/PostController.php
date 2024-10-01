@@ -54,6 +54,7 @@ class PostController extends Controller
 
     public function store(Request $request) {
         try {
+            $date = new Carbon();
             $validatedData = $request->validate([
                 'topic_id' => 'required',
                 'content' => 'required',
@@ -64,7 +65,7 @@ class PostController extends Controller
                 'topic_id' => $validatedData['topic_id'],
                 'posted_by' => Auth()->user()->_id,
                 'content' => $validatedData['content'],
-                'posted_at' => Carbon::now(),
+                'posted_at' => $date->now()->isoFormat('Y-M-D H:mm:ss'),
             ]);
 
             if($createData) {
@@ -85,6 +86,7 @@ class PostController extends Controller
 
     public function update(Request $request, $id) {
         try {
+            $date = new Carbon();
             $validatedData = $request->validate([
                 'topic_id' => 'required',
                 'posted_by' => 'required',
@@ -95,7 +97,7 @@ class PostController extends Controller
             $updateData = Post::find($id)->update([
                 'topic_id' => $validatedData['topic_id'],
                 'content' => $validatedData['content'],
-                'posted_at' => Carbon::now(),
+                'posted_at' => $date->now()->isoFormat('Y-M-D H:mm:ss'),
             ]);
 
             if($updateData) {
