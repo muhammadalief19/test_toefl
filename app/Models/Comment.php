@@ -18,4 +18,8 @@ class Comment extends Model
         'content',
         'commented_at'
     ];
+
+    public function post() {
+        return $this->belongsTo(Post::class, 'post_id', '_id');
+    }
 }
