@@ -25,6 +25,7 @@ use App\Http\Controllers\Api\ScrambledWordController;
 use App\Http\Controllers\Api\TopicController;
 use App\Http\Controllers\Api\ValueHomeController;
 use App\Http\Controllers\Api\CourseCategoryController;
+use App\Http\Controllers\Api\LearningHistoryController;
 use App\Http\Controllers\Api\LearningProfileController;
 use App\Models\CourseCategory;
 use App\Models\Quiz;
@@ -83,6 +84,10 @@ Route::middleware('auth:api')->group(function () {
 
     Route::controller(LearningProfileController::class)->prefix('/learning-profile')->group(function () {
         Route::post('/store', 'store')->name('learningProfile.api.store');
+    });
+
+    Route::controller(LearningHistoryController::class)->prefix('/learning-history')->group(function () {
+        Route::post('/store', 'store')->name('learningHistory.api.store');
     });
 
     Route::controller(DifficultyLevelController::class)->prefix('/level')->group(function () {

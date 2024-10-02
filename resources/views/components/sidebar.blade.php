@@ -33,7 +33,7 @@
                     <span class="nav-text">Quiz</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li class=""><a href="{{ route('course.index') }}">Quiz List</a></li>
+                    <li class=""><a href="{{ route('quiz.index') }}">Quiz List</a></li>
                     <li class=""><a href="{{ route('quizType.index') }}">Quiz Type</a></li>
                 </ul>
             </li>

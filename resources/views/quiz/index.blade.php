@@ -1,11 +1,3 @@
-@php
-    function rupiah($angka){
-	
-	$hasil_rupiah = "Rp " . number_format($angka,2,',','.');
-	return $hasil_rupiah;
-}
-@endphp
-
 @extends('layouts.layout')
 
 @section('content')
@@ -64,7 +56,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($data['quizTypesData'] as $item)
+                                        @foreach ($data['quizzesData'] as $item)
                                             <tr>
                                                 <td>
                                                     {{ $data['no']++ }}

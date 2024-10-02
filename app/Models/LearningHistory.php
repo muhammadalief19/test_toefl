@@ -9,7 +9,7 @@ class LearningHistory extends Model
     use HasFactory;
 
     protected $connection = 'mongodb';
-    protected $collection = 'learning_history';
+    protected $collection = 'learning_histories';
 
     protected $fillable = [
         'user_id',

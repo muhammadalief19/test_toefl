@@ -13,6 +13,7 @@ use App\Http\Controllers\MaterialTypeController;
 use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\PacketFullController;
 use App\Http\Controllers\PacketMiniController;
+use App\Http\Controllers\QuizController;
 use App\Http\Controllers\QuizTypeController;
 use App\Http\Controllers\StoryQuestionController;
 use App\Http\Controllers\UserController;
@@ -147,6 +148,10 @@ Route::middleware('authenticated')->group(function () {
         Route::post('/store', 'store')->name('quizType.store');
         Route::patch('/update/{id}', 'update')->name('quizType.update');
         Route::delete('/delete/{id}', 'destroy')->name('quizType.destroy');
+    });
+
+    Route::controller(QuizController::class)->prefix('/quiz')->group(function() {
+        Route::get('/', 'index')->name('quiz.index');
     });
 });
 
