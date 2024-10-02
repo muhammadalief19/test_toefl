@@ -33,11 +33,11 @@
             <div class="card" id="accordion-two">
                 <div class="card-header flex-wrap d-flex justify-content-between px-3">
                     <div>
-                        <h4 class="card-title">Data Difficulty Level</h4>
+                        <h4 class="card-title">Data Configuration</h4>
                     </div>
                     <ul class="nav nav-tabs dzm-tabs" id="myTab" role="tablist">
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">
-                            + New Level
+                            + New Config
                         </button>
                     </ul>
                 </div>
@@ -52,17 +52,21 @@
                                         <tr>
                                             <th>No</th>
                                             <th>Name</th>
+                                            <th>Value</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($data['difficultyLevelData'] as $item)
+                                        @foreach ($data['configurationData'] as $item)
                                             <tr>
                                                 <td>
                                                     {{ $data['no']++ }}
                                                 </td>
                                                 <td>
-                                                    {{ $item->level_name }}
+                                                    {{ $item->config_name }}
+                                                </td>
+                                                <td>
+                                                    {{ $item->config_value }}
                                                 </td>
                                                 <td>
                                                     <div class="d-flex">
@@ -83,21 +87,25 @@
                                                     <div class="modal-dialog modal-dialog-center">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h1 class="modal-title fs-5" id="editModalLabel">Edit Level
+                                                                <h1 class="modal-title fs-5" id="editModalLabel">Edit Config
                                                                 </h1>
                                                                 <button type="button" class="btn-close"
                                                                     data-bs-dismiss="modal" aria-label="Close"></button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                <form action="{{ route('level.update', $item->_id) }}"
+                                                                <form action="{{ route('config.update', $item->_id) }}"
                                                                     method="POST">
                                                                     @csrf
                                                                     @method('PATCH')
-                                                                    <div class="form-group">
-                                                                        <label for="level_name">Level Name</label>
+                                                                    <div class="form-group mb-3">
+                                                                        <label for="config_name">Config Name</label>
                                                                         <input type="text" class="form-control"
-                                                                            id="level_name" name="level_name"
-                                                                            value="{{ $item->level_name }}" autocomplete="off" required>
+                                                                            id="config_name" name="config_name"
+                                                                            value="{{ $item->config_name }}" autocomplete="off" required>
+                                                                    </div>
+                                                                    <div class="form-group mb-3">
+                                                                        <label for="config_value">Config Value</label>
+                                                                        <textarea class="form-control" name="config_value" id="config_value" cols="30" rows="10">{{ $item->config_value }}</textarea>
                                                                     </div>
                                                                     <div class="modal-footer">
                                                                         <button type="button" class="btn btn-danger"
@@ -118,6 +126,7 @@
                                         <tr>
                                             <th>No</th>
                                             <th>Name</th>
+                                            <th>Value</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </tfoot>
@@ -139,15 +148,19 @@
         <div class="modal-dialog modal-dialog-center">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="addModalLabel">Level Baru</h1>
+                    <h1 class="modal-title fs-5" id="addModalLabel">Config Baru</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('level.store') }}" method="POST">
+                    <form action="{{ route('config.store') }}" method="POST">
                         @csrf
+                        <div class="form-group mb-3">
+                            <label for="config_name">Config Name</label>
+                            <input class="form-control" type="text" name="config_name" id="config_name" autocomplete="off" >
+                        </div>
                         <div class="form-group">
-                            <label for="level_name">Level Name</label>
-                            <input class="form-control" type="text" name="level_name" id="level_name" autocomplete="off" >
+                            <label for="config_value">Config Value</label>
+                            <textarea class="form-control" name="config_value" id="config_value" cols="30" rows="10"></textarea>
                         </div>
                 </div>
                 <div class="modal-footer">
@@ -179,13 +192,13 @@
                     if (result.isConfirmed) {
                         $.ajax({
                             type: 'POST',
-                            url: `/level/delete/${id}`,
+                            url: `/config/delete/${id}`,
                             data: {
                                 "_token": "{{ csrf_token() }}",
                                 "_method": 'DELETE',
                             },
                             success: function (data) {
-                                window.location.href = "/level";
+                                window.location.href = "/config";
                             }
                         });
                     }

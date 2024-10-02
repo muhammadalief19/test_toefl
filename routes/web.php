@@ -3,6 +3,7 @@
 use App\Http\Controllers\AllPacketController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\SSOController;
+use App\Http\Controllers\ConfigurationController;
 use App\Http\Controllers\CourseCategoryController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\DifficultyLevelController;
@@ -134,6 +135,13 @@ Route::middleware('authenticated')->group(function () {
         Route::post('/store', 'store')->name('level.store');
         Route::patch('/update/{id}', 'update')->name('level.update');
         Route::delete('/delete/{id}', 'destroy')->name('level.destroy');
+    });
+    
+    Route::controller(ConfigurationController::class)->prefix('/config')->group(function() {
+        Route::get('/', 'index')->name('config.index');
+        Route::post('/store', 'store')->name('config.store');
+        Route::patch('/update/{id}', 'update')->name('config.update');
+        Route::delete('/delete/{id}', 'destroy')->name('config.destroy');
     });
 
     Route::controller(CourseController::class)->prefix('/course')->group(function() {
