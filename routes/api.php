@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\ActivityLogController;
 use App\Http\Controllers\Api\AnswerController;
 use App\Http\Controllers\Api\AssessmentController;
 use App\Http\Controllers\Api\Auth\AuthController;
@@ -88,6 +89,10 @@ Route::middleware('auth:api')->group(function () {
 
     Route::controller(LearningHistoryController::class)->prefix('/learning-history')->group(function () {
         Route::post('/store', 'store')->name('learningHistory.api.store');
+    });
+
+    Route::controller(ActivityLogController::class)->prefix('/activity-log')->group(function () {
+        Route::post('/store', 'store')->name('activityLog.api.store');
     });
 
     Route::controller(DifficultyLevelController::class)->prefix('/level')->group(function () {

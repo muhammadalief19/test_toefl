@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ActivityLogController;
 use App\Http\Controllers\AllPacketController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\SSOController;
@@ -160,6 +161,10 @@ Route::middleware('authenticated')->group(function () {
 
     Route::controller(QuizController::class)->prefix('/quiz')->group(function() {
         Route::get('/', 'index')->name('quiz.index');
+    });
+
+    Route::controller(ActivityLogController::class)->prefix('/activity-log')->group(function() {
+        Route::get('/', 'index')->name('activityLog.index');
     });
 });
 
