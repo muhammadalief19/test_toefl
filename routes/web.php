@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\ActivityLogController;
 use App\Http\Controllers\AllPacketController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\SSOController;
+use App\Http\Controllers\ConfigurationController;
 use App\Http\Controllers\CourseCategoryController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\DifficultyLevelController;
@@ -135,6 +137,13 @@ Route::middleware('authenticated')->group(function () {
         Route::patch('/update/{id}', 'update')->name('level.update');
         Route::delete('/delete/{id}', 'destroy')->name('level.destroy');
     });
+    
+    Route::controller(ConfigurationController::class)->prefix('/config')->group(function() {
+        Route::get('/', 'index')->name('config.index');
+        Route::post('/store', 'store')->name('config.store');
+        Route::patch('/update/{id}', 'update')->name('config.update');
+        Route::delete('/delete/{id}', 'destroy')->name('config.destroy');
+    });
 
     Route::controller(CourseController::class)->prefix('/course')->group(function() {
         Route::get('/', 'index')->name('course.index');
@@ -159,6 +168,10 @@ Route::middleware('authenticated')->group(function () {
         Route::post('/question/store', 'questionStore')->name('quizQuestion.store');
         Route::patch('/question/update/{id}', 'questionUpdate')->name('quizQuestion.update');
         Route::delete('/question/delete/{id}', 'questionDestroy')->name('quizQuestion.destroy');
+    });
+
+    Route::controller(ActivityLogController::class)->prefix('/activity-log')->group(function() {
+        Route::get('/', 'index')->name('activityLog.index');
     });
 });
 

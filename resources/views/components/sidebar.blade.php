@@ -68,6 +68,22 @@
                     <span class="nav-text">Level</span>
                 </a>
             </li>
+            <li>
+                <a class="" href="{{ route('config.index') }}" aria-expanded="false">
+                    <i class="material-symbols-outlined">
+                        settings
+                    </i>
+                    <span class="nav-text">Config</span>
+                </a>
+            </li>
+            <li>
+                <a class="" href="{{ route('activityLog.index') }}" aria-expanded="false">
+                    <i class="material-symbols-outlined">
+                        schedule
+                    </i>
+                    <span class="nav-text">Activity Log</span>
+                </a>
+            </li>
             <li><a class="" href="{{ route('logout') }}" aria-expanded="false">
                     <i class="material-symbols-outlined">logout</i>
                     <span class="nav-text">Logout</span>
