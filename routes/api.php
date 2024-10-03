@@ -40,7 +40,7 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('/register', 'register');
     Route::post('/login', 'login');
     Route::post('/forgot', 'forgot');
-    Route::post('/updateAge', 'updateAge');
+    Route::post('/update-age', 'updateAge');
     Route::post('/users/verify-otp-forgot',  'verifyOtpForgot');
     Route::post('/reset', 'reset');
     Route::post('/users/verify-otp',  'verifyOtpRegister');

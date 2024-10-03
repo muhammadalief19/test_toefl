@@ -51,7 +51,9 @@
                                     <thead>
                                         <tr>
                                             <th>No</th>
-                                            <th>Name</th>
+                                            <th>Nama Quiz</th>
+                                            <th>Nama Module</th>
+                                            <th>Tipe Quiz</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
@@ -62,7 +64,22 @@
                                                     {{ $data['no']++ }}
                                                 </td>
                                                 <td>
-                                                    {{ $item->name }}
+                                                    {{ $item->title }}
+                                                </td>
+                                                <td>
+                                                    {{ $item->module->module_name }}
+                                                </td>
+                                                <td>
+                                                    {{ $item->type->name }}
+                                                </td>
+                                                <td>
+                                                    <div class="text-center">
+                                                        <a class="btn btn-success"
+                                                            href="{{ route('quizQuestion.index', $item->_id) }}">
+                                                            <i class="fa fa-sign-in-alt"></i>
+                                                            Tambah Pertanyaan
+                                                        </a>
+                                                    </div>
                                                 </td>
                                                 <td>
                                                     <div class="d-flex">
@@ -99,15 +116,51 @@
                                                                     @csrf
                                                                     @method('PATCH')
                                                                     <div class="form-group mb-3">
-                                                                        <label for="name">Quiz Name</label>
+                                                                        <label for="order">Order</label>
                                                                         <input class="form-control" type="text"
-                                                                            name="name" id="name"
+                                                                            name="order" id="order"
                                                                             autocomplete="off"
-                                                                            value="{{ $item->name }}">
+                                                                            value="{{ $item->order }}">
                                                                     </div>
                                                                     <div class="form-group mb-3">
-                                                                        <label for="desc">Description</label>
-                                                                        <textarea class="form-control" name="desc" id="desc" cols="30" rows="10">{{ $item->desc }}</textarea>
+                                                                        <label for="quiz_type_id">Pilih Tipe Quiz</label>
+                                                                        <select class="default-select form-control wide" id="quiz_type_id" name="quiz_type_id">
+                                                                            <option value="{{ $item->quiz_type_id }}">
+                                                                                {{ $item->type->name }}
+                                                                            </option>
+                                                                            @foreach ($data['quizzesTypeData'] as $items)
+                                                                                <option value="{{ $items->_id }}">
+                                                                                    {{ $items->name }}
+                                                                                </option>
+                                                                            @endforeach
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="form-group mb-3">
+                                                                        <label for="module_id">Pilih Module</label>
+                                                                        <select class="default-select form-control wide" id="module_id" name="module_id">
+
+                                                                            <option value="{{ $item->module_id }}">
+                                                                                {{ $item->module->module_name }}
+                                                                            </option>
+                                                                            @foreach ($data['moduleData'] as $items)
+                                                                                <option value="{{ $items->_id }}">
+                                                                                    {{ $items->module_name }}
+                                                                                </option>
+                                                                            @endforeach
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="form-group mb-3">
+                                                                        <label for="title">Judul Quiz</label>
+                                                                        <input class="form-control" type="text" name="title" id="title" value="{{ $item->title }}"
+                                                                            autocomplete="off">
+                                                                    </div>
+                                                                    <div class="form-group mb-3">
+                                                                        <label for="description">Deskripsi Quiz</label>
+                                                                        <textarea class="form-control" name="description" id="description" cols="30" rows="10">{{$item->description}}</textarea>
+                                                                    </div>
+                                                                    <div class="form-group mb-3">
+                                                                        <label for="passing_core">Passing Score</label>
+                                                                        <input class="form-control" name="passing_score" id="passing_score" type="text" autocomplete="off" value="{{ $item->passing_score }}">
                                                                     </div>
                                                                     <div class="modal-footer">
                                                                         <button type="button" class="btn btn-danger"
@@ -136,18 +189,50 @@
                                                             <div class="modal-body">
                                                                 <div class="row mb-3">
                                                                     <h4 class="text-primary mb-2">
-                                                                        Quiz Name
+                                                                        Nama Quiz
                                                                     </h4>
                                                                     <p class="">
-                                                                        {{ $item->name }}
+                                                                        {{ $item->title }}
                                                                     </p>
                                                                 </div>
                                                                 <div class="row mb-3">
                                                                     <h4 class="text-primary mb-2">
-                                                                        Description
+                                                                        Tipe Quiz
                                                                     </h4>
                                                                     <p class="">
-                                                                        {{ $item->desc }}
+                                                                        {{ $item->type->name }}
+                                                                    </p>
+                                                                </div>
+                                                                <div class="row mb-3">
+                                                                    <h4 class="text-primary mb-2">
+                                                                        Nama Module
+                                                                    </h4>
+                                                                    <p class="">
+                                                                        {{ $item->module->module_name }}
+                                                                    </p>
+                                                                </div>
+                                                                <div class="row mb-3">
+                                                                    <h4 class="text-primary mb-2">
+                                                                        Nilai Minimum
+                                                                    </h4>
+                                                                    <p class="">
+                                                                        {{ $item->passing_score }}
+                                                                    </p>
+                                                                </div>
+                                                                <div class="row mb-3">
+                                                                    <h4 class="text-primary mb-2">
+                                                                        Order
+                                                                    </h4>
+                                                                    <p class="">
+                                                                        {{ $item->order }}
+                                                                    </p>
+                                                                </div>
+                                                                <div class="row mb-3">
+                                                                    <h4 class="text-primary mb-2">
+                                                                        Deskripsi Quiz
+                                                                    </h4>
+                                                                    <p class="">
+                                                                        {{ $item->description }}
                                                                     </p>
                                                                 </div>
                                                             </div>
@@ -158,14 +243,16 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                {{-- update modal --}}
+                                                {{-- detail modal --}}
                                             </tr>
                                         @endforeach
                                     </tbody>
                                     <tfoot>
                                         <tr>
                                             <th>No</th>
-                                            <th>Name</th>
+                                            <th>Nama Quiz</th>
+                                            <th>Nama Module</th>
+                                            <th>Tipe Quiz</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </tfoot>
@@ -191,16 +278,57 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('quizType.store') }}" method="POST">
+                    <form action="{{ route('quiz.store') }}" method="POST">
                         @csrf
                         <div class="form-group mb-3">
-                            <label for="name">Quiz Name</label>
-                            <input class="form-control" type="text" name="name" id="name"
+                            <label for="order">Order</label>
+                            <input class="form-control" type="text" name="order" id="order"
                                 autocomplete="off">
                         </div>
                         <div class="form-group mb-3">
-                            <label for="desc">Description</label>
-                            <textarea class="form-control" name="desc" id="desc" cols="30" rows="10"></textarea>
+                            <label for="quiz_type_id">Pilih Tipe Quiz</label>
+                            <select class="default-select form-control wide" id="quiz_type_id" name="quiz_type_id">
+                                <option value="">
+                                    Not Selected
+                                </option>
+                                {{-- <option value="{{ $item->quiz_type_id }}">
+                                    {{ $item->type->type_name }}
+                                </option> --}}
+                                @foreach ($data['quizzesTypeData'] as $items)
+                                    <option value="{{ $items->_id }}">
+                                        {{ $items->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="module_id">Pilih Module</label>
+                            <select class="default-select form-control wide" id="module_id" name="module_id">
+                                <option value="">
+                                    Not Selected
+                                </option>
+                                {{-- <option value="{{ $item->quiz_type_id }}">
+                                    {{ $item->type->type_name }}
+                                </option> --}}
+                                @foreach ($data['moduleData'] as $items)
+                                    <option value="{{ $items->_id }}">
+                                        {{ $items->module_name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="title">Judul Quiz</label>
+                            <input class="form-control" type="text" name="title" id="title"
+                                autocomplete="off">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="description">Deskripsi Quiz</label>
+                            <textarea class="form-control" name="description" id="description" cols="30" rows="10"></textarea>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="passing_core">Passing Score</label>
+                            <input class="form-control" name="passing_score" id="passing_score" type="text" autocomplete="off">
                         </div>
                 </div>
                 <div class="modal-footer">
@@ -232,13 +360,13 @@
                     if (result.isConfirmed) {
                         $.ajax({
                             type: 'POST',
-                            url: `/quiz-type/delete/${id}`,
+                            url: `/quiz/delete/${id}`,
                             data: {
                                 "_token": "{{ csrf_token() }}",
                                 "_method": 'DELETE',
                             },
                             success: function(data) {
-                                window.location.href = "/quiz-type";
+                                window.location.href = "/quiz";
                             }
                         });
                     }

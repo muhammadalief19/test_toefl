@@ -28,7 +28,7 @@ class AssessmentController extends Controller
         }
 
         $createData = Assesment::create([
-            'user_id' => $request->user_id,
+            'user_id' => Auth()->user()->id,
             'assessment_type' => $request->assessment_type,
             'score' => $request->score,
             'result' => $request->score,

@@ -51,13 +51,8 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Nama Modul</th>
-                                        <th>Tipe Materi</th>
                                         <th>Judul Materi</th>
-                                        <th>Deskripsi Materi</th>
-                                        <th>Isi Materi</th>
-                                        <th>Durasi Materi</th>
-                                        <th>Waktu Bikin Materi</th>
+                                        <th>Nama Modul</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -68,36 +63,10 @@
                                                 {{ $data['no']++ }}
                                             </td>
                                             <td>
-                                                {{ $item->module->module_name }}
-                                            </td>
-                                            <td>
-                                                {{ $item->type->type_name }}
-                                            </td>
-                                            <td>
                                                 {{ $item->title }}
                                             </td>
                                             <td>
-                                                {{ implode(' ', array_slice(explode(' ', $item->description), 0,10)) }}...
-                                            </td>
-                                            <td>
-                                                @if($item->type->type_name =='video')
-                                                <div class="w-25">
-                                                    <video class="" style="width: 300px;" controls>
-                                                        <source src="{{ $item->file_path }}" type="video/mp4">
-                                                        <source src="{{ $item->file_path }}" type="video/ogg">
-                                                        <source src="{{ $item->file_path }}" type="video/quicktime">
-                                                        Your browser does not support the video tag.
-                                                    </video>
-                                                </div>
-                                                @elseif ($item->type->type_name =='text')
-                                                {{ $item->file_path }}
-                                                @endif
-                                            </td>
-                                            <td>
-                                                {{ intdiv($item->duration, 60) . ' menit ' . ($item->duration % 60) . ' detik' }}
-                                            </td>
-                                            <td>
-                                                {{ $item->created_at }}
+                                                {{ $item->module->module_name }}
                                             </td>
                                             <td>
                                                 <div class="d-flex">
@@ -106,10 +75,15 @@
                                                         data-bs-target="#editModal{{ $item->_id }}">
                                                         <i class="fa fa-pencil"></i>
                                                     </a>
-                                                    <button class="btn btn-danger shadow btn-icon-sm"
+                                                    <button class="btn btn-danger shadow btn-icon-sm me-1"
                                                         onclick="confirmDelete('{{  $item->_id }}')">
                                                         <i class="fa fa-trash"></i>
                                                     </button>
+                                                    <a class="btn btn-warning shadow btn-icon-sm me-1" href="#"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#detailModal{{ $item->_id }}">
+                                                        <i class="fa fa-solid fa-circle-exclamation"></i>
+                                                    </a>
                                                 </div>
                                             </td>
                                             {{-- update modal --}}
@@ -142,17 +116,11 @@
                                                                     </select>
                                                                 </div>
                                                                 <div class="form-group mb-3">
-                                                                    <label for="type_id">Pilih Tipe Materi</label>
-                                                                    <select class="default-select form-control wide" id="type_id" name="type_id">
-                                                                        <option value="{{ $item->type_id }}">
-                                                                            {{ $item->type->type_name }}
-                                                                        </option>
-                                                                        @foreach ($data['materialTypeData'] as $items)
-                                                                            <option value="{{ $items->_id }}">
-                                                                                {{ $items->type_name }}
-                                                                            </option>
-                                                                        @endforeach
-                                                                    </select>
+                                                                    @foreach ($data['materialTypeData'] as $items)
+                                                                    <input class="form-check-input" type="radio" name="type_id" id="type_idedit" value="{{ $items->_id }}"
+                                                                    checked>
+                                                                    <label class="form-check-label" for="text_question">Pertanyaan {{ $items->type_name }}</label>
+                                                                    @endforeach
                                                                 </div>
                                                                 <div class="form-group mb-3">
                                                                     <label for="title">Judul Materi</label>
@@ -160,9 +128,9 @@
                                                                 </div>
                                                                 <div class="form-group mb-3">
                                                                     <label for="description">Deskripsi Materi</label>
-                                                                    <input class="form-control" type="text" name="description" id="description" autocomplete="off" value="{{ $item->description }}" required>
+                                                                    <textarea class="form-control" type="text" name="description" id="description" rows="10" cols="30">{{ $item->description }}</textarea>
                                                                 </div>
-                                                                <div class="form-group mb-3" id="file-input-group" style="display:none;">
+                                                                <div class="form-group mb-3" id="file-input-groupedit">
                                                                     <label for="file_path">File Materi</label>
                                                                     <input class="form-control" type="file" name="file_path"  id="file_path" autocomplete="off">
                                                                 </div>
@@ -178,19 +146,102 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            {{-- update modal --}}
+                                            {{-- detail modal --}}
+                                            <div class="modal fade" id="detailModal{{ $item->_id }}"
+                                                tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-center">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h1 class="modal-title fs-5" id="detailModalLabel">Detail
+                                                                Quiz</h1>
+                                                            <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div class="row mb-3">
+                                                                <h4 class="text-primary mb-2">
+                                                                    Judul Materi
+                                                                </h4>
+                                                                <p class="">
+                                                                    {{ $item->title }}
+                                                                </p>
+                                                            </div>
+                                                            <div class="row mb-3">
+                                                                <h4 class="text-primary mb-2">
+                                                                    Waktu Dibikin
+                                                                </h4>
+                                                                <p class="">
+                                                                    {{ $item->created_at }}
+                                                                </p>
+                                                            </div>
+                                                            <div class="row mb-3">
+                                                                <h4 class="text-primary mb-2">
+                                                                    Nama Module
+                                                                </h4>
+                                                                <p class="">
+                                                                    {{ $item->module->module_name }}
+                                                                </p>
+                                                            </div>
+                                                            <div class="row mb-3">
+                                                                <h4 class="text-primary mb-2">
+                                                                    Tipe Quiz
+                                                                </h4>
+                                                                <p class="">
+                                                                    {{ $item->type->type_name }}
+                                                                </p>
+                                                            </div>
+
+                                                            <div class="row mb-3">
+                                                                <h4 class="text-primary mb-2">
+                                                                    Deskripsi Materi
+                                                                </h4>
+                                                                <p class="">
+                                                                    {{ $item->description }}
+                                                                </p>
+                                                            </div>
+                                                            <div class="row mb-3">
+                                                                <h4 class="text-primary mb-2">
+                                                                    Durasi Materi
+                                                                </h4>
+                                                                <p class="">
+                                                                    {{ intdiv($item->duration, 60) . ' menit ' . ($item->duration % 60) . ' detik' }}
+                                                                </p>
+                                                            </div>
+                                                            <div class="row mb-3">
+                                                                <h4 class="text-primary mb-2">
+                                                                    Isi Materi
+                                                                </h4>
+                                                                @if($item->type->type_name =='video')
+                                                                <div class="w-25">
+                                                                    <video class="" style="width: 300px;" controls>
+                                                                        <source src="{{ $item->file_path }}" type="video/mp4">
+                                                                        <source src="{{ $item->file_path }}" type="video/ogg">
+                                                                        <source src="{{ $item->file_path }}" type="video/quicktime">
+                                                                        Your browser does not support the video tag.
+                                                                    </video>
+                                                                </div>
+                                                                @elseif ($item->type->type_name =='text')
+                                                                {{ $item->file_path }}
+                                                                @endif
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-danger"
+                                                                data-bs-dismiss="modal">Close</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {{-- detail modal --}}
                                         </tr>
                                     @endforeach
                                 </tbody>
                                 <tfoot>
                                     <tr>
                                         <th>No</th>
-                                        <th>Nama Modul</th>
-                                        <th>Tipe Materi</th>
                                         <th>Judul Materi</th>
-                                        <th>Deskripsi Materi</th>
-                                        <th>Isi Materi</th>
-                                        <th>Durasi Materi</th>
-                                        <th>Waktu Bikin Materi</th>
+                                        <th>Nama Modul</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </tfoot>
@@ -244,7 +295,7 @@
                                 @endforeach
                             </select> --}}
                             @foreach ($data['materialTypeData'] as $item)
-                            <input class="form-check-input" type="radio" name="type_id" id="type_id" value="{{ $item->_id }}"
+                            <input class="form-check-input" type="radio" name="type_id" id="type_idadd" value="{{ $item->_id }}"
                             checked>
                             <label class="form-check-label" for="text_question">Pertanyaan {{ $item->type_name }}</label>
                             @endforeach
@@ -255,9 +306,9 @@
                         </div>
                         <div class="form-group mb-3">
                             <label for="description">Deskripsi Materi</label>
-                            <input class="form-control" type="text" name="description" id="description" autocomplete="off" required>
+                            <textarea class="form-control" type="text" name="description" id="description" rows="10" cols="30"></textarea>
                         </div>
-                        <div class="form-group mb-3" id="file-input-group" style="">
+                        <div class="form-group mb-3" id="file-input-groupadd" style="">
                             <label for="file_path">File Materi</label>
                             <input class="form-control" type="file" name="file_path"  id="file_path" autocomplete="off" required>
                         </div>
@@ -275,7 +326,7 @@
 
 @push('scripts')
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
-    <script src="{{ asset('') }}templates/vendor/wow-master/dist/wow.min.js"></script>
+
     <script>
         function confirmDelete(id) {
             Swal.fire({
@@ -313,6 +364,42 @@
                 }
             });
         }
+        $(document).ready(function() {
+            var $fileInputDiv = $('#file-input-groupadd'); // Div untuk input file
+            var $typeSelect = $('#type_id'); // Select untuk tipe materi
+
+            // Default state: sembunyikan file input jika tipe materi selain video
+            $('#file-input-group').prop('checked', true);
+            $fileInputDiv.hide();
+
+            // Ketika tipe materi diubah
+            $('input[id="type_idadd"]').change(function() {
+                if ($(this).val() === '66f96f06a3685f699503deca') {
+
+                    $fileInputDiv.show();
+                } else {
+                    $fileInputDiv.hide();
+                }
+            });
+        });
+        $(document).ready(function() {
+            var $fileInputDiv = $('#file-input-groupedit'); // Div untuk input file
+            var $typeSelect = $('#type_id'); // Select untuk tipe materi
+
+            // Default state: sembunyikan file input jika tipe materi selain video
+            $('#file-input-group').prop('checked', true);
+            $fileInputDiv.hide();
+
+            // Ketika tipe materi diubah
+            $('input[id="type_idedit"]').change(function() {
+                if ($(this).val() === '66f96f06a3685f699503deca') {
+
+                    $fileInputDiv.show();
+                } else {
+                    $fileInputDiv.hide();
+                }
+            });
+        });
     </script>
 <script>
     // $(document).ready(function() {
@@ -332,31 +419,8 @@
     //         }
     //     });
     // });
-    $(document).ready(function() {
-        var $fileInputDiv = $('#file-input-group'); // Div untuk input file
-        var $typeSelect = $('#type_id'); // Select untuk tipe materi
 
-        // Default state: sembunyikan file input jika tipe materi selain video
-        $fileInputDiv.hide();
-
-        // Ketika tipe materi diubah
-        $typeSelect.change(function() {
-            var selectedType = $(this).val(); // Ambil nilai tipe materi yang dipilih
-
-            if (selectedType === '66f96f06a3685f699503deca') {
-                // Jika tipe materi adalah 'video', tampilkan file input
-                $fileInputDiv.show();
-                $('#file_path').attr('required', true); // Set input file wajib diisi
-            } else {
-                // Jika tipe materi bukan 'video', sembunyikan file input
-                $fileInputDiv.hide();
-                $('#file_path').attr('required', false); // Set input file tidak wajib diisi
-            }
-        });
-    });
 
 </script>
 @endpush
 
-@push('scripts')
-@endpush

@@ -20,6 +20,6 @@ class QuizType extends Model
         return $this->hasMany(Quiz::class,'quiz_type_id','_id');
     }
 
-    
+
 
 }

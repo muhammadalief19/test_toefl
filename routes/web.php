@@ -152,6 +152,13 @@ Route::middleware('authenticated')->group(function () {
 
     Route::controller(QuizController::class)->prefix('/quiz')->group(function() {
         Route::get('/', 'index')->name('quiz.index');
+        Route::post('/store', 'store')->name('quiz.store');
+        Route::patch('/update/{id}', 'update')->name('quiz.update');
+        Route::delete('/delete/{id}', 'destroy')->name('quiz.destroy');
+        Route::get('/question/{id}', 'question')->name('quizQuestion.index');
+        Route::post('/question/store', 'questionStore')->name('quizQuestion.store');
+        Route::patch('/question/update/{id}', 'questionUpdate')->name('quizQuestion.update');
+        Route::delete('/question/delete/{id}', 'questionDestroy')->name('quizQuestion.destroy');
     });
 });
 

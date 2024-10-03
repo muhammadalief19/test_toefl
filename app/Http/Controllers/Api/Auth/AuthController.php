@@ -317,13 +317,13 @@ class AuthController extends Controller
                 ]);
             }
 
-            User::where('_id', auth()->user()->_id)->update([
+            User::where('_id', auth()->user()->id)->update([
                 'is_verified_register' => true,
                 'email_verified_at' => $nowInitString,
                 // 'email_verified_at' => now()
             ]);
 
-            $user = User::where('_id', auth()->user()->_id)->first();
+            $user = User::where('_id', auth()->user()->id)->first();
 
             $mappedDataUser = [
                 'name' => $user ? $user->name : null,
@@ -365,7 +365,7 @@ class AuthController extends Controller
         $user = User::where('_id', auth()->user()->id)->first();
         try {
             $request->validate([
-                'age' => 'string',
+                'age' => 'required',
             ]);
             $updateData = [
                 'age' => $request->input('age'),
@@ -380,11 +380,6 @@ class AuthController extends Controller
                     'message' => 'Profile updated successfully!',
                 ]);
             }
-
-            return response()->json([
-                'success' => false,
-                'message' => 'Failed to update profile',
-            ]);
         } catch (Exception $e) {
             // Jika terjadi error
             return response()->json([
@@ -395,7 +390,7 @@ class AuthController extends Controller
 
     }
 
-    
+
 
     public function updateProfile(Request $request)
     {
