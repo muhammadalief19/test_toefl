@@ -81,6 +81,7 @@
                                                         </a>
                                                     </div>
                                                 </td>
+                                                {{-- Aksi --}}
                                                 <td>
                                                     <div class="d-flex">
                                                         <a class="btn btn-primary shadow btn-icon-sm me-1" href="#"

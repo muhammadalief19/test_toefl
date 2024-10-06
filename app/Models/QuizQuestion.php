@@ -21,10 +21,10 @@ class QuizQuestion extends Model
         return $this->belongsTo(Quiz::class,'quiz_id','_id');
     }
 
-    public function content(){
+    public function contents(){
         return $this->hasMany(QuizContent::class, 'quiz_question_id','_id');
     }
-    
+
     public function userAnswer() {
         return $this->hasMany(QuizAnswer::class, 'question_id', '_id');
     }

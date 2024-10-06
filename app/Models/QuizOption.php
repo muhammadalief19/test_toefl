@@ -16,7 +16,7 @@ class QuizOption extends Model
         'quiz_content_id', 'options'
     ];
 
-    public function content(){
+    public function contents(){
         return $this->belongsTo(QuizContent::class,'quiz_content_id','_id');
     }
 }

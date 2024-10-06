@@ -20,7 +20,6 @@ class QuizContent extends Model
         return $this->belongsTo(QuizQuestion::class,'quiz_question_id','_id');
     }
 
-    
     public function options(){
         return $this->hasMany(QuizOption::class, 'quiz_content_id','_id');
     }

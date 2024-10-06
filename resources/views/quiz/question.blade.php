@@ -23,19 +23,12 @@
             <div class="card" id="accordion-two">
                 <div class="card-header flex-wrap d-flex justify-content-between px-3">
                     <div>
-                        <h4 class="card-title">Question Full Packet</h4>
+                        <h4 class="card-title">Quiz Question</h4>
                     </div>
                     <ul class="nav nav-tabs dzm-tabs" id="myTab" role="tablist">
-                        @if (request()->routeIs('packetfull.index'))
-                        <a href="{{ route('packetfull.entryQuestion', $dataId) }}" class="btn btn-primary" >
-                            + New Question
-                        </a>
-                        @endif
-                        @if (request()->routeIs('packetmini.index'))
-                        <a href="{{ route('packetfull.entryQuestion', $dataId) }}" class="btn btn-primary" >
-                            + New Question
-                        </a>
-                        @endif
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addQuestionModal">
+                            + New Quiz Question
+                        </button>
                     </ul>
                 </div>
                 <div class="tab-content" id="myTabContent">
@@ -46,229 +39,45 @@
                                     <thead>
                                         <tr>
                                             <th>No</th>
-                                                <th>Pertanyaan</th>
-                                                <th>Kunci Jawaban</th>
-                                                <th>Pilihan Ganda</th>
+                                            <th>Pertanyaan</th>
+                                            <th>Konten</th>
+                                            <th>Pilihan Ganda</th>
+                                            <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach($data['quizzesData'] as $key => $item)
-                                        @foreach($item->questions as $question)
+                                        @foreach($data['quizQuestionData'] as $question)
+
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            {{-- <td>
-                                                @if(Str::startsWith($question->question_text, 'questions/'))
-                                                    @if(Str::endsWith($question->question_text, ['.jpg', '.jpeg', '.png', '.gif']))
-                                                        Menampilkan gambar
-                                                        <img src="{{ asset('storage/'.$question->question) }}" alt="Question Image" style="max-width: 100px;">
-                                                    @elseif(Str::endsWith($question->question_text, ['.mp3', '.wav', '.ogg']))
-                                                        Menampilkan audio
-                                                        <audio controls>
-                                                            <source src="{{ asset('storage/'.$question->question) }}" type="audio/mpeg">
-                                                            Your browser does not support the audio element.
-                                                        </audio>
-                                                    @else
-                                                        Menampilkan teks
-                                                        @if(strlen($question->question) > 50)
-                                                            <button class="btn btn-sm" type="button" data-bs-toggle="modal"
-                                                                    data-target="#questionDetailModal_{{ $question->_id }}">
-                                                                <i class="fas fa-eye mx-2 view-detail"></i>
-                                                            </button>
-                                                        @endif
-                                                        {{ Str::limit($question->question_text, 50, '...') }}
-                                                    @endif
-                                                @else
-                                                    {{-- Menampilkan teks jika tidak ada prefix 'questions/' --}
-                                                    @if(strlen($question->question) > 50)
-                                                        <button class="btn btn-sm" type="button" data-toggle="modal"
-                                                                data-target="#questionDetailModal_{{ $question->_id }}">
-                                                            <i class="fas fa-eye mx-2 view-detail"></i>
-                                                        </button>
-                                                    @endif
-                                                    {{ Str::limit($question->question_text, 50, '...') }}
-                                                @endif
+                                            <td>
+                                                {{ $question->question }}
 
                                                 <button class="btn btn-sm" type="button" data-bs-toggle="modal"
-                                                    data-bs-target="#editInstructionsModale{{ $question->_id }}">
+                                                    data-bs-target="#questionEditModal_{{ $question->_id }}">
                                                     <i class="fas fa-pencil"></i>
                                                 </button>
-                                                <div class="modal fade" id="editInstructionsModale{{ $question->_id }}" tabindex="-1"
-                                                    role="dialog" aria-labelledby="editInstructionsModalLabel{{ $question->_id }}"
-                                                    aria-hidden="true">
-                                                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="editInstructionsModalLabel{{ $question->_id }}">
-                                                                    Edit Question🤗</h5>
-                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                                                                    <span aria-hidden="true"></span>
-                                                                </button>
-                                                            </div>
-                                                            <form action="{{ route('packetfull.editQuestion', ['id' => $question->_id]) }}"
-                                                                method="POST" enctype="multipart/form-data">
-                                                                @csrf
-                                                                @method('patch')
-                                                                <div class="modal-body">
-                                                                    <p><small class="text-danger">Catatan: Silahkan pilih salah satu
-                                                                            antara pertanyaan nested teks atau voice/gambar. 🤗</small></p>
-
-                                                                    <div class="form-group" id="text_question_div">
-                                                                        <label for="question">Pertanyaan Text</label>
-                                                                        <textarea name="question" id="question_text"
-                                                                            class="form-control"></textarea>
-                                                                    </div>
-
-                                                                    <p>Atau</p>
-
-                                                                    <div class="form-group" id="image_question_div">
-                                                                        <label for="image_question_input">Pertanyaan Gambar / Voice</label>
-                                                                        <input type="file" name="question" id="question_image_input"
-                                                                            class="form-control">
-                                                                    </div>
-
-                                                                </div>
-
-                                                                <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-secondary"
-                                                                        data-bs-dismiss="modal">Batal</button>
-                                                                    <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
-                                                                </div>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                {{-- qeustionDetailModal --}
-                                                <div class="modal fade" id="questionDetailModal_{{ $question->_id }}" tabindex="-1"
+                                                <div class="modal fade" id="questionEditModal_{{ $question->_id }}" tabindex="-1"
                                                     role="dialog" aria-labelledby="questionDetailModalLabel_{{ $question->_id }}" aria-hidden="true">
                                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLongTitle">Detail Pertanyaan😉</h5>
+                                                                <h5 class="modal-title" id="exampleModalLongTitle">Edit Question</h5>
                                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                {{ $question->question }}
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </td> --}}
-                                            <td>
-                                                @if(strlen($question->key_question) > 50)
-                                                <button class="btn btn-sm" type="button" data-bs-toggle="modal"
-                                                    data-bs-target="#keyQuestionDetailModal_{{ $question->_id }}">
-                                                    <i class="fas fa-eye mx-2 view-detail"></i>
-                                                </button>
-                                                @endif
-                                                {{ Str::limit($question->key_question, 40, '...') }}
-                                                <button class="btn btn-sm" type="button" data-bs-toggle="modal"
-                                                    data-bs-target="#editInstructionsModal{{ $question->_id }}">
-                                                    <i class="fas fa-pencil"></i>
-                                                </button>
-                                                {{-- modal detail keyquestion --}}
-                                                <div class="modal fade" id="keyQuestionDetailModal_{{ $question->_id }}" tabindex="-1"
-                                                    role="dialog" aria-labelledby="questionDetailModalLabel_{{ $question->_id }}" aria-hidden="true">
-                                                    <div class="modal-dialog modal-dialog-centered" role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLongTitle">Detail Key Question😉</h5>
-                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                {{ $question->key_question }}
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="modal fade" id="editInstructionsModal{{ $question->_id }}" tabindex="-1"
-                                                    role="dialog" aria-labelledby="editInstructionsModalLabel{{ $question->_id }}" aria-hidden="true">
-                                                    <div class="modal-dialog modal-dialog-centered" role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="editInstructionsModalLabel{{ $question->_id }}">
-                                                                    Edit Jawaban
-                                                                </h5>
-                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                            </div>
-                                                            <form action="{{ route('packetfull.editAnswer', ['id' => $question->_id]) }}" method="POST">
-                                                                @csrf
-                                                                <div class="modal-body">
-                                                                    <div class="form-group">
-                                                                        <label for="editedQuestion{{ $question->_id }}">Jawaban</label>
-                                                                        <textarea class="form-control" id="editedQuestion{{ $question->_id }}" name="key_question" rows="6">{{ $question->key_question }}</textarea>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                                                    <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
-                                                                </div>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="text-center">
-                                                    <button type="button" class="btn btn-success" data-bs-toggle="modal"
-                                                        data-bs-target="#multipleChoiceModal_{{ $question->_id }}"> <i
-                                                            class="fas fa-list"></i></button>
-                                                </div>
-                                                <!-- Modal -->
-                                                <div class="modal fade" id="multipleChoiceModal_{{ $question->_id }}" tabindex="-1"
-                                                    role="dialog" aria-labelledby="multipleChoiceModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog modal-dialog-centered" role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="multipleChoiceModalLabel">Pilihan Ganda Entry
-                                                                    Service
-                                                                </h5>
-                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                                                                    <span aria-hidden="true"></span>
-                                                                </button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <form id="multipleChoiceForm_{{ $question->_id }}" method="POST"
-                                                                    action="{{ route('packetfull.entryMultiple', ['id' => $question->_id]) }}">
+                                                                <form action="{{ route('quizQuestion.update', ['id' => $question->_id]) }}" method="POST">
                                                                     @csrf
-                                                                    <div class="form-group">
-                                                                        <div id="multipleChoicesContainer_{{ $question->_id }}">
-                                                                            <p>Kunci Jawaban : </p>
-                                                                            <p><small class="text-danger">Catatan: Kunci jawaban tidak perlu
-                                                                                    diimasukkan lagi yaa. 🤗</small></p>
-                                                                            <input type="text" class="form-control mb-2" name=""
-                                                                                value="{{ $question->key_question }}" required readonly>
-                                                                            <p><small class="text-danger">jika mau edit kunci jawaban,
-                                                                                    silahkan edit di halaman sebelumnya yaa🤗</small></p>
-
-                                                                            <p>Pilihan Ganda : </p>
-                                                                            @if($question->multipleChoices)
-                                                                            @foreach($question->multipleChoices as $choice)
-                                                                            @if($choice->choice != $question->key_question)
-                                                                            <input type="text" class="form-control mb-2" name="choice[]"
-                                                                                value="{{ $choice->choice }}" required>
-                                                                            @endif
-                                                                            @endforeach
-
-                                                                            @endif
+                                                                    @method('PATCH')
+                                                                    <div class="modal-body">
+                                                                        <div class="form-group mb-3">
+                                                                            <label for="editedQuestion{{ $question->_id }}">Quiz Question</label>
+                                                                            <textarea class="form-control" id="editedQuestion{{ $question->_id }}" name="question" rows="6">{{ $question->question }}</textarea>
                                                                         </div>
                                                                     </div>
-                                                                    <button type="button" class="btn btn-success btn-add-choice"
-                                                                        data-max-choices="5"
-                                                                        data-parent="#multipleChoicesContainer_{{ $question->_id }}"><i
-                                                                            class="fa fa-plus"></i> Tambah
-                                                                        Pilihan Jawaban</button>
-                                                                    <div class="modal-footer mt-3">
-                                                                        <button type="button" class="btn btn-secondary"
-                                                                            data-bs-dismiss="modal">Tutup</button>
-                                                                        <button type="submit" class="btn btn-primary btn-save-choices"
-                                                                            data-question-id="{{ $question->_id }}">Simpan</button>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                                                        <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
                                                                     </div>
                                                                 </form>
                                                             </div>
@@ -276,11 +85,148 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            </form>
+                                            <td>
+                                                <button class="btn btn-sm" type="button" data-bs-toggle="modal"
+                                                data-bs-target="#questionAddContentModal_{{ $question->_id }}">
+                                                    <i class="fa fa-plus-circle"></i> Add Content
+                                                </button>
+                                                <div class="modal fade" id="questionAddContentModal_{{ $question->_id }}" tabindex="-1"
+                                                role="dialog" aria-labelledby="questionAddContentLabel_{{ $question->_id }}" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLongTitle">Detail Question Content</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div class="form-group mb-3">
+                                                                <div class="row mb-3">
+                                                                    <h5 class="text-danger mb-2">
+                                                                        Jika ingin edit content, silahkan ubah disini
+                                                                    </h5>
+                                                                    @foreach ( $question->contents as $content)
+                                                                    <form action="{{ route('quizQuestionContent.update', ['id' => $content->_id]) }}" method="POST" class="mb-2 item-center">
+                                                                        @csrf
+                                                                        @method('PATCH')
+                                                                        <div class="">
+                                                                            <input type="text" value="{{ $content->content }}" name="content" class="form-control mb-2">
+                                                                            <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i></button>
+                                                                        </div>
+                                                                    </form>
+                                                                    @endforeach
+                                                                </div>
+                                                            </div>
+                                                                <form action="{{ route('quizQuestionContent.store') }}" method="POST">
+                                                                    @csrf
+                                                                        <h5 class="text-danger">silahkan tambahkan content disini</h5>
+                                                                        <input type="text" class="form-control" id="addQuestionContent{{ $question->_id }}" name="quiz_question_id" value="{{ $question->_id }}" hidden>
+                                                                        <div class="form-group mb-3">
+                                                                            <label for="addQuestionContent{{ $question->_id }}">Content</label>
+                                                                            <input type="text" class="form-control" id="addQuestionContent{{ $question->_id }}" name="content">
+                                                                        </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                                                        <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="text-center">
+                                                    <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                                                        data-bs-target="#multipleChoiceModal_{{ $question->_id }}">
+                                                        <i class="fas fa-list"></i>
+                                                    </button>
+                                                </div>
+
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="multipleChoiceModal_{{ $question->_id }}" tabindex="-1" role="dialog" aria-labelledby="multipleChoiceModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="multipleChoiceModalLabel">
+                                                                    {{ $question->contents ? 'Detail Opsi Jawaban' : 'Tambah Pilihan Ganda' }}
+                                                                </h5>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <!-- Kondisi jika terdapat opsi jawaban pada question -->
+
+                                                                <div class="form-group">
+                                                                    <p>Opsi Jawaban yang ada:</p>
+                                                                    @foreach($question->contents as $option)
+                                                                        <p>{{ $option->content }}</p>
+                                                                        @foreach ($option->options as $choices)
+                                                                            @if (isset($choices['options']) && is_array($choices['options']))
+                                                                                @foreach($choices['options'] as $choice)
+                                                                                <div>
+                                                                                    <strong>Opsi:</strong> {{ $choice }}
+
+                                                                                    <!-- Form untuk menandai sebagai kunci jawaban -->
+                                                                                    <form action="{{ route('quiz.answerKey.store') }}" method="POST">
+                                                                                        @csrf
+                                                                                        <input type="hidden" name="quiz_content_id" value="{{ $option->_id }}">
+                                                                                        <input type="hidden" name="quiz_option_id" value="{{ $choices->_id }}">
+                                                                                        <input type="hidden" name="quiz_options" value="{{ $choice }}">
+                                                                                        <input type="text" name="explanation" class="form-control">
+                                                                                        <button type="submit" class="btn btn-success">Set as Key</button>
+                                                                                    </form>
+                                                                                </div>
+                                                                                @endforeach
+                                                                            @endif
+                                                                        @endforeach
+                                                                    @endforeach
+                                                                </div>
+
+                                                                    <!-- Jika tidak ada opsi, tampilkan form untuk menambah opsi baru -->
+                                                                        <form id="multipleChoiceForm_{{ $question->_id }}" method="POST"
+                                                                            action="{{ route('quizOptions.store', ['id' => $question->_id]) }}">
+                                                                            @csrf
+                                                                            <div class="form-group">
+                                                                                <p>Pilih Konten:</p>
+                                                                                <select class="form-control mb-2" id="quiz_content_id" name="quiz_content_id">
+                                                                                    <option value="">Pilih Konten</option>
+                                                                                    @foreach($question->contents as $content)
+                                                                                        <option value="{{ $content->_id }}">{{ $content->content }}</option>
+                                                                                    @endforeach
+                                                                                </select>
+                                                                                <div id="multipleChoicesContainer_{{ $question->_id }}">
+                                                                                    <p>Tambahkan Opsi Jawaban:</p>
+                                                                                    <input type="text" class="form-control mb-2" name="options[]" placeholder="Opsi Jawaban" required>
+                                                                                </div>
+                                                                            </div>
+                                                                            <button type="button" class="btn btn-success btn-add-choice" data-max-choices="5"
+                                                                                data-parent="#multipleChoicesContainer_{{ $question->_id }}">
+                                                                                <i class="fa fa-plus"></i> Tambah Pilihan Jawaban
+                                                                            </button>
+                                                                            <div class="modal-footer mt-3">
+                                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                                                                                <button type="submit" class="btn btn-primary">Simpan</button>
+                                                                            </div>
+                                                                        </form>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                
+                                            </td>
                                         </tr>
-                                        @endforeach
+                                    {{-- </form> --}}
                                         @endforeach
                                     </tbody>
+                                    <tfoot>
+                                        <th>No</th>
+                                        <th>Pertanyaan</th>
+                                        <th>Konten</th>
+                                        <th>Pilihan Ganda</th>
+                                        <th>Aksi</th>
+                                    </tfoot>
                                 </table>
                             </div>
                         </div>
@@ -291,3 +237,69 @@
     </div>
 @endsection
 
+@section('modal')
+    {{-- add modal --}}
+    <div class="modal fade" id="addQuestionModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-center">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="addModalLabel">Quiz Question Baru</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ route('quizQuestion.store') }}" method="POST">
+                        @csrf
+                        <div class="form-group mb-3">
+                            <input class="form-control" type="text" name="quiz_id" id="quiz_id"
+                                value="{{ $data['quizzesId'] }}" hidden>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="question">Question Quiz</label>
+                            <input class="form-control" type="text" name="question" id="question"
+                                autocomplete="off">
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Simpan Perubahan
+                    </button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+@endsection
+
+@push('scripts')
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+
+
+<script src="{{ asset('assets/vendor/wow-master/dist/wow.min.js') }}"></script>
+<script>
+    $(document).ready(function(){
+            $('.edit-button').click(function(){
+                var inputField = $(this).closest('.input-group').find('input[type="text"]');
+                inputField.removeAttr('readonly');
+            });
+
+            $('.btn-add-choice').click(function(){
+                var maxChoices = $(this).data('max-choices');
+                var parent = $($(this).data('parent'));
+                var numChoices = parent.find('.form-control').length;
+                if (numChoices < maxChoices) {
+                    parent.append('<input type="text" class="form-control mb-2" name="options[]" required>');
+                } else {
+                    alert('Anda telah mencapai jumlah maksimum pilihan jawaban.');
+                }
+            });
+
+            $('.btn-save-choices').click(function(){
+                var questionId = $(this).data('question-id');
+                var formData = $('#multipleChoiceForm_' + questionId).serializeArray();
+                console.log('Question ID:', questionId);
+                console.log('Pilihan Jawaban:', formData);
+                $('#multipleChoiceModal_' + questionId).modal('hide');
+            });
+        });
+</script>
+@endpush
