@@ -17,6 +17,7 @@ use App\Models\User;
 use App\Models\UserRole;
 use App\Models\DifficultyLevel;
 use App\Models\Module;
+use App\Models\Word;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -117,24 +118,54 @@ class DatabaseSeeder extends Seeder
         //     'module_description' => 'Perluas kosakata Anda melalui latihan kontekstual dan penggunaan kata dalam kalimat untuk meningkatkan pemahaman teks.'
         // ]);
         // Module Grammar and Structure
-        Module::create([
-            // course_id
-            'course_id' => '66f4c569921f03f8cd014fd6',
-            'module_name' => 'Common Grammatical Errors',
-            'module_description' => 'Identifikasi dan hindari kesalahan umum dalam penulisan dan pembicaraan untuk meningkatkan keakuratan bahasa Anda.'
+        // Module::create([
+        //     // course_id
+        //     'course_id' => '66f4c569921f03f8cd014fd6',
+        //     'module_name' => 'Common Grammatical Errors',
+        //     'module_description' => 'Identifikasi dan hindari kesalahan umum dalam penulisan dan pembicaraan untuk meningkatkan keakuratan bahasa Anda.'
+        // ]);
+        // Module::create([
+        //     // course_id
+        //     'course_id' => '66f4c569921f03f8cd014fd6',
+        //     'module_name' => 'Basic Sentence Structures',
+        //     'module_description' => 'Pahami elemen dasar kalimat, termasuk subjek, predikat, dan objek, serta cara membentuk kalimat sederhana dengan benar.'
+        // ]);
+        // Module::create([
+        //     // course_id
+        //     'course_id' => '66f4c569921f03f8cd014fd6',
+        //     'module_name' => 'Tenses and Verb Usage',
+        //     'module_description' => 'Pelajari penggunaan tenses dalam berbagai konteks untuk mengekspresikan waktu dan tindakan secara tepat.'
+        // ]);
+        Word::create([
+            "Answer" => "Reading",
+            "Meaning" => "Understanding a text",
+            "Examples/0" => "She is reading a book.",
+            "Examples/1" => "He enjoys writing stories",
+            "Examples/2" => "They are speaking in English.",
+            "Examples/3" => "I am listening to music.",
+            "Examples/4" => "Grammar is important for clear communication.",
+            "Examples/5" => "Expanding your vocabulary helps in understanding complex texts.",
+            "Examples/6" => "Grammar is essential for writing clearly.",
+            "Examples/7" => "They are writing an essay.",
+            "Examples/8" => "Learning new vocabulary expands communication skills.",
+            "Examples/9" => "They are writing an essay."
         ]);
-        Module::create([
-            // course_id
-            'course_id' => '66f4c569921f03f8cd014fd6',
-            'module_name' => 'Basic Sentence Structures',
-            'module_description' => 'Pahami elemen dasar kalimat, termasuk subjek, predikat, dan objek, serta cara membentuk kalimat sederhana dengan benar.'
+
+        Word::create([
+            "Answer" => "Writing",
+            "Meaning" => "Producing written content",
+            "Examples/0" => "She is reading a book.",
+            "Examples/1" => "He enjoys writing stories",
+            "Examples/2" => "They are speaking in English.",
+            "Examples/3" => "I am listening to music.",
+            "Examples/4" => "Grammar is important for clear communication.",
+            "Examples/5" => "Expanding your vocabulary helps in understanding complex texts.",
+            "Examples/6" => "Grammar is essential for writing clearly.",
+            "Examples/7" => "They are writing an essay.",
+            "Examples/8" => "Learning new vocabulary expands communication skills.",
+            "Examples/9" => "They are writing an essay."
         ]);
-        Module::create([
-            // course_id
-            'course_id' => '66f4c569921f03f8cd014fd6',
-            'module_name' => 'Tenses and Verb Usage',
-            'module_description' => 'Pelajari penggunaan tenses dalam berbagai konteks untuk mengekspresikan waktu dan tindakan secara tepat.'
-        ]);
+
         // UserRole::create([
         //     "role_name" => "admin"
         // ]);
@@ -154,4 +185,6 @@ class DatabaseSeeder extends Seeder
         //     "level_name" => "advanced"
         // ]);
     }
+
+
 }

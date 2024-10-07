@@ -19,6 +19,7 @@
         "pbmedia/laravel-ffmpeg": "*",
         "php-ffmpeg/php-ffmpeg": "^1.2",
         "phpoffice/phpword": "^1.2",
+        "pusher/pusher-php-server": "^7.2",
         "tymon/jwt-auth": "^2.1",
         "yajra/laravel-datatables": "^10.0",
         "yoeunes/toastr": "^2.3"

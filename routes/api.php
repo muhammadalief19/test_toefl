@@ -14,6 +14,7 @@ use App\Http\Controllers\Api\GameAnswerController;
 use App\Http\Controllers\Api\GameClaimController;
 use App\Http\Controllers\Api\GameController;
 use App\Http\Controllers\Api\PairingClaimController;
+use App\Http\Controllers\Api\PrivateMessageController;
 use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\Api\QuizAnswerController;
 use App\Http\Controllers\Api\QuizController;
@@ -77,6 +78,13 @@ Route::middleware('auth:api')->group(function () {
         Route::get('/get-all/targets', 'getAllTargetValue');
         Route::patch('/add-and-patch-target', 'addTarget');
         Route::get('/get-score-toefl', 'getLevelUser');
+    });
+
+    Route::controller(PrivateMessageController::class)->prefix('/private-messages')->group(function () {
+        Route::get('/', 'index')->name('private-message.api.index');
+        Route::post('/send', 'sendMessage')->name('private-message.api.store');
+        Route::post('/{messageId}/update', 'updateMessage')->name('private-message.api.update');
+        Route::delete('/{messageId}/delete', 'deleteMessage')->name('private-message.api.delete');
     });
 
     Route::controller(AssessmentController::class)->prefix('/assessment')->group(function () {
