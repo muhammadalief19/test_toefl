@@ -10,10 +10,10 @@ class QuizAnswerKey extends Model
 {
     use HasFactory;
     protected $connection = 'mongodb';
-    protected $collection = 'quiz_answer_keys';
+    protected $collection = 'quiz_answers_keys';
 
     protected $fillable = [
-        'quiz_content_id','quiz_option_id', 'explanation'
+        'quiz_content_id','quiz_option_id', 'quiz_options', 'explanation'
     ];
 
     public function content(){

@@ -137,7 +137,7 @@ Route::middleware('authenticated')->group(function () {
         Route::patch('/update/{id}', 'update')->name('level.update');
         Route::delete('/delete/{id}', 'destroy')->name('level.destroy');
     });
-    
+
     Route::controller(ConfigurationController::class)->prefix('/config')->group(function() {
         Route::get('/', 'index')->name('config.index');
         Route::post('/store', 'store')->name('config.store');
@@ -161,6 +161,30 @@ Route::middleware('authenticated')->group(function () {
 
     Route::controller(QuizController::class)->prefix('/quiz')->group(function() {
         Route::get('/', 'index')->name('quiz.index');
+        Route::post('/store', 'store')->name('quiz.store');
+        Route::patch('/update/{id}', 'update')->name('quiz.update');
+        Route::delete('/delete/{id}', 'destroy')->name('quiz.destroy')
+        ;
+        Route::get('/question/{id}', 'question')->name('quizQuestion.index');
+        Route::post('/question/store', 'questionStore')->name('quizQuestion.store');
+        Route::patch('/question/update/{id}', 'questionUpdate')->name('quizQuestion.update');
+        Route::delete('/question/delete/{id}', 'questionDestroy')->name('quizQuestion.destroy');
+
+        Route::post('/question/content/store', 'questionContentStore')->name('quizQuestionContent.store');
+        Route::patch('/question/content/update/{id}', 'questionContentUpdate')->name('quizQuestionContent.update');
+        Route::delete('/question/content/delete/{id}', 'questionContentDestroy')->name('quizQuestionContent.destroy');
+
+        Route::post('/question/key/store', 'questionContentStore')->name('keyQuestion.store');
+        Route::patch('/question/key/update/{id}', 'questionContentUpdate')->name('keyQuestion.update');
+        Route::delete('/question/key/delete/{id}', 'questionContentDestroy')->name('keyQuestion.destroy');
+
+        Route::post('/question/options/store', 'quizOptionsStore')->name('quizOptions.store');
+        Route::patch('/question/options/update/{id}', 'quizOptionsUpdate')->name('quizOptions.update');
+        Route::delete('/question/options/delete/{id}', 'quizOptionsDestroy')->name('quizOptions.destroy');
+
+        Route::post('/question/answer/store', 'storeAnswerKey')->name('quiz.answerKey.store');
+        Route::patch('/question/answer/update/{id}', 'quizAnswerUpdate')->name('quiz.answerKey.update');
+        Route::delete('/question/answer/delete/{id}', 'quizAnswerDestroy')->name('quiz.answerKey.destroy');
     });
 
     Route::controller(ActivityLogController::class)->prefix('/activity-log')->group(function() {

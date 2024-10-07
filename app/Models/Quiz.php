@@ -13,13 +13,13 @@ class Quiz extends Model
     protected $collection = 'quizzes';
 
     protected $fillable = [
-        'order', 
+        'order',
         'quiz_type_id',
-        'module_id', 
-        'title', 
-        'description', 
-        'total_questions', 
-        'passing_core', 
+        'module_id',
+        'title',
+        'description',
+        'total_questions',
+        'passing_score',
         'created_at'
     ];
 
@@ -34,7 +34,7 @@ class Quiz extends Model
     public function questions(){
         return $this->hasMany(QuizQuestion::class,'quiz_id','_id');
     }
-    
+
     public function quiz_claim(){
         return $this->hasMany(QuizClaim::class,'quiz_id','_id');
     }
