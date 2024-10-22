@@ -15,6 +15,7 @@ use App\Http\Controllers\MaterialTypeController;
 use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\PacketFullController;
 use App\Http\Controllers\PacketMiniController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\QuizTypeController;
 use App\Http\Controllers\StoryQuestionController;
@@ -189,6 +190,10 @@ Route::middleware('authenticated')->group(function () {
 
     Route::controller(ActivityLogController::class)->prefix('/activity-log')->group(function() {
         Route::get('/', 'index')->name('activityLog.index');
+    });
+    
+    Route::controller(PaymentController::class)->prefix('/payment')->group(function() {
+        Route::get('/', 'index')->name('payment.index');
     });
 });
 

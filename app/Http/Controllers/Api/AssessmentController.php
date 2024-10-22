@@ -18,6 +18,8 @@ class AssessmentController extends Controller
             'assessment_type' => 'nullable',
             'score' => 'nullable',
             'result' => 'nullable|json',
+            'education_levels' => 'nullable',
+            'education_goals' => 'nullable',
             'assesment_date' => 'nullable',
         ]);
 
@@ -31,7 +33,9 @@ class AssessmentController extends Controller
             'user_id' => Auth()->user()->id,
             'assessment_type' => $request->assessment_type,
             'score' => $request->score,
-            'result' => $request->score,
+            'result' => $request->result,
+            'education_levels' => $request->education_levels,
+            'education_goals' => $request->education_goals,
             'assesment_date' => $date->now()->isoFormat('Y-M-D H:mm:ss'),
         ]);
 

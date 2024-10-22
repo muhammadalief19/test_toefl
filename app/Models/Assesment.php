@@ -17,6 +17,8 @@ class Assesment extends Model
         'assessment_type',
         'score',
         'result',
+        'education_levels',
+        'education_goals',
         'assessment_date'
     ];
 }

@@ -28,6 +28,8 @@ use App\Http\Controllers\Api\ValueHomeController;
 use App\Http\Controllers\Api\CourseCategoryController;
 use App\Http\Controllers\Api\LearningHistoryController;
 use App\Http\Controllers\Api\LearningProfileController;
+use App\Http\Controllers\Api\PaymentController;
+use App\Http\Controllers\Api\PreferenceController;
 use App\Models\CourseCategory;
 use App\Models\Quiz;
 use Illuminate\Http\Request;
@@ -52,7 +54,12 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('check/password', 'checkPassword');
     Route::post('change/password', 'changePassword');
 });
+
 Route::get('/get-onboarding-target',[ValueHomeController::class, 'getTargetOnBoarding']);
+
+Route::controller(AssessmentController::class)->prefix('/assessment')->group(function () {
+    Route::post('/store', 'store')->name('assessment.api.store');
+});
 
 Route::middleware('auth:api')->group(function () {
     Route::controller(PacketController::class)->group(function () {
@@ -89,6 +96,17 @@ Route::middleware('auth:api')->group(function () {
 
     Route::controller(LearningHistoryController::class)->prefix('/learning-history')->group(function () {
         Route::post('/store', 'store')->name('learningHistory.api.store');
+    });
+
+
+    Route::controller(PreferenceController::class)->prefix('/preference')->group(function () {
+        Route::post('/store', 'store')->name('preference.api.store');
+    });
+
+    Route::controller(PaymentController::class)->prefix('/payment')->group(function () {
+        Route::post('/store', 'store')->name('payment.api.store');
+        Route::post('/update/status-completed/{id}', 'updateTransactionCompleted')->name('payment.api.updateTransactionCompleted');
+        Route::post('/update/status-failed/{id}', 'updateTransactionFailed')->name('payment.api.updateTransactionFailed');
     });
 
     Route::controller(ActivityLogController::class)->prefix('/activity-log')->group(function () {
