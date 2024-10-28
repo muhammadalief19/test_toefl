@@ -84,6 +84,14 @@
                     <span class="nav-text">Activity Log</span>
                 </a>
             </li>
+            <li>
+                <a class="" href="{{ route('payment.index') }}" aria-expanded="false">
+                    <i class="material-symbols-outlined">
+                        payments
+                    </i>
+                    <span class="nav-text">Payment</span>
+                </a>
+            </li>
             <li><a class="" href="{{ route('logout') }}" aria-expanded="false">
                     <i class="material-symbols-outlined">logout</i>
                     <span class="nav-text">Logout</span>

@@ -20,4 +20,12 @@ class Payment extends Model
         'payment_date',
         'transaction_status'
     ];
+
+    public function user() {
+        return $this->belongsTo(User::class, 'user_id', '_id');
+    }
+
+    public function course() {
+        return $this->belongsTo(Course::class, 'course_id', '_id');
+    }
 }
