@@ -4,12 +4,86 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Assesment;
+use App\Models\DifficultyLevel;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class AssessmentController extends Controller
 {
+    public function index (){
+        $level = DifficultyLevel::all();
+
+        return response()->json(
+            [
+                'success' => true,
+                'message' => 'Assessment Berhasil Ditambahkan',
+                'data' => $level
+            ],
+            200,
+        );
+    }
+
+    public function EducationLevelStore(Request $request) {
+        $validator = $request->validate([
+            'user_id' => 'nullable',
+            'education_level' => 'nullable',
+        ]);
+
+        $createData = Assesment::create([
+            'user_id' => Auth()->user()->id,
+            'education_level' => $request->education_level,
+        ]);
+
+        if ($createData) {
+            return response()->json(
+                [
+                    'success' => true,
+                    'message' => 'Level Berhasil Ditambahkan',
+                ],
+                201,
+            );
+        } else {
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' => 'Level Gagal Ditambahkan',
+                ],
+                500,
+            );
+        }
+    }
+
+    public function EducationGoalStore(Request $request) {
+        $validator = $request->validate([
+            'user_id' => 'nullable',
+            'education_level' => 'nullable',
+        ]);
+
+        $createData = Assesment::create([
+            'user_id' => Auth()->user()->id,
+            'education_level' => $request->education_level,
+        ]);
+
+        if ($createData) {
+            return response()->json(
+                [
+                    'success' => true,
+                    'message' => 'Level Berhasil Ditambahkan',
+                ],
+                201,
+            );
+        } else {
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' => 'Level Gagal Ditambahkan',
+                ],
+                500,
+            );
+        }
+    }
+
     public function store(Request $request)
     {
         date_default_timezone_set('Asia/Jakarta');

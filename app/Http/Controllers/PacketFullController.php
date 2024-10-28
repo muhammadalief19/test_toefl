@@ -22,16 +22,19 @@ class PacketFullController extends Controller
     public function getFullPaket()
     {
         $data = $this->data;
-        $dataPacketFull = Paket::with('questions')->where('tipe_test_packet', 'Full Test')->get();
+        $dataPacketFull = Paket::with('questions')->where('tipe_test_packet', 'Full Test')->latest()->get();
         return view('datapacketfull.first', compact('dataPacketFull','data'));
     }
     public function index($id)
     {
+        $dataPacketFull = Paket::with('questions')->where('tipe_test_packet', 'Full Test')->latest()->get();
+        
         $data = $this->data;
-        $dataPacketFull = Paket::with('questions')->where('tipe_test_packet', 'Full Test')->where('_id', $id)
-            ->get();
+        $questions = Question::where('packet_id', $id)
+        ->orderBy('created_at', 'desc')
+        ->get();
         $dataId = $id;
-        return view('datapacketfull.index', compact('dataPacketFull', 'dataId', 'data'));
+        return view('datapacketfull.index', compact('dataPacketFull', 'dataId', 'data','questions'));
     }
 
     public function getEntryQuestionFull($id)

@@ -10,12 +10,13 @@ class UserAnswer extends Model
     protected $connection = 'mongodb';
     protected $collection = 'user_answers';
     protected $fillable = [
-        'user_id', 
-        'packet_id', 
-        'question_id', 
-        'quiz_id', 
-        'bookmark', 
-        'selected_answer', 
+        'user_id',
+        'packet_id',
+        'question_id',
+        'quiz_id',
+        'bookmark',
+        'answer_user',
+        'selected_answer',
         'is_correct',
         'answered_at'
     ];

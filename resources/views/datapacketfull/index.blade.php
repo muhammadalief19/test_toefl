@@ -47,30 +47,37 @@
                                     <thead>
                                         <tr>
                                             <th>No</th>
-                                                <th>Pertanyaan</th>
-                                                <th>Kunci Jawaban</th>
-                                                <th>Pilihan Ganda</th>
+                                            <th>Pertanyaan</th>
+                                            <th>Kunci Jawaban</th>
+                                            <th>Pilihan Ganda</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach($dataPacketFull as $key => $packet)
-                                        @foreach($packet->questions as $question)
+                                        @foreach($questions as $question)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>
                                                 @if(Str::startsWith($question->question_text, 'questions/'))
                                                     @if(Str::endsWith($question->question_text, ['.jpg', '.jpeg', '.png', '.gif']))
-                                                        Menampilkan gambar
-                                                        <img src="{{ asset('storage/'.$question->question) }}" alt="Question Image" style="max-width: 100px;">
+                                                        {{-- Menampilkan gambar --}}
+                                                        <img src="{{ asset('storage/'.$question->question_text) }}" alt="Question Image" style="max-width: 100px;">
                                                     @elseif(Str::endsWith($question->question_text, ['.mp3', '.wav', '.ogg']))
-                                                        Menampilkan audio
+                                                        {{-- Menampilkan audio --}}
                                                         <audio controls>
-                                                            <source src="{{ asset('storage/'.$question->question) }}" type="audio/mpeg">
+                                                            @if(Str::endsWith($question->question_text, ['.mp3']))
+                                                                <source src="{{ asset('storage/'.$question->question_text) }}" type="audio/mp3">
+                                                            @endif
+                                                            @if(Str::endsWith($question->question_text, ['.wav']))
+                                                                <source src="{{ asset('storage/'.$question->question_text) }}" type="audio/wav">
+                                                            @endif
+                                                            @if(Str::endsWith($question->question_text, ['.ogg']))
+                                                                <source src="{{ asset('storage/'.$question->question_text) }}" type="audio/ogg">
+                                                            @endif
                                                             Your browser does not support the audio element.
                                                         </audio>
                                                     @else
-                                                        Menampilkan teks
-                                                        @if(strlen($question->question) > 50)
+                                                        {{-- Menampilkan teks --}}
+                                                        @if(strlen($question->question_text) > 50)
                                                             <button class="btn btn-sm" type="button" data-bs-toggle="modal"
                                                                     data-target="#questionDetailModal_{{ $question->_id }}">
                                                                 <i class="fas fa-eye mx-2 view-detail"></i>
@@ -80,7 +87,7 @@
                                                     @endif
                                                 @else
                                                     {{-- Menampilkan teks jika tidak ada prefix 'questions/' --}}
-                                                    @if(strlen($question->question) > 50)
+                                                    @if(strlen($question->question_text) > 50)
                                                         <button class="btn btn-sm" type="button" data-toggle="modal"
                                                                 data-target="#questionDetailModal_{{ $question->_id }}">
                                                             <i class="fas fa-eye mx-2 view-detail"></i>
@@ -279,7 +286,6 @@
                                             </td>
                                             </form>
                                         </tr>
-                                        @endforeach
                                         @endforeach
                                     </tbody>
                                 </table>
