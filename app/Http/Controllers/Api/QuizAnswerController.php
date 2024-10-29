@@ -31,9 +31,6 @@ class QuizAnswerController extends Controller
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         try{
@@ -43,7 +40,7 @@ class QuizAnswerController extends Controller
                 'quiz_content_id' => 'required',
                 'quiz_claim_id' => 'required',
             ]);
-            
+
 
             $quiz_claim = QuizClaim::find($request->quiz_claim_id);
             $score = 0;
@@ -94,9 +91,9 @@ class QuizAnswerController extends Controller
         }
         $total = 0;
         foreach($quiz->questions as $q){
-            $total = $total + count($q->content);
+            $total = $total + count($q->contents);
         }
-        
+
         return $total == count($claim);
     }
     /**

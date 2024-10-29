@@ -31,8 +31,7 @@ use App\Http\Controllers\Api\LearningHistoryController;
 use App\Http\Controllers\Api\LearningProfileController;
 use App\Http\Controllers\Api\PaymentController;
 use App\Http\Controllers\Api\PreferenceController;
-use App\Models\CourseCategory;
-use App\Models\Quiz;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -139,8 +138,8 @@ Route::middleware('auth:api')->group(function () {
 
     Route::controller(CommentController::class)->prefix('/comment')->group(function () {
         Route::get('/', 'index')->name('comment.api.index');
-        Route::get('/c_id/{id}', 'getByCommentID')->name('comment.api.getByPostID');
-        Route::get('/p_id/{post_id}', 'getByPostID')->name('comment.api.getByCommentID');
+        Route::get('/c_id/{id}', 'getByCommentID')->name('comment.api.getByCommentID');
+        Route::get('/p_id/{post_id}', 'getByPostID')->name('comment.api.getByPostID');
         Route::post('/store', 'store')->name('comment.api.store');
         Route::patch('/update/{id}', 'update')->name('comment.api.update');
         Route::delete('/delete/{id}', 'delete')->name('comment.api.delete');

@@ -10,17 +10,17 @@ use Illuminate\Http\Request;
 class QuizController extends Controller
 {
     public function index(){
-        
+
         try{
-            $quizs = Quiz::with('type','questions.content.options','questions.content.answer_key.option')->get();
-            
+            $quizs = Quiz::with('type','questions.contents.options','questions.contents.answer_key.option')->get();
+
             return response()->json(['data' => $quizs]);
         }catch(Exception $e){
             return $e->getMessage();
         }
     }
 
-    
+
 
     public function store(Request $request){
         try{
@@ -32,7 +32,7 @@ class QuizController extends Controller
                 // 'questions.*.options' => 'required',
             ]);
 
-    
+
         }catch(Exception $e){
 
             return $e->getMessage();
@@ -47,7 +47,7 @@ class QuizController extends Controller
         //
     }
 
-    
+
     /**
      * Display the specified resource.
      */
@@ -63,7 +63,7 @@ class QuizController extends Controller
         }catch(Exception $e){
             return response()->json([
                 'data' => 'lol'
-            ]); 
+            ]);
         }
     }
 

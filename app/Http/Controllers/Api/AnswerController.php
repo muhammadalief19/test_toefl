@@ -34,7 +34,7 @@ class AnswerController extends Controller
             foreach ($request->answers as $answer) {
                 $userAnswer = UserAnswer::create([
                     'packet_id' => $idPacket,
-                    'user_id' => auth()->user()->_id,
+                    'user_id' => auth()->user()->id,
                     'question_id' => $answer['question_id'],
                     'bookmark' => $answer['bookmark'],
                     'answer_user' => $answer['answer_user'],
@@ -44,7 +44,6 @@ class AnswerController extends Controller
                 $question = Question::where('packet_id', $idPacket)
                     ->where('_id', $answer['question_id'])
                     ->first();
-
                 if ($question && $question->key_question == $answer['answer_user']) {
                     $userAnswer->correct = true;
                     $userAnswer->save();
@@ -53,14 +52,14 @@ class AnswerController extends Controller
 
             $totalQuestion = Question::where('packet_id', $idPacket)->count();
             $totalCorrect = UserAnswer::where('packet_id', $idPacket)
-                ->where('user_id', auth()->user()->_id)
+                ->where('user_id', auth()->user()->id)
                 ->where('correct', true)
                 ->count();
 
             $prosentase = round(($totalCorrect / $totalQuestion) * 100);
 
             $initCorrect = UserAnswer::where('packet_id', $idPacket)
-                ->where('user_id', auth()->user()->_id)
+                ->where('user_id', auth()->user()->id)
                 ->where('correct', true)
                 ->get();
 
@@ -122,7 +121,7 @@ class AnswerController extends Controller
             if ($getPacket['tipe_test_packet'] == "Mini Test") {
                 ScoreMiniTest::create([
                      'packet_id' => $idPacket,
-                    'user_id' => auth()->user()->_id,
+                    'user_id' => auth()->user()->id,
                     'akurasi' => $prosentase,
                 ]);
 
@@ -139,7 +138,7 @@ class AnswerController extends Controller
 
             UserScorer::create([
                 'packet_id' => $idPacket,
-                'user_id' => auth()->user()->_id,
+                'user_id' => auth()->user()->id,
                 'akurasi' => $prosentase,
                 'level_profiency' => $level_profiency,
                 'score_toefl' => $hasilAkhir,
@@ -171,25 +170,25 @@ class AnswerController extends Controller
 
     public function getScoreSubmit($idPacket)
     {
-        $userTarget = User::with('target')->where('_id', auth()->user()->_id)->first();
+        $userTarget = User::with('target')->where('_id', auth()->user()->id)->first();
         $getPacket = Paket::where('_id', $idPacket)->first();
 
         if ($getPacket['tipe_test_packet'] == "Mini Test") {
             $getScore = ScoreMiniTest::where('packet_id', $idPacket)
-                ->where('user_id', auth()->user()->_id)
+                ->where('user_id', auth()->user()->id)
                 ->first();
         } else {
             $getScore = UserScorer::where('packet_id', $idPacket)
-                ->where('user_id', auth()->user()->_id)
+                ->where('user_id', auth()->user()->id)
                 ->first();
         }
 
-        $countAnsweredUser = UserAnswer::where('user_id', auth()->user()->_id)
+        $countAnsweredUser = UserAnswer::where('user_id', auth()->user()->id)
             ->where('answer_user', '!=', '-')
             ->where('packet_id', $idPacket)
             ->count();
 
-        $correctQuestion = UserAnswer::where('user_id', auth()->user()->_id)
+        $correctQuestion = UserAnswer::where('user_id', auth()->user()->id)
             ->where('packet_id', $idPacket)
             ->where('correct', true)
             ->count();
@@ -239,7 +238,7 @@ class AnswerController extends Controller
 
         // ------------------------------------------------- //
 
-        $initQuestionPackerCorrect = UserAnswer::where('user_id', auth()->user()->_id)
+        $initQuestionPackerCorrect = UserAnswer::where('user_id', auth()->user()->id)
             ->where('packet_id', $idPacket)
             ->where('correct', true)
             ->get();
@@ -332,7 +331,7 @@ class AnswerController extends Controller
     public function retakeTest(Request $request, $idPacket)
     {
         try {
-            $userLog = auth()->user()->_id;
+            $userLog = auth()->user()->id;
 
             $validate = Validator::make($request->all(), [
                 'answers.*.question_id' => 'required|string',
@@ -344,7 +343,7 @@ class AnswerController extends Controller
                 return response()->json(['error' => $validate->errors()], 400);
             }
 
-            // drop all data dulu baru insert ulang sesuai request 
+            // drop all data dulu baru insert ulang sesuai request
             UserAnswer::where('user_id', $userLog)
                 ->where('packet_id', $idPacket)
                 ->delete();
@@ -383,7 +382,7 @@ class AnswerController extends Controller
             $prosentase = round(($totalCorrect / $totalQuestion) * 100);
 
             $initCorrect = UserAnswer::where('packet_id', $idPacket)
-                ->where('user_id', auth()->user()->_id)
+                ->where('user_id', auth()->user()->id)
                 ->where('correct', true)
                 ->get();
 
@@ -442,7 +441,7 @@ class AnswerController extends Controller
 
             UserScorer::create([
                 'packet_id' => $idPacket,
-                'user_id' => auth()->user()->_id,
+                'user_id' => auth()->user()->id,
                 'akurasi' => $prosentase,
                 'level_profiency' => $level_profiency,
                 'score_toefl' => $hasilAkhir,
@@ -480,7 +479,7 @@ class AnswerController extends Controller
 
    public function answerUsers($idPacket)
     {
-        $userAnswers = UserAnswer::with('question.nesteds', 'question.multipleChoices')->where('packet_id', $idPacket)->where('user_id', auth()->user()->_id)->get();
+        $userAnswers = UserAnswer::with('question.nesteds', 'question.multipleChoices')->where('packet_id', $idPacket)->where('user_id', auth()->user()->id)->get();
 
         $mappedUserAnswers = $userAnswers->map(function ($userAnswer) {
             return [

@@ -11,4 +11,5 @@ class ToeflScore extends Model
 
     protected $connection = 'mongodb';
     protected $table = 'toefl_scores';
+    
 }

@@ -296,7 +296,7 @@ class AuthController extends Controller
 
         try {
 
-            $initUser = User::where('_id', auth()->user()->_id)->first();
+            $initUser = User::where('_id', auth()->user()->id)->first();
             $theToken = $initUser->otp_register;
 
             if ($request->otp_register != $theToken) {
@@ -718,7 +718,7 @@ class AuthController extends Controller
         }
 
         try {
-            $user = User::where('_id', auth()->user()->_id)->first();
+            $user = User::where('_id', auth()->user()->id)->first();
 
             if (!$user) {
                 return response()->json([
@@ -799,7 +799,7 @@ class AuthController extends Controller
         }
 
         try {
-            $user = User::where('_id', auth()->user()->_id)->first();
+            $user = User::where('_id', auth()->user()->id)->first();
 
             if (!$user) {
                 return response()->json([
@@ -878,7 +878,7 @@ class AuthController extends Controller
         }
 
         try {
-            $user = User::where('_id', auth()->user()->_id)->first();
+            $user = User::where('_id', auth()->user()->id)->first();
 
             if (!$user) {
                 return response()->json([
@@ -924,7 +924,7 @@ class AuthController extends Controller
 
     public function profile()
     {
-        $user = auth()->user()->_id;
+        $user = auth()->user()->id;
         $userInit = User::with('target')->where('_id', $user)->first();
         $scoreUserLatest = UserScorer::where('user_id', $user)->latest()->first();
         if ($scoreUserLatest == null) {

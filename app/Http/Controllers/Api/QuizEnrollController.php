@@ -40,7 +40,7 @@ class QuizEnrollController extends Controller
             $user_id = auth()->user()->_id;
 
             $quiz = Quiz::with('type','questions.content.options','questions.content.answer_key.option')->find($request->quiz_id);
-            
+
             if (!$quiz) {
                 return response()->json(['success' => false, 'data' => null, 'message' => 'Quiz not found'], 404);
             }
@@ -51,12 +51,12 @@ class QuizEnrollController extends Controller
 
                 // DB::beginTransaction();
                 $claim_quiz = new QuizClaim();
-                
+
                 $claim_quiz->quiz_id = $request->quiz_id;
                 $claim_quiz->quiz_content_id = $request->quiz_content_id;
                 $claim_quiz->user_id = $user_id;
                 $claim_quiz->is_completed = false;
-                
+
                 $claim_quiz->save();
                 // DB::commit();
             }
@@ -73,7 +73,7 @@ class QuizEnrollController extends Controller
            }catch(Exception $e){
             return response()->json(['success' => false, 'data' => $e->getMessage()]);
            }
-           
+
     }
 
     /**
@@ -85,13 +85,13 @@ class QuizEnrollController extends Controller
             $user = auth()->user();
 
             $quiz_claims = QuizClaim::with('quiz_answer')->where('quiz_id',$id)->where('user_id',$user->_id)->where('is_completed',true)->get();
-            
+
             $claim_id = '';
             $maxScore = 0;
 
-            $quiz = Quiz::with('type', 'questions.content.options', 'questions.content.answer_key.option')
+            $quiz = Quiz::with('type', 'questions.contents.options', 'questions.contents.answer_key.option')
                         ->find($id);
-            
+
 
             foreach ($quiz_claims as $quiz_claim) {
                 $totalScore = 0;
@@ -101,14 +101,14 @@ class QuizEnrollController extends Controller
 
                 if ($totalScore > $maxScore) {
                     $maxScore = $totalScore;
-                    $claim_id = $quiz_claim->_id; 
+                    $claim_id = $quiz_claim->_id;
                 }
             }
 
             $highestQuizClaim = QuizClaim::with('quiz_answer')->find($claim_id);
-        
-            
-            
+
+
+
             return response()->json([
                 'success' => true,
                 'data' => [
