@@ -92,6 +92,14 @@
                     <span class="nav-text">Payment</span>
                 </a>
             </li>
+            <li>
+                <a class="" href="{{ route('assessment.index') }}" aria-expanded="false">
+                    <i class="material-symbols-outlined">
+                        settings_accessibility
+                    </i>
+                    <span class="nav-text">Assessment</span>
+                </a>
+            </li>
             <li><a class="" href="{{ route('logout') }}" aria-expanded="false">
                     <i class="material-symbols-outlined">logout</i>
                     <span class="nav-text">Logout</span>

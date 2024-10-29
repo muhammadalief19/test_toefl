@@ -21,4 +21,8 @@ class Assesment extends Model
         'education_goals',
         'assessment_date'
     ];
+
+    public function user() {
+        return $this->belongsTo(User::class, 'user_id', '_id');
+    }
 }

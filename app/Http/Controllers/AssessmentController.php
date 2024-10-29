@@ -17,9 +17,9 @@ class AssessmentController extends Controller
 
     public function index() {
         $data = $this->data;
-        $data['assessmentData'] = Assesment::all();
+        $data['assessmentData'] = Assesment::with(['user'])->get();
         $data['no'] = 1;
 
-        return view('course-category.index', compact(['data']));
+        return view('assessment.index', compact(['data']));
     }
 }
