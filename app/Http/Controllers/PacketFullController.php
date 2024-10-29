@@ -28,7 +28,7 @@ class PacketFullController extends Controller
     public function index($id)
     {
         $dataPacketFull = Paket::with('questions')->where('tipe_test_packet', 'Full Test')->latest()->get();
-        
+
         $data = $this->data;
         $questions = Question::where('packet_id', $id)
         ->orderBy('created_at', 'desc')
@@ -49,7 +49,7 @@ class PacketFullController extends Controller
         // dd($request->all());
         $request->validate([
             'packet_id' => 'required',
-            'type_question' => 'required',
+            'question_type' => 'required',
             'question' => 'required',
             'key_question' => 'required'
         ]);
@@ -57,7 +57,7 @@ class PacketFullController extends Controller
         if ($request->part_question == 'A-SHORT TALKS') {
             $questionData = [
                 'packet_id' => $request->packet_id,
-                'type_question' => $request->type_question,
+                'question_type' => $request->type_question,
                 'part_question' => 'A',
                 'description_part_question' => 'Short Talks',
                 'key_question' => $request->key_question,
@@ -84,7 +84,7 @@ class PacketFullController extends Controller
         if ($request->part_question == 'B-Long Conversation') {
             $questionData = [
                 'packet_id' => $request->packet_id,
-                'type_question' => $request->type_question,
+                'question_type' => $request->type_question,
                 'part_question' => 'B',
                 'description_part_question' => 'Long Conversation',
                 'key_question' => $request->key_question,
@@ -111,7 +111,7 @@ class PacketFullController extends Controller
         if ($request->part_question == 'C-Mini-Lectures') {
             $questionData = [
                 'packet_id' => $request->packet_id,
-                'type_question' => $request->type_question,
+                'question_type' => $request->type_question,
                 'part_question' => 'C',
                 'description_part_question' => 'Mini-Lectures',
                 'key_question' => $request->key_question,
@@ -138,7 +138,7 @@ class PacketFullController extends Controller
         if ($request->part_question == 'A-Sentence Completitions') {
             $questionData = [
                 'packet_id' => $request->packet_id,
-                'type_question' => $request->type_question,
+                'question_type' => $request->type_question,
                 'part_question' => 'A',
                 'description_part_question' => 'Sentence Completitions',
                 'key_question' => $request->key_question,
@@ -165,7 +165,7 @@ class PacketFullController extends Controller
         if ($request->part_question == 'B-Error Recognition') {
             $questionData = [
                 'packet_id' => $request->packet_id,
-                'type_question' => $request->type_question,
+                'question_type' => $request->type_question,
                 'part_question' => 'B',
                 'description_part_question' => 'Error Recognition',
                 'key_question' => $request->key_question,
@@ -192,7 +192,7 @@ class PacketFullController extends Controller
         if ($request->part_question == "") {
             $questionData = [
                 'packet_id' => $request->packet_id,
-                'type_question' => $request->type_question,
+                'question_type' => $request->type_question,
                 'part_question' => "",
                 'description_part_question' => "",
                 'key_question' => $request->key_question,

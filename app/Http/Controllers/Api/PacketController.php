@@ -115,16 +115,10 @@ class PacketController extends Controller
     {
         $data = Paket::with('questions','questions.nesteds.nestedQuestion', 'questions.multipleChoices')->where('_id', $idPacket)->first();
 
-        if (!$data) {
-            return response()->json([
-                'success' => false,
-                'status' => 'error',
-                'message' => 'Data Packet not found',
-            ], 404);
-        }
+
         $packetId = $data['_id'];
         $getQuestionCount = Question::where('packet_id', $packetId)->count();
-        $questions = collect($data['questions'])->map(function ($question) {
+        $questions = collect($data['questions'])->shuffle()->map(function ($question) {
             $nested = collect($question['nesteds'])->map(function ($nested) {
                 return [
                     'nested_question_id' => $nested->nestedQuestion->_id ?? null,
@@ -139,10 +133,9 @@ class PacketController extends Controller
                 ];
             })->all();
 
-
             return [
                 'id' => $question['_id'],
-                'type_question' => $question['type_question'] ?? null,
+                'type_question' => $question['question_type'] ?? null,
                 'part_question' => $question['part_question'] ?? null,
                 'description_part_question' => $question['description_part_question'] ?? null,
                 'questions' => $question['question_text'] ?? null,
