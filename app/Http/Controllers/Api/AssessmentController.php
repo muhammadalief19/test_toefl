@@ -110,7 +110,7 @@ class AssessmentController extends Controller
             'result' => $request->result,
             'education_levels' => $request->education_levels,
             'education_goals' => $request->education_goals,
-            'assesment_date' => $date->now()->isoFormat('Y-M-D H:mm:ss'),
+            'assessment_date' => $date->now()->isoFormat('Y-M-D H:mm:ss'),
         ]);
 
         if ($createData) {

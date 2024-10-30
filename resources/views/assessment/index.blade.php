@@ -40,7 +40,7 @@
             <div class="card" id="accordion-two">
                 <div class="card-header flex-wrap d-flex justify-content-between px-3">
                     <div>
-                        <h4 class="card-title">Payment Record</h4>
+                        <h4 class="card-title">Assessment Record</h4>
                     </div>
                 </div>
 
@@ -54,16 +54,15 @@
                                         <tr>
                                             <th>No</th>
                                             <th>User</th>
-                                            <th>Course</th>
-                                            <th>Instructor</th>
-                                            <th>Amount</th>
-                                            <th>Status</th>
-                                            <th>Payment Method</th>
-                                            <th>Payment Date</th>
+                                            <th>Type</th>
+                                            <th>Score</th>
+                                            <th>Education Level</th>
+                                            <th>Education Goals</th>
+                                            <th>Assessment Date</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($data['paymentsData'] as $item)
+                                        @foreach ($data['assessmentData'] as $item)
                                             <tr>
                                                 <td>
                                                     {{ $data['no']++ }}
@@ -72,31 +71,19 @@
                                                     {{ $item->user->name }}
                                                 </td>
                                                 <td>
-                                                    {{ $item->course->course_name }}
+                                                    {{ $item->assessment_type }}
                                                 </td>
                                                 <td>
-                                                    {{ $item->course->instructor->name }}
+                                                    {{ $item->score }}
                                                 </td>
                                                 <td>
-                                                    {{ rupiah($item->amount) }}
+                                                    {{ $item->education_levels }}
                                                 </td>
                                                 <td>
-                                                    @if ($item->transaction_status == 'pending')
-                                                        <span
-                                                            class="badge badge-rounded badge-outline-warning">{{ $item->transaction_status }}</span>
-                                                    @elseif ($item->transaction_status == 'completed')
-                                                        <span
-                                                            class="badge badge-rounded badge-outline-success">{{ $item->transaction_status }}</span>
-                                                    @else
-                                                        <span
-                                                            class="badge badge-rounded badge-outline-danger">{{ $item->transaction_status }}</span>
-                                                    @endif
+                                                    {{ $item->education_goals }}
                                                 </td>
                                                 <td>
-                                                    {{ $item->payment_method }}
-                                                </td>
-                                                <td>
-                                                    {{ $item->payment_date }}
+                                                    {{ $item->assessment_date }}
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -105,12 +92,11 @@
                                         <tr>
                                             <th>No</th>
                                             <th>User</th>
-                                            <th>Course</th>
-                                            <th>Instructor</th>
-                                            <th>Amount</th>
-                                            <th>Status</th>
-                                            <th>Payment Method</th>
-                                            <th>Payment Date</th>
+                                            <th>Type</th>
+                                            <th>Score</th>
+                                            <th>Education Level</th>
+                                            <th>Education Goals</th>
+                                            <th>Assessment Date</th>
                                         </tr>
                                     </tfoot>
                                 </table>

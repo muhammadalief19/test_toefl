@@ -230,6 +230,7 @@ class AuthController extends Controller
             Mail::to($user['email'])->send(new RegisterOtpMail($get_user_email, $get_user_name, $validTokenRegister));
 
             $mappedDataUser = [
+                '_id' => $user ? $user->_id : null,
                 'name' => $user ? $user->name : null,
                 'email' => $user ? $user->email : null,
                 'is_verified_register' => $user ? $user->is_verified_register : null,

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ActivityLogController;
 use App\Http\Controllers\AllPacketController;
+use App\Http\Controllers\AssessmentController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\SSOController;
 use App\Http\Controllers\ConfigurationController;
@@ -194,6 +195,10 @@ Route::middleware('authenticated')->group(function () {
     
     Route::controller(PaymentController::class)->prefix('/payment')->group(function() {
         Route::get('/', 'index')->name('payment.index');
+    });
+    
+    Route::controller(AssessmentController::class)->prefix('/assessment')->group(function() {
+        Route::get('/', 'index')->name('assessment.index');
     });
 });
 
