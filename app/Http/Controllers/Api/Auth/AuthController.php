@@ -387,62 +387,59 @@ class AuthController extends Controller
                 'message' => $e->getMessage(),
             ], 500);
         }
-
     }
-
-
 
     public function updateProfile(Request $request)
     {
-    $user = User::where('_id', auth()->user()->id)->first();
+        $user = User::where('_id', auth()->user()->id)->first();
 
-    try {
-        // Validasi input
-        $request->validate([
-            'name' => 'string',
-            'profile_picture' => 'image|max:4096', // validasi untuk file gambar
-        ]);
-
-        // Array untuk menyimpan data yang akan diupdate
-        $updateData = [
-            'name' => $request->input('name'),
-        ];
-
-        // Cek apakah ada file yang diunggah
-        if ($request->hasFile('profile_picture')) {
-            // Simpan file gambar ke folder upload/user
-            $profilePicture = $request->file('profile_picture');
-            $profilePictureName = time() . '.' . $profilePicture->getClientOriginalExtension();
-            $profilePicture->move(public_path('storage/user'), $profilePictureName);
-
-            // Tambahkan path gambar ke dalam array updateData
-            $updateData['profile_picture'] = 'storage/user/' . $profilePictureName;
-        }
-
-        // Update data user
-        $updateProfile = $user->update($updateData);
-
-        // Cek apakah update berhasil
-        if ($updateProfile) {
-            return response()->json([
-                'success' => true,
-                'message' => 'Profile updated successfully!',
+        try {
+            // Validasi input
+            $request->validate([
+                'name' => 'string',
+                'profile_picture' => 'image|max:4096', // validasi untuk file gambar
             ]);
+
+            // Array untuk menyimpan data yang akan diupdate
+            $updateData = [
+                'name' => $request->input('name'),
+            ];
+
+            // Cek apakah ada file yang diunggah
+            if ($request->hasFile('profile_picture')) {
+                // Simpan file gambar ke folder upload/user
+                $profilePicture = $request->file('profile_picture');
+                $profilePictureName = time() . '.' . $profilePicture->getClientOriginalExtension();
+                $profilePicture->move(public_path('storage/user'), $profilePictureName);
+
+                // Tambahkan path gambar ke dalam array updateData
+                $updateData['profile_picture'] = 'storage/user/' . $profilePictureName;
+            }
+
+            // Update data user
+            $updateProfile = $user->update($updateData);
+
+            // Cek apakah update berhasil
+            if ($updateProfile) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Profile updated successfully!',
+                ]);
+            }
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to update profile',
+            ]);
+
+        } catch (Exception $e) {
+            // Jika terjadi error
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage(),
+            ], 500);
         }
-
-        return response()->json([
-            'success' => false,
-            'message' => 'Failed to update profile',
-        ]);
-
-    } catch (Exception $e) {
-        // Jika terjadi error
-        return response()->json([
-            'success' => false,
-            'message' => $e->getMessage(),
-        ], 500);
     }
-}
 
 
 

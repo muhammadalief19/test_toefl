@@ -21,9 +21,9 @@ class Paket extends Model
         return $this->hasMany(Question::class, 'packet_id', '_id');
     }
 
-    // public function answers()
-    // {
-    //     return $this->hasMany(Answer::class, 'packet_id', 'packet_id');
-    // }
+    public function answers()
+    {
+        return $this->hasMany(Answer::class, 'packet_id', 'packet_id');
+    }
 
 }
