@@ -11,9 +11,10 @@ class Question extends Model
     protected $collection = 'questions';
     protected $fillable = [
         'quiz_id',
-        'packet_id', 
-        'part_question', 
-        'description_part_question', 
+        'packet_id',
+        'nested_question_id',
+        'part_question',
+        'description_part_question',
         'key_question',
         'question_text',
         'question_type',

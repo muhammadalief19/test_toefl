@@ -138,7 +138,7 @@ class PacketController extends Controller
                 'type_question' => $question['question_type'] ?? null,
                 'part_question' => $question['part_question'] ?? null,
                 'description_part_question' => $question['description_part_question'] ?? null,
-                'questions' => $question['question_text'] ?? null,
+                'question' => $question['question_text'] ?? null,
                 'nested_question_id' => $nested[0]['nested_question_id'] ?? null,
                 'nested_question' => $nested[0]['nested_question'] ?? null,
                 'multiple_choices' => $multipleChoices,
