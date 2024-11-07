@@ -117,8 +117,7 @@ class PacketController extends Controller
 
 
         $packetId = $data['_id'];
-        $getQuestionCount = Question::where('packet_id', $packetId)->count();
-        $questions = collect($data['questions'])->shuffle()->map(function ($question) {
+        $questions = collect($data['questions'])->map(function ($question) {
             $nested = collect($question['nesteds'])->map(function ($nested) {
                 return [
                     'nested_question_id' => $nested->nestedQuestion->_id ?? null,

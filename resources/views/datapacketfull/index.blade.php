@@ -79,7 +79,7 @@
                                                         {{-- Menampilkan teks --}}
                                                         @if(strlen($question->question_text) > 50)
                                                             <button class="btn btn-sm" type="button" data-bs-toggle="modal"
-                                                                    data-target="#questionDetailModal_{{ $question->_id }}">
+                                                                    data-bs-target="#questionDetailModal_{{ $question->_id }}">
                                                                 <i class="fas fa-eye mx-2 view-detail"></i>
                                                             </button>
                                                         @endif
@@ -88,8 +88,8 @@
                                                 @else
                                                     {{-- Menampilkan teks jika tidak ada prefix 'questions/' --}}
                                                     @if(strlen($question->question_text) > 50)
-                                                        <button class="btn btn-sm" type="button" data-toggle="modal"
-                                                                data-target="#questionDetailModal_{{ $question->_id }}">
+                                                        <button class="btn btn-sm" type="button" data-bs-toggle="modal"
+                                                                data-bs-target="#questionDetailModal_{{ $question->_id }}">
                                                             <i class="fas fa-eye mx-2 view-detail"></i>
                                                         </button>
                                                     @endif
@@ -268,7 +268,7 @@
                                                                         </div>
                                                                     </div>
                                                                     <button type="button" class="btn btn-success btn-add-choice"
-                                                                        data-max-choices="5"
+                                                                        data-max-choices="4"
                                                                         data-parent="#multipleChoicesContainer_{{ $question->_id }}"><i
                                                                             class="fa fa-plus"></i> Tambah
                                                                         Pilihan Jawaban</button>

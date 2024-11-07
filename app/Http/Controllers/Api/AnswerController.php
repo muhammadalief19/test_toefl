@@ -38,14 +38,14 @@ class AnswerController extends Controller
                     'question_id' => $answer['question_id'],
                     'bookmark' => $answer['bookmark'],
                     'answer_user' => $answer['answer_user'],
-                    'correct' => false,
+                    'is_correct' => false,
                 ]);
 
                 $question = Question::where('packet_id', $idPacket)
                     ->where('_id', $answer['question_id'])
                     ->first();
                 if ($question && $question->key_question == $answer['answer_user']) {
-                    $userAnswer->correct = true;
+                    $userAnswer->is_correct = true;
                     $userAnswer->save();
                 }
             }
@@ -70,11 +70,11 @@ class AnswerController extends Controller
 
             foreach ($initCorrect as $item) {
                 $question = Question::where('_id', $item->question_id)->first();
-                if ($question->type_question == 'Listening' && $item->correct == true) {
+                if ($question->type_question == 'Listening' && $item->is_correct == true) {
                     $correctQuestionListening++;
-                } elseif ($question->type_question == 'Structure And Written Expression' && $item->correct == true) {
+                } elseif ($question->type_question == 'Structure And Written Expression' && $item->is_correct == true) {
                     $correctQuestionStructure++;
-                } elseif ($question->type_question == 'Reading' && $item->correct == true) {
+                } elseif ($question->type_question == 'Reading' && $item->is_correct == true) {
                     $correctQuestionReading++;
                 }
             }
