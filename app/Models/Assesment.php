@@ -19,6 +19,7 @@ class Assesment extends Model
         'result',
         'education_levels',
         'education_goals',
+        'dream',
         'assessment_date'
     ];
 

@@ -36,7 +36,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+    return [
+        'success' => true,
+        'data' => $request->user(),
+    ];
 });
 
 Route::controller(AuthController::class)->group(function () {
@@ -44,10 +47,10 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('/login', 'login');
     Route::post('/forgot', 'forgot');
     Route::post('/update-age', 'updateAge');
-    Route::post('/users/verify-otp-forgot',  'verifyOtpForgot');
+    Route::post('/users/verify-otp-forgot', 'verifyOtpForgot');
     Route::post('/reset', 'reset');
-    Route::post('/users/verify-otp',  'verifyOtpRegister');
-    Route::post('/users/new-otp',  'newOtp');
+    Route::post('/users/verify-otp', 'verifyOtpRegister');
+    Route::post('/users/new-otp', 'newOtp');
     Route::get('/users/profile', 'profile');
     Route::post('/edit/profile', 'updateProfile');
     Route::post('/logout', 'logout');
@@ -55,11 +58,14 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('change/password', 'changePassword');
 });
 
-Route::get('/get-onboarding-target',[ValueHomeController::class, 'getTargetOnBoarding']);
+Route::get('/get-onboarding-target', [ValueHomeController::class, 'getTargetOnBoarding']);
 
-Route::controller(AssessmentController::class)->prefix('/assessment')->group(function () {
-    Route::post('/store', 'store')->name('assessment.api.store');
-});
+Route::controller(AssessmentController::class)
+    ->prefix('/assessment')
+    ->group(function () {
+        Route::post('/store/{status}', 'store')->name('assessment.api.store');
+        Route::put('/update-intial/{id}', 'updateAssessmentInitial')->name('assessment.api.updateAssessmentInitial');
+    });
 
 Route::middleware('auth:api')->group(function () {
     Route::controller(PacketController::class)->group(function () {
@@ -86,86 +92,109 @@ Route::middleware('auth:api')->group(function () {
         Route::get('/get-score-toefl', 'getLevelUser');
     });
 
-    Route::controller(PrivateMessageController::class)->prefix('/private-messages')->group(function () {
-        Route::get('/', 'index')->name('private-message.api.index');
-        Route::post('/send', 'sendMessage')->name('private-message.api.store');
-        Route::post('/{messageId}/update', 'updateMessage')->name('private-message.api.update');
-        Route::delete('/{messageId}/delete', 'deleteMessage')->name('private-message.api.delete');
-    });
+    Route::controller(PrivateMessageController::class)
+        ->prefix('/private-messages')
+        ->group(function () {
+            Route::get('/', 'index')->name('private-message.api.index');
+            Route::post('/send', 'sendMessage')->name('private-message.api.store');
+            Route::post('/{messageId}/update', 'updateMessage')->name('private-message.api.update');
+            Route::delete('/{messageId}/delete', 'deleteMessage')->name('private-message.api.delete');
+        });
 
-    Route::controller(AssessmentController::class)->prefix('/assessment')->group(function () {
-        Route::post('/store', 'store')->name('assessment.api.store');
-    });
+    // Route::controller(AssessmentController::class)
+    //     ->prefix('/assessment')
+    //     ->group(function () {
+    //         Route::post('/store', 'store')->name('assessment.api.store');
+    //     });
 
-    Route::controller(LearningProfileController::class)->prefix('/learning-profile')->group(function () {
-        Route::post('/store', 'store')->name('learningProfile.api.store');
-    });
+    Route::controller(LearningProfileController::class)
+        ->prefix('/learning-profile')
+        ->group(function () {
+            Route::post('/store', 'store')->name('learningProfile.api.store');
+        });
 
-    Route::controller(LearningHistoryController::class)->prefix('/learning-history')->group(function () {
-        Route::post('/store', 'store')->name('learningHistory.api.store');
-    });
+    Route::controller(LearningHistoryController::class)
+        ->prefix('/learning-history')
+        ->group(function () {
+            Route::post('/store', 'store')->name('learningHistory.api.store');
+        });
 
+    Route::controller(PreferenceController::class)
+        ->prefix('/preference')
+        ->group(function () {
+            Route::post('/store', 'store')->name('preference.api.store');
+        });
 
-    Route::controller(PreferenceController::class)->prefix('/preference')->group(function () {
-        Route::post('/store', 'store')->name('preference.api.store');
-    });
+    Route::controller(PaymentController::class)
+        ->prefix('/payment')
+        ->group(function () {
+            Route::post('/store', 'store')->name('payment.api.store');
+            Route::post('/update/status-completed/{id}', 'updateTransactionCompleted')->name('payment.api.updateTransactionCompleted');
+            Route::post('/update/status-failed/{id}', 'updateTransactionFailed')->name('payment.api.updateTransactionFailed');
+        });
 
-    Route::controller(PaymentController::class)->prefix('/payment')->group(function () {
-        Route::post('/store', 'store')->name('payment.api.store');
-        Route::post('/update/status-completed/{id}', 'updateTransactionCompleted')->name('payment.api.updateTransactionCompleted');
-        Route::post('/update/status-failed/{id}', 'updateTransactionFailed')->name('payment.api.updateTransactionFailed');
-    });
+    Route::controller(ActivityLogController::class)
+        ->prefix('/activity-log')
+        ->group(function () {
+            Route::post('/store', 'store')->name('activityLog.api.store');
+        });
 
-    Route::controller(ActivityLogController::class)->prefix('/activity-log')->group(function () {
-        Route::post('/store', 'store')->name('activityLog.api.store');
-    });
+    Route::controller(DifficultyLevelController::class)
+        ->prefix('/level')
+        ->group(function () {
+            Route::get('/', 'index')->name('level.api.index');
+        });
 
-    Route::controller(DifficultyLevelController::class)->prefix('/level')->group(function () {
-        Route::get('/', 'index')->name('level.api.index');
-    });
+    Route::controller(ForumController::class)
+        ->prefix('/forum')
+        ->group(function () {
+            Route::get('/', 'index')->name('forum.api.index');
+        });
 
-    Route::controller(ForumController::class)->prefix('/forum')->group(function () {
-        Route::get('/', 'index')->name('forum.api.index');
-    });
+    Route::controller(TopicController::class)
+        ->prefix('/topic')
+        ->group(function () {
+            Route::get('/', 'index')->name('topic.api.index');
+            Route::get('/{id}', 'getByID')->name('topic.api.getByID');
+            Route::post('/store', 'store')->name('topic.api.store');
+            Route::patch('/update/{id}', 'update')->name('topic.api.update');
+            Route::delete('/delete/{id}', 'delete')->name('topic.api.delete');
+        });
 
-    Route::controller(TopicController::class)->prefix('/topic')->group(function () {
-        Route::get('/', 'index')->name('topic.api.index');
-        Route::get('/{id}', 'getByID')->name('topic.api.getByID');
-        Route::post('/store', 'store')->name('topic.api.store');
-        Route::patch('/update/{id}', 'update')->name('topic.api.update');
-        Route::delete('/delete/{id}', 'delete')->name('topic.api.delete');
-    });
+    Route::controller(CommentController::class)
+        ->prefix('/comment')
+        ->group(function () {
+            Route::get('/', 'index')->name('comment.api.index');
+            Route::get('/c_id/{id}', 'getByCommentID')->name('comment.api.getByCommentID');
+            Route::get('/p_id/{post_id}', 'getByPostID')->name('comment.api.getByPostID');
+            Route::post('/store', 'store')->name('comment.api.store');
+            Route::patch('/update/{id}', 'update')->name('comment.api.update');
+            Route::delete('/delete/{id}', 'delete')->name('comment.api.delete');
+        });
 
-    Route::controller(CommentController::class)->prefix('/comment')->group(function () {
-        Route::get('/', 'index')->name('comment.api.index');
-        Route::get('/c_id/{id}', 'getByCommentID')->name('comment.api.getByCommentID');
-        Route::get('/p_id/{post_id}', 'getByPostID')->name('comment.api.getByPostID');
-        Route::post('/store', 'store')->name('comment.api.store');
-        Route::patch('/update/{id}', 'update')->name('comment.api.update');
-        Route::delete('/delete/{id}', 'delete')->name('comment.api.delete');
-    });
-
-    Route::controller(PostController::class)->prefix('/post')->group(function () {
-        Route::get('/', 'index')->name('post.api.index');
-        Route::get('/{id}', 'getByID')->name('post.api.getByID');
-        Route::post('/store', 'store')->name('post.api.store');
-        Route::patch('/update/{id}', 'update')->name('post.api.update');
-        Route::delete('/delete/{id}', 'delete')->name('post.api.delete');
-    });
+    Route::controller(PostController::class)
+        ->prefix('/post')
+        ->group(function () {
+            Route::get('/', 'index')->name('post.api.index');
+            Route::get('/{id}', 'getByID')->name('post.api.getByID');
+            Route::post('/store', 'store')->name('post.api.store');
+            Route::patch('/update/{id}', 'update')->name('post.api.update');
+            Route::delete('/delete/{id}', 'delete')->name('post.api.delete');
+        });
 
     Route::resource('/randomword', RandomWordController::class);
-    Route::resource('/quizs',QuizController::class);
-    Route::resource('/quiztypes',QuizTypeController::class);
-    Route::resource('/games',GameController::class);
-    Route::resource('/gameclaims',GameClaimController::class);
-    Route::resource('/quizclaims',QuizEnrollController::class);
-    Route::resource('/leaderboard',QuizGameScoreController::class);
-    Route::resource('/gameanswer',GameAnswerController::class);
-    Route::resource('/quizanswer',QuizAnswerController::class);
-    Route::resource('/quizgameresult',QuizResultController::class);
-    Route::resource('/randomword',RandomWordController::class);
-    Route::resource('/scrambledword',ScrambledWordController::class);
-    Route::resource('/pairingclaims',PairingClaimController::class);
+    Route::resource('/quizs', QuizController::class);
+    Route::resource('/quiztypes', QuizTypeController::class);
+    Route::resource('/games', GameController::class);
+    Route::resource('/gameclaims', GameClaimController::class);
+    Route::resource('/quizclaims', QuizEnrollController::class);
+    Route::resource('/leaderboard', QuizGameScoreController::class);
+    Route::resource('/gameanswer', GameAnswerController::class);
+    Route::resource('/quizanswer', QuizAnswerController::class);
+    Route::resource('/quizgameresult', QuizResultController::class);
+    Route::resource('/randomword', RandomWordController::class);
+    Route::resource('/scrambledword', ScrambledWordController::class);
+    Route::resource('/pairingclaims', PairingClaimController::class);
     Route::resource('/foryou', ForYouController::class);
 });
 
