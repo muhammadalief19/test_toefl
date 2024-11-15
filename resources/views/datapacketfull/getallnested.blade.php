@@ -1,9 +1,6 @@
 @extends('layouts.layout')
 
-
-
 @section('content')
-
     <div class="row">
         <div class="col-xl-12">
             <div class="card" id="accordion-two">
@@ -43,9 +40,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="card-body">
+                <div class="card-header">
                     <div class="table">
-                        <table class="table table-bordered" id="table4">
+                        <table class="table table-bot rdered" id="table4">
                             <thead>
                                 <tr>
                                     <th>No</th>
@@ -61,16 +58,16 @@
                                     <td> {{ $loop->iteration }}</td>
 
                                     <td>
-                                        @if(Str::startsWith($nested->question->question, 'nested_question/'))
+                                        @if(Str::startsWith($nested->question->question_text, 'nested_question/'))
                                         <audio controls>
                                             <source
-                                                src="{{ 'nested_question/'.$nested->question->question }}"
+                                                src="{{ 'nested_question/'.$nested->question->question_text }}"
                                                 type="audio/mpeg">
                                             Your browser does not support the audio element.
                                         </audio>
                                         @else
+                                            {{ Str::limit($nested->question->question_text, 50, '...') }}
 
-                                        {{ Str::limit($nested->question->question, 50, '...') }}
                                         @endif
 
 
@@ -106,14 +103,23 @@
                                 <tr>
                                     <td> {{ $loop->iteration }}</td>
                                     <td>
-                                        @if(Str::startsWith($question->question, 'questions/'))
-                                        <audio controls>
-                                            <source src="{{ 'nested_question/'. $question->question }}"
-                                                type="audio/mpeg">
-                                            Your browser does not support the audio element.
-                                        </audio>
+                                        @if(Str::startsWith($question->question_text, 'questions/'))
+                                            @if(Str::endsWith($question->question_text, ['.mp3', '.wav', '.ogg']))
+                                            <audio controls>
+                                                @if(Str::endsWith($question->question_text, ['.mp3']))
+                                                    <source src="{{ asset('storage/'.$question->question_text) }}" type="audio/mp3">
+                                                @endif
+                                                @if(Str::endsWith($question->question_text, ['.wav']))
+                                                    <source src="{{ asset('storage/'.$question->question_text) }}" type="audio/wav">
+                                                @endif
+                                                @if(Str::endsWith($question->question_text, ['.ogg']))
+                                                    <source src="{{ asset('storage/'.$question->question_text) }}" type="audio/ogg">
+                                                @endif
+                                                Your browser does not support the audio element.
+                                            </audio>
+                                            @endif
                                         @else
-                                        {{ Str::limit($question->question, 50, '...') }}
+                                        {{ Str::limit($question->question_text, 50, '...') }}
                                         @endif
                                     <td>
                                         <form action="{{ route('packetfull.storeDataNested', $question->_id) }}"

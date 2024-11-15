@@ -13,5 +13,10 @@ class Answer extends Model
         'user_id', 'packet_id', 'score', 'user_answers'
     ];
 
+    public function answers()
+    {
+        return $this->belongsTo(Paket::class, 'packet_id', 'packet_id');
+    }
+
     use HasFactory;
 }

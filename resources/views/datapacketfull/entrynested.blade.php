@@ -63,8 +63,8 @@
                                                     @else
                                                         {{-- Menampilkan teks --}}
                                                         @if(strlen($nested->question_nested) > 50)
-                                                            <button class="btn btn-sm" type="button" data-toggle="modal"
-                                                                    data-target="#questionDetailModal_{{ $nested->_id }}">
+                                                            <button class="btn btn-sm" type="button" data-bs-toggle="modal"
+                                                                    data-bs-target="#questionDetailModal_{{ $nested->_id }}">
                                                                 <i class="fas fa-eye mx-2 view-detail"></i>
                                                             </button>
                                                         @endif
@@ -73,10 +73,30 @@
                                                 @else
                                                     {{-- Menampilkan teks jika tidak ada prefix 'questions/' --}}
                                                     @if(strlen($nested->question_nested) > 50)
-                                                        <button class="btn btn-sm" type="button" data-toggle="modal"
-                                                                data-target="#questionDetailModal_{{ $nested->_id }}">
+                                                        <button class="btn btn-sm" type="button" data-bs-toggle="modal"
+                                                                data-bs-target="#questionDetailModal_{{ $nested->_id }}">
                                                             <i class="fas fa-eye mx-2 view-detail"></i>
                                                         </button>
+                                                        {{-- modal detail keyquestion --}}
+                                                        <div class="modal fade" id="questionDetailModal_{{ $nested->_id }}" tabindex="-1"
+                                                            role="dialog" aria-labelledby="questionDetailModalLabel_{{ $nested  ->_id }}" aria-hidden="true">
+                                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title" id="exampleModalLongTitle">Detail Nested Question😉</h5>
+                                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <textarea name="" id="" cols="65" rows="30">
+                                                                            {{ $nested->question_nested }}
+                                                                        </textarea>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     @endif
                                                     {{ Str::limit($nested->question_nested, 50, '...') }}
                                                 @endif

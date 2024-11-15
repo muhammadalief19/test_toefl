@@ -32,20 +32,22 @@ class AnswerController extends Controller
         try {
             $prosentase = 0;
             foreach ($request->answers as $answer) {
+
                 $userAnswer = UserAnswer::create([
                     'packet_id' => $idPacket,
                     'user_id' => auth()->user()->id,
                     'question_id' => $answer['question_id'],
                     'bookmark' => $answer['bookmark'],
                     'answer_user' => $answer['answer_user'],
-                    'correct' => false,
+                    'is_correct' => false,
                 ]);
 
                 $question = Question::where('packet_id', $idPacket)
                     ->where('_id', $answer['question_id'])
                     ->first();
+
                 if ($question && $question->key_question == $answer['answer_user']) {
-                    $userAnswer->correct = true;
+                    $userAnswer->is_correct = true;
                     $userAnswer->save();
                 }
             }
@@ -53,15 +55,15 @@ class AnswerController extends Controller
             $totalQuestion = Question::where('packet_id', $idPacket)->count();
             $totalCorrect = UserAnswer::where('packet_id', $idPacket)
                 ->where('user_id', auth()->user()->id)
-                ->where('correct', true)
+                ->where('is_correct', true)
                 ->count();
 
             $prosentase = round(($totalCorrect / $totalQuestion) * 100);
 
             $initCorrect = UserAnswer::where('packet_id', $idPacket)
-                ->where('user_id', auth()->user()->id)
-                ->where('correct', true)
-                ->get();
+            ->where('user_id', auth()->user()->id)
+            ->where('is_correct', true)
+            ->get();
 
             // foreach dataUserInit, cari question yang sesuai lalu cari correct yang benar dari variabel TotalCorect doatas per type soal nya masukkan ke dalam var
             $correctQuestionListening = 0;
@@ -70,27 +72,34 @@ class AnswerController extends Controller
 
             foreach ($initCorrect as $item) {
                 $question = Question::where('_id', $item->question_id)->first();
-                if ($question->type_question == 'Listening' && $item->correct == true) {
+
+                if ($question->question_type == 'Listening' && $item->is_correct == true) {
                     $correctQuestionListening++;
-                } elseif ($question->type_question == 'Structure And Written Expression' && $item->correct == true) {
+                } elseif ($question->question_type == 'Structure And Written Expression' && $item->is_correct == true) {
                     $correctQuestionStructure++;
-                } elseif ($question->type_question == 'Reading' && $item->correct == true) {
+                } elseif ($question->question_type == 'Reading' && $item->is_correct == true) {
                     $correctQuestionReading++;
                 }
             }
 
-            // cek di table toefl_scores masing2 correct question dari reading listening dan structur dicek di table toefl_scores, di column jumlah_benar masing2 di cek masng2 benarnya di column listening untuk listening, lalu strukctur untuk structur dan reading juga. tampikan value yang match di table toefl_scores
-            $hasilToeflInitListening = ToeflScore::where('jumlah_benar', $correctQuestionListening)->first();
-            $hasilToeflInitStructure = ToeflScore::where('jumlah_benar', $correctQuestionStructure)->first();
-            $hasilToeflInitReading = ToeflScore::where('jumlah_benar', $correctQuestionReading)->first();
 
-            $initHasilPure = ($hasilToeflInitListening['listening'] + $hasilToeflInitStructure['structure'] + $hasilToeflInitReading['reading']);
+            // cek di table toefl_scores masing2 correct question dari reading listening dan structur dicek di table toefl_scores, di column jumlah_benar masing2 di cek masng2 benarnya di column listening untuk listening, lalu strukctur untuk structur dan reading juga. tampikan value yang match di table toefl_scores
+            // $hasilToeflInitListening = ToeflScore::where('jumlah_benar', $correctQuestionListening)->first();
+            // $hasilToeflInitStructure = ToeflScore::where('jumlah_benar', $correctQuestionStructure)->first();
+            // $hasilToeflInitReading = ToeflScore::where('jumlah_benar', $correctQuestionReading)->first();
+
+
+            // $initHasilPure = ($hasilToeflInitListening['listening'] + $hasilToeflInitStructure['structure'] + $hasilToeflInitReading['reading']);
+            $initHasilPure = ($correctQuestionListening + $correctQuestionStructure + $correctQuestionReading);
             $hasilKali = $initHasilPure * 10;
             $hasilAkhir = round($hasilKali / 3);
 
-            $hasilSatuanListening = $hasilToeflInitListening['listening'];
-            $hasilSatuanStructure = $hasilToeflInitStructure['structure'];
-            $hasilSatuanReading = $hasilToeflInitReading['reading'];
+            // $hasilSatuanListening = $hasilToeflInitListening['listening'];
+            // $hasilSatuanStructure = $hasilToeflInitStructure['structure'];
+            // $hasilSatuanReading = $hasilToeflInitReading['reading'];
+            $hasilSatuanListening = $correctQuestionListening;
+            $hasilSatuanStructure = $correctQuestionStructure;
+            $hasilSatuanReading = $correctQuestionReading;
 
             $hasilSatuanListeningKali = $hasilSatuanListening * 10;
             $hasilSatuanStructureKali = $hasilSatuanStructure * 10;
@@ -137,8 +146,8 @@ class AnswerController extends Controller
             }
 
             UserScorer::create([
-                'packet_id' => $idPacket,
                 'user_id' => auth()->user()->id,
+                'packet_id' => $idPacket,
                 'akurasi' => $prosentase,
                 'level_profiency' => $level_profiency,
                 'score_toefl' => $hasilAkhir,
@@ -164,6 +173,7 @@ class AnswerController extends Controller
                 'success' => false,
                 'status' => 'error',
                 'message' => $e->getMessage(),
+                'question_id' => $request->answers
             ], 500);
         }
     }
