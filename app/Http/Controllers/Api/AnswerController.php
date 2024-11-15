@@ -93,7 +93,6 @@ class AnswerController extends Controller
             $initHasilPure = ($correctQuestionListening + $correctQuestionStructure + $correctQuestionReading);
             $hasilKali = $initHasilPure * 10;
             $hasilAkhir = round($hasilKali / 3);
-            echo $hasilAkhir;
 
             // $hasilSatuanListening = $hasilToeflInitListening['listening'];
             // $hasilSatuanStructure = $hasilToeflInitStructure['structure'];
