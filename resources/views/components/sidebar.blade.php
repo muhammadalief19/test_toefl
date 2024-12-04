@@ -15,6 +15,7 @@
                 <ul aria-expanded="false">
                     <li class=""><a href="{{ route('packetfull.first') }}">Data Packet Full</a></li>
                     <li><a href="{{ route('packetmini.first') }}">Data Packet Mini</a></li>
+                    <li><a href="{{ route('target.index') }}">Data Target User</a></li>
                 </ul>
             </li>
             <li class="">

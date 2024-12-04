@@ -14,7 +14,7 @@ class ValueHomeController extends Controller
 {
     public function getAllTargetValue()
     {
-        $userTarget = User::with('target')->where('_id', auth()->user()->_id)->first();
+        $userTarget = User::with('target')->where('_id', auth()->user()->id)->first();
         $userTarget = [
             'id' => $userTarget->target ? $userTarget->target->_id : "",
             'name_level_target' => $userTarget->target ? $userTarget->name_level_target : "",
@@ -44,7 +44,7 @@ class ValueHomeController extends Controller
     public function getLevelUser()
     {
         try {
-            $userInit = User::where('_id', auth()->user()->_id)->first();
+            $userInit = User::where('_id', auth()->user()->id)->first();
             if ($userInit['target_id'] == "") {
                 return response()->json([
                     "success" => true,
@@ -60,7 +60,7 @@ class ValueHomeController extends Controller
             }
 
             $userTarget = User::with('target')->where('target_id', $userInit->target_id)->first();
-            $userScore = UserScorer::where('user_id', auth()->user()->_id)->latest()->first();
+            $userScore = UserScorer::where('user_id', auth()->user()->id)->latest()->first();
             return response()->json([
                 'succes' => true,
                 'message' => 'Data User has completed',
@@ -94,8 +94,8 @@ class ValueHomeController extends Controller
         }
 
         try {
-            $userLog = auth()->user()->_id;
-            User::where('_id', $userLog)->update([
+            $userLog = User::where('_id', auth()->user()->id)->first();
+            $userLog->update([
                 'target_id' => $request->target_id,
             ]);
 
