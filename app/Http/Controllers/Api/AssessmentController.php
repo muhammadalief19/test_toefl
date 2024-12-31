@@ -55,7 +55,7 @@ class AssessmentController extends Controller
                     ],
                     'dream' => $request->dream,
                     'result' => [
-                        'profiency_level' => null,
+                        'proficiency_level' => null,
                         'target_score' => null,
                         'strengths' => null,
                         'weaknesses' => null,
@@ -80,7 +80,7 @@ class AssessmentController extends Controller
                         'obstacles' => null,
                     ],
                     'interest' => [
-                        'language_certification_toefl_&_ielts_target' => null,
+                        'language_certification_target' => null,
                         'cv' => null,
                         'research_proposal' => null,
                         'intership' => null,
@@ -105,7 +105,7 @@ class AssessmentController extends Controller
                     ],
                     'dream' => $request->dream,
                     'result' => [
-                        'profiency_level' => $request->profiency_level,
+                        'proficiency_level' => $request->proficiency_level,
                         'target_score' => $request->target_score,
                         'strengths' => $request->strengths,
                         'weaknesses' => $request->weaknesses,
@@ -129,21 +129,11 @@ class AssessmentController extends Controller
                         'willingness_level' => $request->willingness_level,
                         'obstacles' => $request->obstacles,
                     ],
-                    'interest' => [
-                        'language_certification_target' => $request->language_certification_target,
-                        'cv' => $request->cv,
-                        'research_proposal' => $request->research_proposal,
-                        'intership' => $request->intership,
-                        'career' => $request->career,
-                        'loa' => $request->loa,
-                        'motivation' => $request->motivation,
-                        'network' => $request->network,
-                        'skills' => $request->skills,
-                    ],
+                    'interest' => $request->interest,
                     'assessment_date' => $date->now()->isoFormat('Y-M-D H:mm:ss'),
                 ]);
             }
-            
+
         } else {
             $createData = Assesment::create([
                 'user_id' => Auth()->user()->id,
@@ -198,7 +188,7 @@ class AssessmentController extends Controller
 
         $updatedData = $assessment->update([
             'result' => [
-                'profiency_level' => $request->profiency_level,
+                'proficiency_level' => $request->proficiency_level,
                 'target_score' => $request->target_score,
                 'strengths' => $request->strengths,
                 'weaknesses' => $request->weaknesses,

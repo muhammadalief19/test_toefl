@@ -20,7 +20,8 @@ class Assesment extends Model
         'education_levels',
         'education_goals',
         'dream',
-        'assessment_date'
+        'assessment_date',
+        'interest'
     ];
 
     public function user() {

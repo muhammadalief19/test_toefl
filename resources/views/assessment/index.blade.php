@@ -1,10 +1,3 @@
-@php
-    function rupiah($angka){
-	
-	$hasil_rupiah = "Rp " . number_format($angka,2,',','.');
-	return $hasil_rupiah;
-    }
-@endphp
 @extends('layouts.layout')
 
 @section('content')
@@ -57,7 +50,6 @@
                                             <th>Type</th>
                                             <th>Score</th>
                                             <th>Education Level</th>
-                                            <th>Education Goals</th>
                                             <th>Assessment Date</th>
                                         </tr>
                                     </thead>
@@ -80,9 +72,6 @@
                                                     {{ $item->education_levels }}
                                                 </td>
                                                 <td>
-                                                    {{ $item->education_goals }}
-                                                </td>
-                                                <td>
                                                     {{ $item->assessment_date }}
                                                 </td>
                                             </tr>
@@ -95,7 +84,6 @@
                                             <th>Type</th>
                                             <th>Score</th>
                                             <th>Education Level</th>
-                                            <th>Education Goals</th>
                                             <th>Assessment Date</th>
                                         </tr>
                                     </tfoot>
