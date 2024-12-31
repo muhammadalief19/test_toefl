@@ -20,6 +20,7 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\QuizTypeController;
 use App\Http\Controllers\StoryQuestionController;
+use App\Http\Controllers\TargetController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TopicController;
 use App\Http\Controllers\UserRoleController;
@@ -118,6 +119,14 @@ Route::middleware('authenticated')->group(function () {
         Route::delete('/delete/{id}', 'destroy')->name('forum.delete');
     });
 
+    Route::controller(TargetController::class)->prefix('/target')->group(function() {
+        Route::get('/', 'index')->name('target.index');
+        
+        Route::post('/store', 'store')->name('target.store');
+        Route::patch('/update/{id}', 'update')->name('target.update');
+        Route::delete('/delete/{id}', 'destroy')->name('target.delete');
+    });
+
     Route::controller(TopicController::class)->prefix('/topic')->group(function() {
         Route::get('/', 'index')->name('topic.index');
         Route::post('/store', 'store')->name('topic.store');
@@ -192,11 +201,11 @@ Route::middleware('authenticated')->group(function () {
     Route::controller(ActivityLogController::class)->prefix('/activity-log')->group(function() {
         Route::get('/', 'index')->name('activityLog.index');
     });
-    
+
     Route::controller(PaymentController::class)->prefix('/payment')->group(function() {
         Route::get('/', 'index')->name('payment.index');
     });
-    
+
     Route::controller(AssessmentController::class)->prefix('/assessment')->group(function() {
         Route::get('/', 'index')->name('assessment.index');
     });
