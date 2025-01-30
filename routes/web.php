@@ -121,7 +121,7 @@ Route::middleware('authenticated')->group(function () {
 
     Route::controller(TargetController::class)->prefix('/target')->group(function() {
         Route::get('/', 'index')->name('target.index');
-        
+
         Route::post('/store', 'store')->name('target.store');
         Route::patch('/update/{id}', 'update')->name('target.update');
         Route::delete('/delete/{id}', 'destroy')->name('target.delete');
@@ -140,6 +140,10 @@ Route::middleware('authenticated')->group(function () {
         Route::post('/store', 'store')->name('users.store');
         Route::patch('/update/{id}', 'update')->name('users.update');
         Route::delete('/delete/{id}', 'destroy')->name('users.delete');
+    });
+
+    Route::controller(UserController::class)->prefix('/user')->group(function() {
+        Route::get('/profile', 'userProfile')->name('user.profile');
     });
 
     Route::controller(DifficultyLevelController::class)->prefix('/level')->group(function() {
