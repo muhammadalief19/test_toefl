@@ -181,7 +181,7 @@
                                 <tr>
                                     <td>
                                         <div class="trans-list">
-                                            <img src="{{ asset('') }}templates/images/trans/1.jpg" alt=""
+                                            <img src="{{ asset('templates/images/trans/1.jpg') }}" alt=""
                                                 class="avatar avatar-sm me-3">
                                             <h4>Samantha William</h4>
                                         </div>
@@ -190,7 +190,7 @@
                                     <td>
                                         <div class="d-flex align-items-center">
                                             <div class="icon-box icon-box-sm bg-secondary">
-                                                <img src="{{ asset('') }}templates/images/profile.svg" alt="">
+                                                <img src="{{ asset('templates/images/profile.svg') }}" alt="">
                                             </div>
                                             <div class="ms-2">
                                                 <span class="mb-0">Class</span>
@@ -244,7 +244,7 @@
                                 <tr>
                                     <td>
                                         <div class="trans-list">
-                                            <img src="{{ asset('') }}templates/images/trans/2.jpg" alt=""
+                                            <img src="{{ asset('templates/images/trans/2.jpg') }}" alt=""
                                                 class="avatar avatar-sm me-3">
                                             <h4>Tony Soap</h4>
                                         </div>
@@ -253,7 +253,7 @@
                                     <td>
                                         <div class="d-flex align-items-center">
                                             <div class="icon-box icon-box-sm bg-secondary">
-                                                <img src="{{ asset('') }}templates/images/profile.svg" alt="">
+                                                <img src="{{ asset('templates/images/profile.svg') }}" alt="">
                                             </div>
                                             <div class="ms-3">
                                                 <span class="mb-0">Class</span>
@@ -307,7 +307,7 @@
                                 <tr>
                                     <td>
                                         <div class="trans-list">
-                                            <img src="{{ asset('') }}templates/images/trans/3.jpg" alt=""
+                                            <img src="{{ asset('templates/images/trans/3.jpg') }}" alt=""
                                                 class="avatar avatar-sm me-3">
                                             <h4>Jordan Nico</h4>
                                         </div>
@@ -316,7 +316,7 @@
                                     <td>
                                         <div class="d-flex align-items-center">
                                             <div class="icon-box icon-box-sm bg-secondary">
-                                                <img src="{{ asset('') }}templates/images/profile.svg" alt="">
+                                                <img src="{{ asset('templates/images/profile.svg') }}" alt="">
                                             </div>
                                             <div class="ms-2">
                                                 <span class="mb-0">Class</span>
@@ -370,7 +370,7 @@
                                 <tr>
                                     <td>
                                         <div class="trans-list">
-                                            <img src="{{ asset('') }}templates/images/trans/4.jpg" alt=""
+                                            <img src="{{ asset('templates/images/trans/4.jpg') }}" alt=""
                                                 class="avatar avatar-sm me-3">
                                             <h4>Karen Hope</h4>
                                         </div>
@@ -379,7 +379,7 @@
                                     <td>
                                         <div class="d-flex align-items-center">
                                             <div class="icon-box icon-box-sm bg-secondary">
-                                                <img src="{{ asset('') }}templates/images/profile.svg" alt="">
+                                                <img src="{{ asset('templates/images/profile.svg') }}" alt="">
                                             </div>
                                             <div class="ms-2">
                                                 <span class="mb-0">Class</span>
@@ -433,7 +433,7 @@
                                 <tr>
                                     <td>
                                         <div class="trans-list">
-                                            <img src="{{ asset('') }}templates/images/trans/5.jpg" alt=""
+                                            <img src="{{ asset('templates/images/trans/5.jpg') }}" alt=""
                                                 class="avatar avatar-sm me-3">
                                             <h4>Nadila Adja</h4>
                                         </div>
@@ -442,7 +442,7 @@
                                     <td>
                                         <div class="d-flex align-items-center">
                                             <div class="icon-box icon-box-sm bg-secondary">
-                                                <img src="{{ asset('') }}templates/images/profile.svg"
+                                                <img src="{{ asset('templates/images/profile.svg') }}"
                                                     alt="">
                                             </div>
                                             <div class="ms-2">
@@ -497,7 +497,7 @@
                                 <tr>
                                     <td>
                                         <div class="trans-list">
-                                            <img src="{{ asset('') }}templates/images/trans/1.jpg" alt=""
+                                            <img src="{{ asset('templates/images/trans/1.jpg') }}" alt=""
                                                 class="avatar avatar-sm me-3">
                                             <h4>Samantha William</h4>
                                         </div>
@@ -506,7 +506,7 @@
                                     <td>
                                         <div class="d-flex align-items-center">
                                             <div class="icon-box icon-box-sm bg-secondary">
-                                                <img src="{{ asset('') }}templates/images/profile.svg"
+                                                <img src="{{ asset('templates/images/profile.svg') }}"
                                                     alt="">
                                             </div>
                                             <div class="ms-2">
@@ -561,7 +561,7 @@
                                 <tr>
                                     <td>
                                         <div class="trans-list">
-                                            <img src="{{ asset('') }}templates/images/trans/2.jpg" alt=""
+                                            <img src="{{ asset('templates/images/trans/2.jpg') }}" alt=""
                                                 class="avatar avatar-sm me-3">
                                             <h4>Tony Soap</h4>
                                         </div>
@@ -570,7 +570,7 @@
                                     <td>
                                         <div class="d-flex align-items-center">
                                             <div class="icon-box icon-box-sm bg-secondary">
-                                                <img src="{{ asset('') }}templates/images/profile.svg"
+                                                <img src="{{ asset('templates/images/profile.svg') }}"
                                                     alt="">
                                             </div>
                                             <div class="ms-3">
@@ -625,7 +625,7 @@
                                 <tr>
                                     <td>
                                         <div class="trans-list">
-                                            <img src="{{ asset('') }}templates/images/trans/3.jpg" alt=""
+                                            <img src="{{ asset('templates/images/trans/3.jpg') }}" alt=""
                                                 class="avatar avatar-sm me-3">
                                             <h4>Jordan Nico</h4>
                                         </div>
@@ -634,7 +634,7 @@
                                     <td>
                                         <div class="d-flex align-items-center">
                                             <div class="icon-box icon-box-sm bg-secondary">
-                                                <img src="{{ asset('') }}templates/images/profile.svg"
+                                                <img src="{{ asset('templates/images/profile.svg') }}"
                                                     alt="">
                                             </div>
                                             <div class="ms-2">
@@ -689,7 +689,7 @@
                                 <tr>
                                     <td>
                                         <div class="trans-list">
-                                            <img src="{{ asset('') }}templates/images/trans/4.jpg" alt=""
+                                            <img src="{{ asset('templates/images/trans/4.jpg') }}" alt=""
                                                 class="avatar avatar-sm me-3">
                                             <h4>Karen Hope</h4>
                                         </div>
@@ -698,7 +698,7 @@
                                     <td>
                                         <div class="d-flex align-items-center">
                                             <div class="icon-box icon-box-sm bg-secondary">
-                                                <img src="{{ asset('') }}templates/images/profile.svg"
+                                                <img src="{{ asset('templates/images/profile.svg') }}"
                                                     alt="">
                                             </div>
                                             <div class="ms-2">
@@ -753,7 +753,7 @@
                                 <tr>
                                     <td>
                                         <div class="trans-list">
-                                            <img src="{{ asset('') }}templates/images/trans/5.jpg" alt=""
+                                            <img src="{{ asset('templates/images/trans/5.jpg') }}" alt=""
                                                 class="avatar avatar-sm me-3">
                                             <h4>Nadila Adja</h4>
                                         </div>
@@ -762,7 +762,7 @@
                                     <td>
                                         <div class="d-flex align-items-center">
                                             <div class="icon-box icon-box-sm bg-secondary">
-                                                <img src="{{ asset('') }}templates/images/profile.svg"
+                                                <img src="{{ asset('templates/images/profile.svg') }}"
                                                     alt="">
                                             </div>
                                             <div class="ms-2">

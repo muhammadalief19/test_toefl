@@ -25,19 +25,20 @@
     </title>
 
     <!-- FAVICONS ICON -->
-    <link rel="shortcut icon" type="image/png" href="{{ asset('') }}templates/images/logo/Icon.png" />
-    <link href="{{ asset('') }}templates/vendor/wow-master/css/libs/animate.css" rel="stylesheet" />
-    <link href="{{ asset('') }}templates/vendor/bootstrap-select/dist/css/bootstrap-select.min.css"
+    <link rel="shortcut icon" type="image/png" href="{{ asset('templates/images/logo/Icon.png') }}" />
+    <link href="{{ asset('templates/vendor/wow-master/css/libs/animate.css') }}" rel="stylesheet" />
+    <link href="{{ asset('templates/vendor/bootstrap-select/dist/css/bootstrap-select.min.css') }}"
         rel="stylesheet" />
     <link rel="stylesheet"
-        href="{{ asset('') }}templates/vendor/bootstrap-select-country/css/bootstrap-select-country.min.css" />
-    <link rel="stylesheet" href="{{ asset('') }}templates/vendor/jquery-nice-select/css/nice-select.css" />
-    <link href="{{ asset('') }}templates/vendor/datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet" />
+        href="{{ asset('templates/vendor/bootstrap-select-country/css/bootstrap-select-country.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('templates/vendor/jquery-nice-select/css/nice-select.css') }}" />
+    <link href="{{ asset('templates/vendor/datepicker/css/bootstrap-datepicker.min.css') }}" rel="stylesheet" />
 
-    <link href="{{ asset('') }}templates/vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="{{ asset('templates/vendor/datatables/css/jquery.dataTables.min.css') }}" rel="stylesheet" />
     <!--swiper-slider-->
-    <link rel="stylesheet" href="{{ asset('') }}templates/vendor/swiper/css/swiper-bundle.min.css" />
-    <link href="{{ asset('') }}templates/css/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ asset('templates/vendor/swiper/css/swiper-bundle.min.css') }}" />
+    <link href="{{ asset('templates/vendor/lightgallery/css/lightgallery.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('templates/css/style.css') }}" rel="stylesheet" />
     <!-- Style css -->
     <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -122,32 +123,33 @@
     ***********************************-->
     <!-- Required vendors -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-    <script src="{{ asset('') }}templates/vendor/global/global.min.js"></script>
-    <script src="{{ asset('') }}templates/vendor/chart.js/Chart.bundle.min.js"></script>
-    <script src="{{ asset('') }}templates/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+    <script src="{{ asset('templates/vendor/global/global.min.js') }}"></script>
+    <script src="{{ asset('templates/vendor/chart.js/Chart.bundle.min.js') }}"></script>
+    <script src="{{ asset('templates/vendor/bootstrap-select/dist/js/bootstrap-select.min.js') }}"></script>
+    <script src="{{ asset('') }}templates/vendor/lightgallery/js/lightgallery-all.min.js"></script>
     <!-- Apex Chart -->
-    <script src="{{ asset('') }}templates/vendor/apexchart/apexchart.js"></script>
+    <script src="{{ asset('templates/vendor/apexchart/apexchart.js') }}"></script>
     <!-- Chart piety plugin files -->
-    <script src="{{ asset('') }}templates/vendor/peity/jquery.peity.min.js"></script>
-    <script src="{{ asset('') }}templates/vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script>
+    <script src="{{ asset('templates/vendor/peity/jquery.peity.min.js') }}"></script>
+    <script src="{{ asset('templates/vendor/jquery-nice-select/js/jquery.nice-select.min.js') }}"></script>
     <!--swiper-slider-->
-    <script src="{{ asset('') }}templates/vendor/swiper/js/swiper-bundle.min.js"></script>
+    <script src="{{ asset('templates/vendor/swiper/js/swiper-bundle.min.js') }}"></script>
 
     <!-- Datatable -->
-    <script src="{{ asset('') }}templates/vendor/datatables/js/jquery.dataTables.min.js"></script>
-    <script src="{{ asset('') }}templates/js/plugins-init/datatables.init.js"></script>
+    <script src="{{ asset('templates/vendor/datatables/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('templates/js/plugins-init/datatables.init.js') }}"></script>
 
     <!-- Dashboard 1 -->
-    <script src="{{ asset('') }}templates/js/dashboard/dashboard-2.js"></script>
-    <script src="{{ asset('') }}templates/vendor/wow-master/dist/wow.min.js"></script>
-    <script src="{{ asset('') }}templates/vendor/bootstrap-datetimepicker/js/moment.js"></script>
-    <script src="{{ asset('') }}templates/vendor/datepicker/js/bootstrap-datepicker.min.js"></script>
-    <script src="{{ asset('') }}templates/vendor/bootstrap-select-country/js/bootstrap-select-country.min.js"></script>
+    <script src="{{ asset('templates/js/dashboard/dashboard-2.js') }}"></script>
+    <script src="{{ asset('templates/vendor/wow-master/dist/wow.min.js') }}"></script>
+    <script src="{{ asset('templates/vendor/bootstrap-datetimepicker/js/moment.js') }}"></script>
+    <script src="{{ asset('templates/vendor/datepicker/js/bootstrap-datepicker.min.js') }}"></script>
+    <script src="{{ asset('templates/vendor/bootstrap-select-country/js/bootstrap-select-country.min.js') }}"></script>
 
-    <script src="{{ asset('') }}templates/js/dlabnav-init.js"></script>
-    <script src="{{ asset('') }}templates/js/custom.min.js"></script>
-    <script src="{{ asset('') }}templates/js/demo.js"></script>
-    <script src="{{ asset('') }}templates/js/styleSwitcher.js"></script>
+    <script src="{{ asset('templates/js/dlabnav-init.js') }}"></script>
+    <script src="{{ asset('templates/js/custom.min.js') }}"></script>
+    <script src="{{ asset('templates/js/demo.js') }}"></script>
+    <script src="{{ asset('templates/js/styleSwitcher.js') }}"></script>
     <script>
         const year = document.querySelector("#year");
         year.innerText = `${new Date().getFullYear()}`;

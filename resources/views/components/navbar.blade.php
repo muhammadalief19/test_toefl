@@ -1,6 +1,6 @@
 <div class="nav-header">
     <a href="index.html" class="brand-logo">
-        <img src="{{ asset('') }}templates/images/logo/Icon.png" style="width: 40px;">
+        <img src="{{ asset('templates/images/logo/Icon.png') }}" style="width: 40px;">
         <div class="brand-title">
             <p class="h3 text-warning mt-3">
                 Gold<span style="color: #47412e;">Mate</span>
