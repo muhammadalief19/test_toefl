@@ -142,6 +142,10 @@ Route::middleware('authenticated')->group(function () {
         Route::delete('/delete/{id}', 'destroy')->name('users.delete');
     });
 
+    Route::controller(UserController::class)->prefix('/user')->group(function() {
+        Route::get('/profile', 'userProfile')->name('user.profile');
+    });
+
     Route::controller(DifficultyLevelController::class)->prefix('/level')->group(function() {
         Route::get('/', 'index')->name('level.index');
         Route::post('/store', 'store')->name('level.store');

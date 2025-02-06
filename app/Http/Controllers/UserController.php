@@ -7,6 +7,7 @@ use App\Mail\RegisterOtpMail;
 use App\Models\User;
 use App\Models\UserRole;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 
@@ -49,7 +50,7 @@ class UserController extends Controller
         ]);
 
         $validTokenRegister = rand(1000, 9999);
-        $now = now();  // Waktu saat ini
+        $now = now(); // Waktu saat ini
         $expiredAt = $now->copy()->addHour()->toDateTimeString();
         $password = uniqid();
 
@@ -70,7 +71,6 @@ class UserController extends Controller
 
         $get_user_email = $user['email'];
         $get_user_name = $user['name'];
-        Mail::to($user['email'])->send(new RegisterOtpMail($get_user_email, $get_user_name, $validTokenRegister));
         Mail::to($user['email'])->send(new CreateUserMail($get_user_email, $get_user_name, $password));
 
         if ($user) {
@@ -84,32 +84,50 @@ class UserController extends Controller
 
     public function update(Request $request, $id)
     {
-        $user = User::where('_id', $id)->first();
+        try {
+            $user = User::where('_id', $id)->first();
 
-        if(!$user) {
-            toastr()->error('User Tidak Ditemukan');
-            return back();
-        }
+            if (!$user) {
+                toastr()->error('User Tidak Ditemukan');
+                return back();
+            }
 
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-        ]);
+            $data = [
+                'name' => $request->name,
+                'email' => $request->email,
+            ];
 
-        $updatedData = $user->update($validatedData);
+            $rules = [
+                'name' => 'required|string|max:255',
+                'email' => 'required|string|email|max:255',
+            ];
 
-        if ($updatedData) {
+            if($request->email !== $user->email) {
+                $rules['email'] += '|unique:users,email';
+            }
+
+            if ($request->password) {
+                $data['password'] = Hash::make($request->password);
+                $rules['password'] = 'min:8';
+            }
+
+            $request->validate($rules);
+
+            $updatedData = $user->update($data);
+
             toastr()->success('User berhasil diupdate');
             return back();
-        } else {
-            toastr()->error('User gagal diupdate');
+        } catch (\Exception $e) {
+            toastr()->error($e->getMessage());
             return back();
         }
     }
 
-    public function destroy($id) {
+    public function destroy($id)
+    {
         $user = User::find($id);
 
-        if(!$user) {
+        if (!$user) {
             toastr()->error('User Tidak Ditemukan');
             return back();
         }

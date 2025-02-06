@@ -1,8 +1,9 @@
 @php
-    function rupiah($angka){
-
-	$hasil_rupiah = "Rp " . number_format($angka,2,',','.');
-	return $hasil_rupiah;
+if (!function_exists('rupiah')) {
+    function rupiah($angka) {
+        $hasil_rupiah = "Rp " . number_format($angka, 2, ',', '.');
+        return $hasil_rupiah;
+    }
 }
 @endphp
 
@@ -370,7 +371,7 @@
 @endsection
 
 @push('scripts')
-    <script src="{{ asset('') }}templates/vendor/wow-master/dist/wow.min.js"></script>
+    <script src="{{ asset('templates/vendor/wow-master/dist/wow.min.js') }}"></script>
     <script>
         function confirmDelete(id) {
             Swal.fire({

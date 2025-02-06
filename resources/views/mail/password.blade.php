@@ -60,7 +60,7 @@
             font-size: 9px;
         }
 
-        .otp {
+        .password {
             font-size: 24px;
             font-weight: bold;
             text-align: center;
@@ -83,14 +83,14 @@
 <body>
     <div class="container">
         <div class="header">
-            <img src="{{ asset('') }}storage/nested_question/icon.png" alt="PENTOL Logo">
-            <h3>Service OTP E-Toefl PENS</h3>
+            <img src="{{ asset('templates/images/logo/icon.png') }}" alt="PENTOL Logo">
+            <h3>Service Password E-Toefl PENS</h3>
         </div>
         <div class="content">
             <p>Hi {{ $get_user_name }} !</p>
             <br>
             <p>Please Login with the password below:</p>
-            <div class="otp">{{ $password }}</div>
+            <div class="password">{{ $password }}</div>
             <p>Thank you for joining us!</p>
             <h5>Regards</h5>
             <h5>Pentol (E-toefl PENS)</h5>

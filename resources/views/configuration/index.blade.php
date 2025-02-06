@@ -175,7 +175,7 @@
 @endsection
 
 @push('scripts')
-    <script src="{{ asset('') }}templates/vendor/wow-master/dist/wow.min.js"></script>
+    <script src="{{ asset('templates/vendor/wow-master/dist/wow.min.js') }}"></script>
     <script>
         function confirmDelete(id) {
             Swal.fire({
