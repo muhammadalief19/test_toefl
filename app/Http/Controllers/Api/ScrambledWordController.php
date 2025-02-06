@@ -11,9 +11,12 @@ use Illuminate\Http\Request;
 class ScrambledWordController extends Controller
 {
     public function index(){
-        
+
         try{
-            $word = Word::take(10)->skip(rand(0,12000))->get();
+            // $word = Word::take(10)->skip(rand(0,12000))->get();
+
+            $maxSkip = Word::count() - 1;
+            $word = Word::take(1)->skip(rand(0, max(0, $maxSkip)))->first();
 
             return response()->json([
                 'success'=> true,
@@ -23,10 +26,10 @@ class ScrambledWordController extends Controller
             return response()->json([
                 'success' => false,
                 'data'=> false
-            ]);   
+            ]);
         }
-        
-        
+
+
     }
 
     public function store(Request $request){

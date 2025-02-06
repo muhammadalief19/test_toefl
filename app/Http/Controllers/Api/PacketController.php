@@ -9,7 +9,12 @@ use App\Models\Question;
 use App\Models\User;
 use App\Models\UserScorer;
 use App\Models\ScoreMiniTest;
+use App\Models\ToeflScore;
+use App\Models\TestStatus;
+// use AWS\CRT\HTTP\Request;
 use Exception;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 class PacketController extends Controller
 {
@@ -113,10 +118,38 @@ class PacketController extends Controller
 
     public function getQuestionPacket($idPacket)
     {
-        $data = Paket::with('questions','questions.nesteds.nestedQuestion', 'questions.multipleChoices')->where('_id', $idPacket)->first();
+        $data = Paket::with('questions', 'questions.nesteds.nestedQuestion', 'questions.multipleChoices')
+            ->where('_id', $idPacket)
+            ->first();
 
+        $latestStatus = TestStatus::where('user_id', auth()->id())
+            ->where('packet_id', $idPacket)
+            ->latest()
+            ->first();
 
-        $packetId = $data['_id'];
+        // Jika status terakhir "onGoing" dan waktu sudah lewat dari created_at, update menjadi "complete"
+        if ($latestStatus && $latestStatus->status === "onGoing") {
+            $createdTime = Carbon::parse($latestStatus->created_at);
+            if (now()->greaterThan($createdTime->addHours(2))) {
+                $latestStatus->update(['status' => 'complete']);
+
+                // Ambil ulang status terbaru setelah update
+                $latestStatus = TestStatus::where('user_id', auth()->id())
+                    ->where('packet_id', $idPacket)
+                    ->latest()
+                    ->first();
+            }
+        }
+
+        // Jika tidak ada status atau status terakhir adalah "complete", buat status baru
+        if (!$latestStatus || $latestStatus->status === "complete") {
+            $latestStatus = TestStatus::create([
+                'user_id' => auth()->id(),
+                'packet_id' => $idPacket,
+                'status' => "onGoing"
+            ]);
+        }
+
         $questions = collect($data['questions'])->map(function ($question) {
             $nested = collect($question['nesteds'])->map(function ($nested) {
                 return [
@@ -151,11 +184,51 @@ class PacketController extends Controller
             'tipe_test_packet' => $data['tipe_test_packet'],
             'questions' => $questions,
         ];
-
+        $createdTime = Carbon::parse($latestStatus->created_at)
+            ->setTimezone('Asia/Jakarta')
+            ->format('H:i'); // Format Jam:Menit (24 jam)
         return response()->json([
             'success' => true,
             'message' => 'Data Question Packet fetched successfully',
+            'status' => $latestStatus->status, // Menggunakan `latestStatus` yang sudah diperbarui
+            'created_at' => $createdTime,
             'data' => $mappedData,
+        ]);
+    }
+
+
+    public function updateStatusFullTest(Request $request, $idPacket)
+    {
+        $validatedData = $request->validate([
+            'time' => 'required',
+            'remaining_time' => 'required'
+        ]);
+
+        TestStatus::where('user_id', auth()->id())
+            ->where('packet_id', $idPacket)
+            ->update($validatedData);
+            // ->where('_id', $idStatus)
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Data Status Updated successfully',
+        ]);
+    }
+
+    public function getStatusFullTest($idPacket)
+    {
+        // $data = TestStatus::where('user_id', auth()->id())
+        //     ->where('packet_id', $idPacket)->get();
+
+        $data = TestStatus::where('user_id', auth()->id())
+            ->where('packet_id', $idPacket)
+            ->get();
+            // ->where('_id', $idStatus)
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Data Status fetched successfully',
+            'status'=> $data,
         ]);
     }
 }

@@ -121,7 +121,7 @@ Route::middleware('authenticated')->group(function () {
 
     Route::controller(TargetController::class)->prefix('/target')->group(function() {
         Route::get('/', 'index')->name('target.index');
-        
+
         Route::post('/store', 'store')->name('target.store');
         Route::patch('/update/{id}', 'update')->name('target.update');
         Route::delete('/delete/{id}', 'destroy')->name('target.delete');
@@ -174,8 +174,7 @@ Route::middleware('authenticated')->group(function () {
         Route::get('/', 'index')->name('quiz.index');
         Route::post('/store', 'store')->name('quiz.store');
         Route::patch('/update/{id}', 'update')->name('quiz.update');
-        Route::delete('/delete/{id}', 'destroy')->name('quiz.destroy')
-        ;
+        Route::delete('/delete/{id}', 'destroy')->name('quiz.destroy');
         Route::get('/question/{id}', 'question')->name('quizQuestion.index');
         Route::post('/question/store', 'questionStore')->name('quizQuestion.store');
         Route::patch('/question/update/{id}', 'questionUpdate')->name('quizQuestion.update');

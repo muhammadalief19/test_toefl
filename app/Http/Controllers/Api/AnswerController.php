@@ -11,6 +11,7 @@ use App\Models\ToeflScore;
 use App\Models\UserAnswer;
 use App\Models\UserScorer;
 use App\Models\User;
+use App\Models\TestStatus;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -23,6 +24,7 @@ class AnswerController extends Controller
             'answers.*.question_id' => 'required|string',
             'answers.*.bookmark' => 'required|boolean',
             'answers.*.answer_user' => 'required|string',
+            'status' => 'required'
         ]);
 
         if ($validate->fails()) {
@@ -30,9 +32,21 @@ class AnswerController extends Controller
         }
 
         try {
+            $totalQuestions = Question::where('packet_id', $idPacket)->count();
+            $totalUserAnswers = count($request->answers);
+
+            // Jika jumlah jawaban tidak sesuai dengan jumlah soal, jangan update status jadi complete
+            if ($totalQuestions == $totalUserAnswers) {
+                TestStatus::where('user_id', auth()->id())
+                ->where('packet_id', $idPacket)
+                ->update([
+                    'status' => $request->status
+                ]);
+            }
+
+
             $prosentase = 0;
             foreach ($request->answers as $answer) {
-
                 $userAnswer = UserAnswer::create([
                     'packet_id' => $idPacket,
                     'user_id' => auth()->user()->id,
@@ -353,6 +367,17 @@ class AnswerController extends Controller
                 return response()->json(['error' => $validate->errors()], 400);
             }
 
+            $totalQuestions = Question::where('packet_id', $idPacket)->count();
+            $totalUserAnswers = count($request->answers);
+
+            if ($totalQuestions == $totalUserAnswers) {
+                TestStatus::where('user_id', auth()->id())
+                ->where('packet_id', $idPacket)
+                ->update([
+                    'status' => $request->status
+                ]);
+            }
+
             // drop all data dulu baru insert ulang sesuai request
             UserAnswer::where('user_id', $userLog)
                 ->where('packet_id', $idPacket)
@@ -463,9 +488,6 @@ class AnswerController extends Controller
                 'score_structure' => $hasilAkhirSatuanStructure,
                 'score_reading' => $hasilAkhirSatuanReading,
             ]);
-
-
-
             return response()->json([
                 'success' => true,
                 'message' => 'Answers retake submitted successfully.',
