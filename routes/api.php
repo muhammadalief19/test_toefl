@@ -72,7 +72,7 @@ Route::middleware('auth:api')->group(function () {
         Route::get('/get-all-paket/full-test', 'getAllPacketFullTest');
         Route::patch('/update-timer/{idPacket}', 'updateStatusFullTest');
         // Route::get('/get-status/{idPacket}/{idStatus}', 'getStatusFullTest');
-        Route::get('/get-status/{idPacket}', 'getStatusFullTest');
+        Route::get('/get-status', 'getStatusFullTest');
         // Route::post('/create-status/{idPacket}/{idUser}', 'createStatusFullTest');
         Route::get('/get-all-paket/mini-test', 'getAllPacketMiniTest');
         Route::get('/get-pakets/{idPacket}', 'getQuestionPacket');

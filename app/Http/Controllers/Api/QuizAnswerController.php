@@ -71,13 +71,13 @@ class QuizAnswerController extends Controller
             return response()->json([
                 'success' => true,
                 'data' => true
-            ]);
+            ], 201);
 
         }catch(Exception $e){
             return response()->json([
                 'success' => false,
                 'data' => false
-            ]);
+            ], 500);
         }
     }
 

@@ -10,6 +10,6 @@ class ToeflScore extends Model
     use HasFactory;
 
     protected $connection = 'mongodb';
-    protected $table = 'toefl_scores';
+    protected $collection = 'toefl_scores';
 
 }

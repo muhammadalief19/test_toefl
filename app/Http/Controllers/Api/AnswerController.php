@@ -75,9 +75,9 @@ class AnswerController extends Controller
             $prosentase = round(($totalCorrect / $totalQuestion) * 100);
 
             $initCorrect = UserAnswer::where('packet_id', $idPacket)
-            ->where('user_id', auth()->user()->id)
-            ->where('is_correct', true)
-            ->get();
+                ->where('user_id', auth()->user()->id)
+                ->where('is_correct', true)
+                ->get();
 
             // foreach dataUserInit, cari question yang sesuai lalu cari correct yang benar dari variabel TotalCorect doatas per type soal nya masukkan ke dalam var
             $correctQuestionListening = 0;
@@ -151,11 +151,12 @@ class AnswerController extends Controller
                 return response()->json([
                     'status' => 'success',
                     'message' => 'Answers submitted successfully.',
+                    'code' => 200,
                     'data' => [
                         'akurasi' => $prosentase,
                         'total_question' => $totalQuestion,
                         'correct_question' => $totalCorrect,
-                    ],
+                    ], 200
                 ]);
             }
 
@@ -170,6 +171,8 @@ class AnswerController extends Controller
                 'score_reading' => $hasilAkhirSatuanReading,
             ]);
 
+
+
             return response()->json([
                 'success' => true,
                 'message' => 'Answers submitted successfully.',
@@ -181,6 +184,7 @@ class AnswerController extends Controller
                     'hasil' => $hasilAkhir,
                     'level_profiency' => $level_profiency,
                 ],
+                
             ]);
         } catch (Exception $e) {
             return response()->json([
@@ -503,7 +507,8 @@ class AnswerController extends Controller
                     'score_structure' => $hasilAkhirSatuanStructure,
                     'score_reading' => $hasilAkhirSatuanReading,
                 ],
-            ]);
+                'code' => 200
+            ], 200);
         } catch (Exception $e) {
             return response()->json([
                 'success' => false,
@@ -544,6 +549,7 @@ class AnswerController extends Controller
             'success' => true,
             'message' => 'Data Question Packet fetched successfully',
             'data' => $mappedUserAnswers,
-        ]);
+            'code' => 200
+        ], 200);
     }
 }

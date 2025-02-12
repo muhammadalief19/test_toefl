@@ -157,6 +157,7 @@ class AssessmentController extends Controller
                 [
                     'success' => false,
                     'message' => 'Assessment Gagal Ditambahkan',
+                    'code' => 500
                 ],
                 500,
             );
