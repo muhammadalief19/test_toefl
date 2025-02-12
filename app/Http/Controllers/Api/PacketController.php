@@ -140,6 +140,7 @@ class PacketController extends Controller
 
             $latestStatus = TestStatus::where('user_id', auth()->user()->id)
                 ->where('packet_id', $idPacket)
+                ->where('status', 'onGoing')
                 ->latest()
                 ->first();
 

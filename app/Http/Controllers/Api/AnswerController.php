@@ -15,6 +15,7 @@ use App\Models\TestStatus;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Carbon;
 
 class AnswerController extends Controller
 {
@@ -34,6 +35,26 @@ class AnswerController extends Controller
         try {
             $totalQuestions = Question::where('packet_id', $idPacket)->count();
             $totalUserAnswers = count($request->answers);
+
+            $latestStatus = TestStatus::where('user_id', auth()->user()->id)
+                ->where('packet_id', $idPacket)
+                ->where('status', 'onGoing')
+                ->latest()
+                ->first();
+
+            // Jika status terakhir "onGoing" dan waktu sudah lewat dari created_at, update menjadi "complete"
+            if ($latestStatus && $latestStatus->status === "onGoing") {
+                $createdTime = Carbon::parse($latestStatus->created_at);
+                if (now()->greaterThan($createdTime->addHours(2))) {
+                    $latestStatus->update(['status' => 'complete']);
+
+                    // Ambil ulang status terbaru setelah update
+                    $latestStatus = TestStatus::where('user_id', auth()->user()->id)
+                        ->where('packet_id', $idPacket)
+                        ->latest()
+                        ->first();
+                }
+            }
 
             // Jika jumlah jawaban tidak sesuai dengan jumlah soal, jangan update status jadi complete
             if ($totalQuestions == $totalUserAnswers) {
@@ -184,7 +205,7 @@ class AnswerController extends Controller
                     'hasil' => $hasilAkhir,
                     'level_profiency' => $level_profiency,
                 ],
-                
+
             ]);
         } catch (Exception $e) {
             return response()->json([
@@ -365,6 +386,7 @@ class AnswerController extends Controller
                 'answers.*.question_id' => 'required|string',
                 'answers.*.bookmark' => 'required|boolean',
                 'answers.*.answer_user' => 'required|string',
+                'status' => 'required'
             ]);
 
             if ($validate->fails()) {
@@ -380,6 +402,25 @@ class AnswerController extends Controller
                 ->update([
                     'status' => $request->status
                 ]);
+            }
+            $latestStatus = TestStatus::where('user_id', auth()->user()->id)
+            ->where('packet_id', $idPacket)
+            ->where('status', 'onGoing')
+            ->latest()
+            ->first();
+
+            // Jika status terakhir "onGoing" dan waktu sudah lewat dari created_at, update menjadi "complete"
+            if ($latestStatus && $latestStatus->status === "onGoing") {
+                $createdTime = Carbon::parse($latestStatus->created_at);
+                if (now()->greaterThan($createdTime->addHours(2))) {
+                    $latestStatus->update(['status' => 'complete']);
+
+                    // Ambil ulang status terbaru setelah update
+                    $latestStatus = TestStatus::where('user_id', auth()->user()->id)
+                        ->where('packet_id', $idPacket)
+                        ->latest()
+                        ->first();
+                }
             }
 
             // drop all data dulu baru insert ulang sesuai request
