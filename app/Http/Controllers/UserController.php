@@ -102,7 +102,7 @@ class UserController extends Controller
                 'email' => 'required|string|email|max:255',
             ];
 
-            if($request->email !== $user->email) {
+            if ($request->email !== $user->email) {
                 $rules['email'] += '|unique:users,email';
             }
 
@@ -143,4 +143,13 @@ class UserController extends Controller
         }
     }
 
+    public function userProfile()
+    {
+        $data = [
+            'title' => 'User Profile',
+        ];
+        $user = Auth::user();
+
+        return view('user.profile', compact('user', 'data'));
+    }
 }

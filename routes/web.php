@@ -213,6 +213,3 @@ Route::middleware('authenticated')->group(function () {
         Route::get('/', 'index')->name('assessment.index');
     });
 });
-
-Route::get('/sso/login', [SSOController::class, 'showLoginForm'])->name('sso.login');
-Route::post('/sso/login', [SSOController::class, 'login'])->name('sso.log');
